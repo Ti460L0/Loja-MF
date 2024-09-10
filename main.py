@@ -23,6 +23,10 @@ class App(ct.CTk):
     def __init__(self):
         super().__init__()
 
+        # Configurações da janela
+        self.title("Form Example")
+        self.geometry("1000x600")
+
         # Barra de menu
         self.menu_bar = tk.Menu(self)
         self.config(menu=self.menu_bar)
@@ -44,23 +48,19 @@ class App(ct.CTk):
         self.about_menu.add_command(label="Sobre", command=lambda: self.show_form("sobre"))
         self.menu_bar.add_cascade(label="Sobre", menu=self.about_menu)
 
-        # Configurações da janela
-        self.title("Form Example")
-        self.geometry("1000x600")
-
         # Frame principal
         self.form_frame = ct.CTkFrame(self, corner_radius=10, fg_color="blue")
         self.form_frame.pack(side="top", padx=5, pady=5, fill="both")
 
         # Botões principais
         self.cad_button = ct.CTkButton(self.form_frame, text="Cadastrar", command=lambda: self.show_form("cadastro"))
-        self.cad_button.pack(side="left", padx=5, pady=5)
+        self.cad_button.grid(row=0, column=0, padx=5, pady=5)
 
         self.con_button = ct.CTkButton(self.form_frame, text="Consultar", command=lambda: self.show_form("consulta"))
-        self.con_button.pack(side="left", padx=5, pady=5)
+        self.con_button.grid(row=0, column=1, padx=5, pady=5)
 
         self.agenda_button = ct.CTkButton(self.form_frame, text="Agenda", command=lambda: self.show_form("agenda"))
-        self.agenda_button.pack(side="left", padx=5, pady=5)
+        self.agenda_button.grid(row=0, column=2, padx=5, pady=5)
 
         # Formulário de Cadastro
         self.form_cadastro = ct.CTkFrame(self, corner_radius=10, fg_color="red")
@@ -71,62 +71,62 @@ class App(ct.CTk):
 
         # Nome
         self.name_label = ct.CTkLabel(self.form_cadastro, text="Nome:")
-        self.name_label.pack()
+        self.name_label.grid(row=0, column=0, pady=10)
         self.name_entry = ct.CTkEntry(self.form_cadastro, width=200)
-        self.name_entry.pack()
+        self.name_entry.grid(row=0, column=1, pady=10)
 
         # RG (Apenas números, máximo 9 caracteres)
         self.rg_label = ct.CTkLabel(self.form_cadastro, text="RG:")
-        self.rg_label.pack()
+        self.rg_label.grid(row=1, column=0, padx=10, pady=10)
         self.rg_entry = ct.CTkEntry(self.form_cadastro, width=200, validate="key", validatecommand=(validate_cmd, '%P', '9'))
-        self.rg_entry.pack()
+        self.rg_entry.grid(row=1, column=1, padx=10, pady=10)
 
         # CPF (Apenas números, máximo 11 caracteres)
         self.cpf_label = ct.CTkLabel(self.form_cadastro, text="CPF:")
-        self.cpf_label.pack()
+        self.cpf_label.grid(row=1, column=3, padx=10, pady=10)
         self.cpf_entry = ct.CTkEntry(self.form_cadastro, width=200, validate="key", validatecommand=(validate_cmd, '%P', '11'))
-        self.cpf_entry.pack()
+        self.cpf_entry.grid(row=1, column=4, padx=10, pady=10)
 
         # E-mail
         self.email_label = ct.CTkLabel(self.form_cadastro, text="E-mail:")
-        self.email_label.pack()
+        self.email_label.grid(row=3, column=0, padx=10, pady=10)
         self.email_entry = ct.CTkEntry(self.form_cadastro, width=200)
-        self.email_entry.pack()
+        self.email_entry.grid(row=3, column=1, padx=10, pady=10)
 
         # Telefone
         self.telefone_label = ct.CTkLabel(self.form_cadastro, text="Telefone:")
-        self.telefone_label.pack()
+        self.telefone_label.grid(row=4, column=0, padx=10, pady=10)
         self.telefone_entry = ct.CTkEntry(self.form_cadastro, width=200)
-        self.telefone_entry.pack()
+        self.telefone_entry.grid(row=4, column=1, padx=10, pady=10)
 
         # Endereço
         self.endereco_label = ct.CTkLabel(self.form_cadastro, text="Endereço:")
-        self.endereco_label.pack()
+        self.endereco_label.grid(row=5, column=0, padx=10, pady=10)
         self.endereco_entry = ct.CTkEntry(self.form_cadastro, width=200)
-        self.endereco_entry.pack()
+        self.endereco_entry.grid(row=5, column=1, padx=10, pady=10)
 
         # CEP
         self.cep_label = ct.CTkLabel(self.form_cadastro, text="CEP:")
-        self.cep_label.pack()
+        self.cep_label.grid(row=6, column=0, padx=10, pady=10)
         self.cep_entry = ct.CTkEntry(self.form_cadastro, width=200)
-        self.cep_entry.pack()
+        self.cep_entry.grid(row=6, column=1, padx=10, pady=10)
 
         # Bairro
         self.bairro_label = ct.CTkLabel(self.form_cadastro, text="Bairro:")
-        self.bairro_label.pack()
+        self.bairro_label.grid(row=7, column=0, padx=10, pady=10)
         self.bairro_entry = ct.CTkEntry(self.form_cadastro, width=200)
-        self.bairro_entry.pack()
+        self.bairro_entry.grid(row=7, column=1, padx=10, pady=10)
 
         # Botões de Enviar e Sair
-        self.submit_button = ct.CTkButton(self.form_cadastro, text="Submit", command=lambda: self.submit_form())
-        self.submit_button.pack(pady=10)
-        self.exit_button = ct.CTkButton(self.form_cadastro, text="Sair", command=lambda: self.destroy())
-        self.exit_button.pack(pady=10)
+        self.submit_button = ct.CTkButton(self.form_cadastro, text="Submit", command=self.submit_form)
+        self.submit_button.grid(row=8, column=0, padx=10, pady=10)
+        self.exit_button = ct.CTkButton(self.form_cadastro, text="Sair", command=self.destroy)
+        self.exit_button.grid(row=8, column=1, padx=10, pady=10)
 
         # Esconde o formulário inicialmente
         self.form_cadastro.pack_forget()
 
-    # Função para validar o campo RG e CPF
+    # Função para validar o campo RG e CPF usando uma expressão regular
     def validate_entry(self, input_value, max_length):
         # Verifica se o valor é numérico e se não excede o limite de caracteres
         if input_value.isdigit() and len(input_value) <= int(max_length):
@@ -136,12 +136,44 @@ class App(ct.CTk):
         else:
             return False
 
-    # Função para mostrar o formulário
-    def show_form(self, form_name):
-        if form_name == "cadastro":
+    # Função para mostrar o formulário de cadastro
+    def show_form(self, form):
+        if form == "cadastro":
             self.form_cadastro.pack()
-        else:
-            self.form_cadastro.pack_forget()
+        elif form == "sobre":
+            self.form_sobre.pack()
+        elif form == "consulta":
+            self.form_consulta.pack()
+        elif form == "agenda":
+            self.form_agenda.pack()
+
+    # Função para validar CPF sem usar API
+    def validate_cpf(self, cpf):
+        # Remove caracteres não numéricos
+        cpf = ''.join(filter(str.isdigit, cpf))
+        
+        # Verifica se o CPF possui 11 dígitos
+        if len(cpf) != 11 or not cpf.isdigit():
+            return False
+        
+        # Verifica se todos os dígitos são iguais (ex: 111.111.111-11)
+        if cpf == cpf[0] * len(cpf):
+            return False
+
+        # Cálculo do primeiro dígito verificador
+        total = sum(int(cpf[i]) * (10 - i) for i in range(9))
+        primeiro_digito = (total * 10) % 11
+        if primeiro_digito == 10:
+            primeiro_digito = 0
+
+        # Cálculo do segundo dígito verificador
+        total = sum(int(cpf[i]) * (11 - i) for i in range(10))
+        segundo_digito = (total * 10) % 11
+        if segundo_digito == 10:
+            segundo_digito = 0
+
+        # Verifica se os dígitos verificadores estão corretos
+        return cpf[-2:] == f"{primeiro_digito}{segundo_digito}"
 
     # Função para enviar o formulário
     def submit_form(self):
@@ -162,6 +194,11 @@ class App(ct.CTk):
             endereco = self.endereco_entry.get()
             cep = self.cep_entry.get()
             bairro = self.bairro_entry.get()
+
+            # Validação do CPF
+            if not self.validate_cpf(cpf):
+                messagebox.showerror("Erro", "CPF inválido.")
+                return
 
             # Inserindo os dados no banco de dados
             query = """
