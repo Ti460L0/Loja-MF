@@ -6,7 +6,7 @@ class App(ct.CTk):
     def __init__(self):
         super().__init__()
 
-        # Create menu bar
+        # Create menu bars
         self.menu_bar = tk.Menu(self)
         self.config(menu=self.menu_bar)
 
