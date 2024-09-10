@@ -3,6 +3,12 @@ import tkinter as tk
 from tkinter import messagebox
 import psycopg2
 
+# Carregar tema personalizado
+ct.ThemeManager.load_theme("custom_theme.json")
+
+# Definir o modo de aparência (claro ou escuro)
+ct.set_appearance_mode("dark")  # ou "light"
+
 # Função para conectar ao banco de dados PostgreSQL
 def connect_db():
     try:
@@ -49,7 +55,7 @@ class App(ct.CTk):
         self.menu_bar.add_cascade(label="Sobre", menu=self.about_menu)
 
         # Frame principal
-        self.form_frame = ct.CTkFrame(self, corner_radius=10, fg_color="blue")
+        self.form_frame = ct.CTkFrame(self, corner_radius=10)
         self.form_frame.pack(side="top", padx=5, pady=5, fill="both")
 
         # Botões principais
@@ -63,7 +69,7 @@ class App(ct.CTk):
         self.agenda_button.grid(row=0, column=2, padx=5, pady=5)
 
         # Formulário de Cadastro
-        self.form_cadastro = ct.CTkFrame(self, corner_radius=10, fg_color="red")
+        self.form_cadastro = ct.CTkFrame(self, corner_radius=10)
         self.form_cadastro.pack(pady=20, padx=20, fill="both", expand=True)
 
         # Função de validação
@@ -147,34 +153,6 @@ class App(ct.CTk):
         elif form == "agenda":
             self.form_agenda.pack()
 
-    # Função para validar CPF sem usar API
-    def validate_cpf(self, cpf):
-        # Remove caracteres não numéricos
-        cpf = ''.join(filter(str.isdigit, cpf))
-        
-        # Verifica se o CPF possui 11 dígitos
-        if len(cpf) != 11 or not cpf.isdigit():
-            return False
-        
-        # Verifica se todos os dígitos são iguais (ex: 111.111.111-11)
-        if cpf == cpf[0] * len(cpf):
-            return False
-
-        # Cálculo do primeiro dígito verificador
-        total = sum(int(cpf[i]) * (10 - i) for i in range(9))
-        primeiro_digito = (total * 10) % 11
-        if primeiro_digito == 10:
-            primeiro_digito = 0
-
-        # Cálculo do segundo dígito verificador
-        total = sum(int(cpf[i]) * (11 - i) for i in range(10))
-        segundo_digito = (total * 10) % 11
-        if segundo_digito == 10:
-            segundo_digito = 0
-
-        # Verifica se os dígitos verificadores estão corretos
-        return cpf[-2:] == f"{primeiro_digito}{segundo_digito}"
-
     # Função para enviar o formulário
     def submit_form(self):
         conn = connect_db()
@@ -195,11 +173,6 @@ class App(ct.CTk):
             cep = self.cep_entry.get()
             bairro = self.bairro_entry.get()
 
-            # Validação do CPF
-            if not self.validate_cpf(cpf):
-                messagebox.showerror("Erro", "CPF inválido.")
-                return
-
             # Inserindo os dados no banco de dados
             query = """
                 INSERT INTO clientes (nome, rg, cpf, email, telefone, endereco, cep, bairro)
@@ -209,7 +182,7 @@ class App(ct.CTk):
             conn.commit()
 
             messagebox.showinfo("Sucesso", "Cadastro realizado com sucesso!")
-
+ 
         except Exception as e:
             messagebox.showerror("Erro", f"Erro ao cadastrar: {e}")
         finally:
