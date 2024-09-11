@@ -6,8 +6,13 @@ import psycopg2
 # Carregar tema personalizado
 ct.ThemeManager.load_theme("custom_theme.json")
 
-# Definir o modo de aparência (claro ou escuro)
-ct.set_appearance_mode("dark")  # ou "light"
+# Função para alternar entre modo claro e escuro toggle_mode():
+def toggle_mode():
+    current_mode = ct.get_appearance_mode().lower()  # Converte para minúsculas
+    if current_mode == "dark":
+        ct.set_appearance_mode("light")
+    else:
+        ct.set_appearance_mode("dark")
 
 # Função para conectar ao banco de dados PostgreSQL
 def connect_db():
@@ -30,7 +35,7 @@ class App(ct.CTk):
         super().__init__()
 
         # Configurações da janela
-        self.title("Form Example")
+        self.title("Banco de dados - Loja MF")
         self.geometry("1000x600")
 
         # Barra de menu
@@ -67,6 +72,10 @@ class App(ct.CTk):
 
         self.agenda_button = ct.CTkButton(self.form_frame, text="Agenda", command=lambda: self.show_form("agenda"))
         self.agenda_button.grid(row=0, column=2, padx=5, pady=5)
+
+        # Botão para alternar entre modo claro e escuro
+        self.toggle_button = ct.CTkButton(self.form_frame, text="Alternar Modo", command=toggle_mode)
+        self.toggle_button.grid(row=0, column=3, padx=395, pady=5)
 
         # Formulário de Cadastro
         self.form_cadastro = ct.CTkFrame(self, corner_radius=10)
@@ -163,7 +172,7 @@ class App(ct.CTk):
         try:
             cursor = conn.cursor()
 
-            # Pegando os valores dos campos
+            # Coleta os dados do formulário
             nome = self.name_entry.get()
             rg = self.rg_entry.get()
             cpf = self.cpf_entry.get()
@@ -173,9 +182,9 @@ class App(ct.CTk):
             cep = self.cep_entry.get()
             bairro = self.bairro_entry.get()
 
-            # Inserindo os dados no banco de dados
+            # Insere no banco de dados
             query = """
-                INSERT INTO clientes (nome, rg, cpf, email, telefone, endereco, cep, bairro)
+                INSERT INTO cliente (nome, rg, cpf, email, telefone, endereco, cep, bairro)
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
             """
             cursor.execute(query, (nome, rg, cpf, email, telefone, endereco, cep, bairro))
@@ -188,6 +197,20 @@ class App(ct.CTk):
         finally:
             cursor.close()
             conn.close()
+
+    #Formulário de consulta
+    class App(ct.CTk):
+        def __init__(self):
+            super().__init__()
+            self.title("Loja MF")
+            self.geometry("400x400")
+            self.resizable(False, False)
+            self.show_form("consulta")
+
+            # Botão para mostrar o formulário de cadastro 
+            self.cadastro_button = ct.CTkButton(self, text="Cadastrar", command=self.show_form)
+            self.cadastro_button.pack(pady=10)
+            
 
 # Inicializa o aplicativo
 if __name__ == "__main__":
