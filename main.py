@@ -79,22 +79,28 @@ class App(ct.CTk):
         self.toggle_button = ct.CTkButton(self.form_frame, text="Alternar Modo", command=toggle_mode)
         self.toggle_button.grid(row=0, column=3, padx=395, pady=5)
 
+        ### CORPO DO PROGRAMA ###
+
         ### Criação dos formulários ###
         self.create_form_cadastro()
         self.create_form_consulta()
+        self.create_form_consulta_menu()
         # self.create_form_agenda()
         
         ### Esconder os formulários inicialmente ###
         self.form_cadastro.pack_forget()
+        self.form_consulta_menu.pack_forget()
         self.form_consulta.pack_forget()
         # self.form_agenda.pack_forget()
+        
 
     # Função para criar o formulário de cadastro
     def create_form_cadastro(self):
 
         self.form_cadastro = ct.CTkFrame(self, corner_radius=10)
 
-        # Função de validação
+        
+        #Funcão de validação
         validate_cmd = self.register(self.validate_entry)
         
         # Nome
@@ -136,7 +142,7 @@ class App(ct.CTk):
         # CEP
         self.cep_label = ct.CTkLabel(self.form_cadastro, text="CEP:")
         self.cep_label.grid(row=6, column=0, padx=10, pady=10)
-        self.cep_entry = ct.CTkEntry(self.form_cadastro, width=200)
+        self.cep_entry = ct.CTkEntry(self.form_cadastro, width=200, validate="key", validatecommand=(validate_cmd, '%P', '8'))
         self.cep_entry.grid(row=6, column=1, padx=10, pady=10)
         
         # Bairro
@@ -152,35 +158,60 @@ class App(ct.CTk):
         self.exit_button.grid(row=8, column=1, padx=10, pady=10)
 
     
-        # Função para criar o formulário de consulta e exibir os dados nas entradas
-    
-    
+  
     # Função para criar o formulário de consulta
+
+    def create_form_consulta_menu(self):
+        self.form_consulta_menu = ct.CTkFrame(self, corner_radius=10)
+    
+        # Campos de consulta 
+
+        self.consulta_label = ct.CTkLabel(self.form_consulta_menu, text="Nome: ")
+        self.consulta_label.grid(row=0, column=0, padx=10, pady=10)
+        self.consulta_nome = ct.CTkEntry(self.form_consulta_menu, width=200)
+        self.consulta_nome.grid(row=0, column=1, padx=10, pady=10)
+
+        self.consulta_label = ct.CTkLabel(self.form_consulta_menu, text="CPF:")
+        self.consulta_label.grid(row=0, column=2, padx=10, pady=10)
+        self.consulta_cpf = ct.CTkEntry(self.form_consulta_menu, width=200)
+        self.consulta_cpf.grid(row=0, column=3, padx=10, pady=10)
+
+        self.consulta_nome.bind("<Return>", lambda event: self.auto_fill_form('nome'))
+        self.consulta_cpf.bind("<Return>", lambda event: self.auto_fill_form('cpf'))
+
+        self.button_clear = ct.CTkButton(self.form_consulta_menu, text="Limpar", command=self.clear_form)
+        self.button_clear.grid(row=0, column=4, padx=10, pady=10)
+
+
     def create_form_consulta(self):
         self.form_consulta = ct.CTkFrame(self, corner_radius=10)
 
-        # Campos de consulta 
+        #Funcão de validação
+        validate_cmd = self.register(self.validate_entry)
+
+        # ID
+        self.cliente_id_entry = ct.CTkEntry(self.form_consulta, width=200)
+        self.cliente_id_entry.grid(row=0, column=3, pady=10)
 
         # Nome
         self.name1_label = ct.CTkLabel(self.form_consulta, text="Nome:")
         self.name1_label.grid(row=0, column=0, pady=10)
         self.name1_entry = ct.CTkEntry(self.form_consulta, width=200)
         self.name1_entry.grid(row=0, column=1, pady=10)
-        self.name1_entry.bind("<Return>", lambda event: self.auto_fill_form('nome'))
+        
+        # CPF
+        self.cpf1_label = ct.CTkLabel(self.form_consulta, text="CPF:")
+        self.cpf1_label.grid(row=1, column=0, padx=10, pady=10)
+        self.cpf1_entry = ct.CTkEntry(self.form_consulta, width=200, validate="key", validatecommand=(validate_cmd, '%P', '11'))
+        self.cpf1_entry.grid(row=1, column=1, padx=10, pady=10)
 
         # RG
         self.rg1_label = ct.CTkLabel(self.form_consulta, text="RG:")
-        self.rg1_label.grid(row=1, column=0, padx=10, pady=10)
-        self.rg1_entry = ct.CTkEntry(self.form_consulta, width=200)
-        self.rg1_entry.grid(row=1, column=1, padx=10, pady=10)
+        self.rg1_label.grid(row=2, column=0, padx=10, pady=10)
+        self.rg1_entry = ct.CTkEntry(self.form_consulta, width=200, validate="key", validatecommand=(validate_cmd, '%P', '9'))
+        self.rg1_entry.grid(row=2, column=1, padx=10, pady=10)
 
-        # CPF
-        self.cpf1_label = ct.CTkLabel(self.form_consulta, text="CPF:")
-        self.cpf1_label.grid(row=2, column=0, padx=10, pady=10)
-        self.cpf1_entry = ct.CTkEntry(self.form_consulta, width=200)
-        self.cpf1_entry.grid(row=2, column=1, padx=10, pady=10)
-        self.cpf1_entry.bind("<Return>", lambda event: self.auto_fill_form('cpf'))
-
+        
         # Email
         self.email1_label = ct.CTkLabel(self.form_consulta, text="Email:")
         self.email1_label.grid(row=3, column=0, padx=10, pady=10)
@@ -197,12 +228,11 @@ class App(ct.CTk):
         self.endereco1_label = ct.CTkLabel(self.form_consulta, text="Endereço:")
         self.endereco1_label.grid(row=5, column=0, padx=10, pady=10)
         self.endereco1_entry = ct.CTkEntry(self.form_consulta, width=200)
-        self.endereco1_entry.grid(row=5, column=1, padx=10, pady=10)
 
         # CEP
         self.cep1_label = ct.CTkLabel(self.form_consulta, text="CEP:")
         self.cep1_label.grid(row=6, column=0, padx=10, pady=10)
-        self.cep1_entry = ct.CTkEntry(self.form_consulta, width=200)
+        self.cep1_entry = ct.CTkEntry(self.form_consulta, width=200, validate="key", validatecommand=(validate_cmd, '%P', '8'))
         self.cep1_entry.grid(row=6, column=1, padx=10, pady=10)
 
         # Bairro
@@ -211,7 +241,20 @@ class App(ct.CTk):
         self.bairro1_entry = ct.CTkEntry(self.form_consulta, width=200)
         self.bairro1_entry.grid(row=7, column=1, padx=10, pady=10)
 
-    # Função para preencher automaticamente o formulário
+        # Botões de operações
+        self.button_clear = ct.CTkButton(self.form_consulta, text="Limpar", command=self.clear_form())
+        self.button_clear.grid(row=8, column=0, padx=10, pady=10)
+
+        self.button_clear = ct.CTkButton(self.form_consulta, text="Editar", command=self.edit_form)
+        self.button_clear.grid(row=8, column=1, padx=10, pady=10)
+
+        self.button_clear = ct.CTkButton(self.form_consulta, text="Excluir", command=self.delete_form)
+        self.button_clear.grid(row=8, column=2, padx=10, pady=10)
+
+        self.button_save = ct.CTkButton(self.form_consulta, text="Salvar", command=self.save_form)
+        self.button_save.grid(row=8, column=3, padx=10, pady=10)
+
+    # Função para preencher automaticamente o formulário ao digitar.
     def auto_fill_form(self, field):
         conn = connect_db()
         if conn is None:
@@ -226,10 +269,10 @@ class App(ct.CTk):
 
             # Executa a consulta com base no campo CPF ou Nome
             if field == 'cpf' and cpf:
-                query = "SELECT nome, rg, cpf, email, telefone, endereco, cep, bairro FROM clientes WHERE cpf = %s"
+                query = "SELECT cliente_id, nome, rg, cpf, email, telefone, endereco, cep, bairro, cliente_id FROM clientes WHERE cpf = %s"
                 cursor.execute(query, (cpf,))
             elif field == 'nome' and nome:
-                query = "SELECT nome, rg, cpf, email, telefone, endereco, cep, bairro FROM clientes WHERE nome ILIKE %s"
+                query = "SELECT nome, rg, cpf, email, telefone, endereco, cep, bairro, cliente_id FROM clientes WHERE nome ILIKE %s"
                 cursor.execute(query, (f"%{nome}%",))
             else:
                 return
@@ -262,30 +305,53 @@ class App(ct.CTk):
                 self.bairro1_entry.delete(0, "end")
                 self.bairro1_entry.insert(0, result[7])
 
+                self.cliente_id_entry.delete(0, "end")
+                self.cliente_id_entry.insert(0, result[8])
+
         except Exception as e:
             print(f"Erro ao preencher formulário: {e}")
         finally:
             cursor.close()
             conn.close()
 
-        
-
-
+    # Função para limpar os campos do formulário
+    def clear_form(self):
+            self.name_entry.delete(0, tk.END)
+            self.rg_entry.delete(0, tk.END)
+            self.cpf_entry.delete(0, tk.END)
+            self.email_entry.delete(0, tk.END)
+            self.telefone_entry.delete(0, tk.END)
+            self.endereco_entry.delete(0, tk.END)
+            self.cep_entry.delete(0, tk.END)
+            self.bairro_entry.delete(0, tk.END)
+            self.name1_entry.delete(0, tk.END)
+            self.rg1_entry.delete(0, tk.END)
+            self.cpf1_entry.delete(0, tk.END)
+            self.email1_entry.delete(0, tk.END)
+            self.telefone1_entry.delete(0, tk.END)
+            self.endereco1_entry.delete(0, tk.END)
+            self.cep1_entry.delete(0, tk.END)
+            self.bairro1_entry.delete(0, tk.END)
+            
     # Função para alternar entre formulários
     def show_form(self, form_name):
         # Esconder todos os formulários
         self.form_cadastro.pack_forget()
         self.form_consulta.pack_forget()
+        self.form_consulta_menu.pack_forget()
         # self.form_agenda.pack_forget()
 
-        # Mostrar o formulário selecionado
+        # Renderizar o formulário selecionado
         if form_name == "cadastro":
             self.form_cadastro.pack(fill="both", padx=10, pady=10)
         elif form_name == "consulta":
+            self.form_consulta_menu.pack(fill="both", padx=10, pady=10)
             self.form_consulta.pack(fill="both", padx=10, pady=10)
+            
       
 
      # Função para validar o campo RG e CPF usando uma expressão regular
+    
     def validate_entry(self, input_value, max_length):
         # Verifica se o valor é numérico e se não excede o limite de caracteres
         if input_value.isdigit() and len(input_value) <= int(max_length):
@@ -323,6 +389,7 @@ class App(ct.CTk):
         # Verifica se os dígitos verificadores estão corretos
         return cpf[-2:] == f"{primeiro_digito}{segundo_digito}"
 
+       
     # Função para enviar o formulário
     def submit_form(self):
         conn = connect_db()
@@ -356,6 +423,8 @@ class App(ct.CTk):
             cursor.execute(query, (nome, rg, cpf, email, telefone, endereco, cep, bairro))
             conn.commit()
 
+            self.clear_form()
+
             messagebox.showinfo("Sucesso", "Cadastro realizado com sucesso!")
 
         except Exception as e:
@@ -364,6 +433,132 @@ class App(ct.CTk):
             cursor.close()
             conn.close()
 
+   # Função para editar o formulário
+    def edit_form(self):
+        conn = connect_db()
+        if conn is None:
+            messagebox.showerror("Erro", "Não foi possível conectar ao banco de dados.")
+            return
+        
+        cpf = self.cpf_entry.get()  # Obtendo o CPF para busca
+
+        try:
+            cursor = conn.cursor()
+            
+            # Consultando os dados do cliente pelo CPF
+            query = "SELECT * FROM clientes WHERE cpf = %s"
+            cursor.execute(query, (cpf,))
+            result = cursor.fetchone()
+
+            if result:
+                # Preencher o formulário com os dados retornados
+                self.name_entry.delete(0, 'end')
+                self.name_entry.insert(0, result[1])  # nome
+                
+                self.rg_entry.delete(0, 'end')
+                self.rg_entry.insert(0, result[2])  # rg
+                
+                self.cpf_entry.delete(0, 'end')
+                self.cpf_entry.insert(0, result[3])  # cpf
+                
+                self.email_entry.delete(0, 'end')
+                self.email_entry.insert(0, result[4])  # email
+                
+                self.telefone_entry.delete(0, 'end')
+                self.telefone_entry.insert(0, result[5])  # telefone
+                
+                self.endereco_entry.delete(0, 'end')
+                self.endereco_entry.insert(0, result[6])  # endereco
+                
+                self.cep_entry.delete(0, 'end')
+                self.cep_entry.insert(0, result[7])  # cep
+                
+                self.bairro_entry.delete(0, 'end')
+                self.bairro_entry.insert(0, result[8])  # bairro
+            else:
+                messagebox.showwarning("Aviso", "Cliente não encontrado.")
+        
+        except Exception as e:
+            messagebox.showerror("Erro", f"Erro ao editar: {e}")
+        finally:
+            cursor.close()
+            conn.close()
+
+
+    # Função para excluir o formulário
+    def delete_form(self):
+        conn = connect_db()
+        if conn is None:
+            messagebox.showerror("Erro", "Não foi possível conectar ao banco de dados.")
+            return
+
+        cpf = self.consulta_cpf.get()  # Obtendo o CPF para exclusão
+
+        if messagebox.askyesno("Confirmação", "Você tem certeza que deseja excluir este cliente?"):
+            try:
+                cursor = conn.cursor()
+                
+                # Excluindo o cliente pelo CPF
+                query = "DELETE FROM clientes WHERE cpf = %s"
+                cursor.execute(query, (cpf,))
+                conn.commit()
+
+                messagebox.showinfo("Sucesso", "Cliente excluído com sucesso!")
+                self.clear_form()  # Limpa o formulário após exclusão
+
+            except Exception as e:
+                messagebox.showerror("Erro", f"Erro ao excluir: {e}")
+            finally:
+                cursor.close()
+                conn.close()
+
+        
+
+    def save_form(self):
+        conn = connect_db()
+        if conn is None:
+            messagebox.showerror("Erro", "Não foi possível conectar ao banco de dados.")
+            return
+
+        try:
+            cursor = conn.cursor()
+
+            # Pegando os valores dos campos
+            cliente_id = self.cliente_id_entry.get()
+            nome = self.name1_entry.get()
+            rg = self.rg1_entry.get()
+            cpf = self.cpf1_entry.get()
+            email = self.email1_entry.get()
+            telefone = self.telefone1_entry.get()
+            endereco = self.endereco1_entry.get()
+            cep = self.cep1_entry.get()
+            bairro = self.bairro1_entry.get()
+
+            # Validação do CPF
+            if not self.validate_cpf(cpf):
+                messagebox.showerror("Erro", "CPF inválido.")
+                return
+
+            # Atualizando os dados no banco de dados
+            query = """
+                UPDATE clientes
+                SET nome = %s, rg = %s, email = %s, telefone = %s, endereco = %s, cep = %s, bairro = %s, cpf = %s
+                WHERE cliente_id = %s
+            """
+            cursor.execute(query, (nome, rg, email, telefone, endereco, cep, bairro, cpf, cliente_id))
+            conn.commit()
+
+            # Verifica se alguma linha foi atualizada
+            if cursor.rowcount > 0:
+                messagebox.showinfo("Sucesso", "Dados atualizados com sucesso!")
+            else:
+                messagebox.showwarning("Aviso", "Nenhum dado foi atualizado. Verifique se o ID do cliente existe.")
+
+        except Exception as e:
+            messagebox.showerror("Erro", f"Erro ao salvar: {e}")
+        finally:
+            cursor.close()
+            conn.close()
 
 
 
