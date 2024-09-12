@@ -193,7 +193,7 @@ class App(ct.CTk):
             messagebox.showinfo("Sucesso", "Cadastro realizado com sucesso!")
  
         except Exception as e:
-            messagebox.showerror("Erro", f"Erro ao cadastrar: {e}")
+            messagebox.showerror("Erro", f"Erro ao buscar agenda: {e}")
         finally:
             cursor.close()
             conn.close()
