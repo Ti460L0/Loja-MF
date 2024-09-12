@@ -4,6 +4,7 @@ from frames.cadastro_frame import CadastroFrame
 from frames.consulta_frame import ConsultaFrame
 from frames.agenda_frame import AgendaFrame
 
+
 class App(ct.CTk):
     def __init__(self):
         super().__init__()
@@ -25,6 +26,8 @@ class App(ct.CTk):
         # Frame principal
         self.current_frame = None
         self.show_cadastro_frame()
+        # Frame formulários
+        self.forms_frame = None
 
     def clear_current_frame(self):
         if self.current_frame:
@@ -40,6 +43,7 @@ class App(ct.CTk):
         self.clear_current_frame()
         self.current_frame = ConsultaFrame(self)
         self.current_frame.pack(fill="both", expand=True)
+        
 
     def show_agenda_frame(self):
         self.clear_current_frame()
