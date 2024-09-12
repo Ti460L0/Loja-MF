@@ -2,6 +2,7 @@ import customtkinter as ct
 from tkinter import messagebox
 from database.db_connection import connect_db
 
+
 class CadastroFrame(ct.CTkFrame):
     def __init__(self, master):
         super().__init__(master)
