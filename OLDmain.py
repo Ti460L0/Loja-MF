@@ -2,7 +2,7 @@ import customtkinter as ct
 import tkinter as tk
 from tkinter import messagebox
 import psycopg2
-from consultaMenu import Form
+
 
 # Carregar tema personalizado
 ct.ThemeManager.load_theme("custom_theme.json")
