@@ -2,7 +2,8 @@ import customtkinter as ct
 import tkinter as tk
 from tkinter import messagebox
 import psycopg2
- 
+from consultaMenu import Form
+
 # Carregar tema personalizado
 ct.ThemeManager.load_theme("custom_theme.json")
 
@@ -40,7 +41,7 @@ class App(ct.CTk):
         # Configurações da janela
         self.title("Form Example")
         self.title("Banco de dados - Loja MF")
-        self.geometry("1000x600")
+        self.geometry("1280x720")
 
         # Barra de menu
         self.menu_bar = tk.Menu(self)
@@ -70,8 +71,6 @@ class App(ct.CTk):
         # Botões principais
         self.cad_button = ct.CTkButton(self.form_frame, text="Cadastrar", command=lambda: self.show_form("cadastro"))
         self.cad_button.grid(row=0, column=0, padx=5, pady=5)
-        self.con_button = ct.CTkButton(self.form_frame, text="Consultar", command=lambda: self.show_form("consulta"))
-        self.con_button.grid(row=0, column=1, padx=5, pady=5)
         self.agenda_button = ct.CTkButton(self.form_frame, text="Agenda", command=lambda: self.show_form("agenda"))
         self.agenda_button.grid(row=0, column=2, padx=5, pady=5)
 
@@ -83,23 +82,23 @@ class App(ct.CTk):
 
         ### Criação dos formulários ###
         self.create_form_cadastro()
-        self.create_form_consulta()
         self.create_form_consulta_menu()
+        self.create_form_agenda()
         # self.create_form_agenda()
         
         ### Esconder os formulários inicialmente ###
         self.form_cadastro.pack_forget()
         self.form_consulta_menu.pack_forget()
-        self.form_consulta.pack_forget()
+        self.form_agenda.pack_forget()
         # self.form_agenda.pack_forget()
+        
         
 
     # Função para criar o formulário de cadastro
     def create_form_cadastro(self):
 
-        self.form_cadastro = ct.CTkFrame(self, corner_radius=10)
+        self.form_cadastro = ct.CTkFrame(self, corner_radius=10)        
 
-        
         #Funcão de validação
         validate_cmd = self.register(self.validate_entry)
         
@@ -117,9 +116,9 @@ class App(ct.CTk):
         
         # CPF
         self.cpf_label = ct.CTkLabel(self.form_cadastro, text="CPF:")
-        self.cpf_label.grid(row=2, column=0, padx=10, pady=10)
+        self.cpf_label.grid(row=1, column=2, padx=10, pady=10)
         self.cpf_entry = ct.CTkEntry(self.form_cadastro, width=200, validate="key", validatecommand=(validate_cmd, '%P', '11'))
-        self.cpf_entry.grid(row=2, column=1, padx=10, pady=10)
+        self.cpf_entry.grid(row=1, column=3, padx=10, pady=10)
         
         # E-mail
         self.email_label = ct.CTkLabel(self.form_cadastro, text="E-mail:")
@@ -157,7 +156,18 @@ class App(ct.CTk):
         self.exit_button = ct.CTkButton(self.form_cadastro, text="Sair", command=self.destroy)
         self.exit_button.grid(row=8, column=1, padx=10, pady=10)
 
-    
+        # Botões de operações
+        self.button_clear = ct.CTkButton(self.form_cadastro, text="Limpar", command=self.clear_form())
+        self.button_clear.grid(row=8, column=0, padx=10, pady=10)
+
+        self.button_clear = ct.CTkButton(self.form_cadastro, text="Editar", command=self.edit_form)
+        self.button_clear.grid(row=8, column=1, padx=10, pady=10)
+
+        self.button_clear = ct.CTkButton(self.form_cadastro, text="Excluir", command=self.delete_form)
+        self.button_clear.grid(row=8, column=2, padx=10, pady=10)
+
+        self.button_save = ct.CTkButton(self.form_cadastro, text="Salvar", command=self.save_form)
+        self.button_save.grid(row=8, column=3, padx=10, pady=10)
   
     # Função para criar o formulário de consulta
 
@@ -166,93 +176,32 @@ class App(ct.CTk):
     
         # Campos de consulta 
 
+        self.consulta_label = ct.CTkLabel(self.form_consulta_menu, text="Consultar:")
+        self.consulta_label.grid(row=0, column=0, padx=2)
+
         self.consulta_label = ct.CTkLabel(self.form_consulta_menu, text="Nome: ")
-        self.consulta_label.grid(row=0, column=0, padx=10, pady=10)
+        self.consulta_label.grid(row=1, column=1, padx=10, pady=10)
         self.consulta_nome = ct.CTkEntry(self.form_consulta_menu, width=200)
-        self.consulta_nome.grid(row=0, column=1, padx=10, pady=10)
+        self.consulta_nome.grid(row=1, column=2, padx=10, pady=20)
 
         self.consulta_label = ct.CTkLabel(self.form_consulta_menu, text="CPF:")
-        self.consulta_label.grid(row=0, column=2, padx=10, pady=10)
+        self.consulta_label.grid(row=1, column=3, padx=10, pady=10)
         self.consulta_cpf = ct.CTkEntry(self.form_consulta_menu, width=200)
-        self.consulta_cpf.grid(row=0, column=3, padx=10, pady=10)
+        self.consulta_cpf.grid(row=1, column=4, padx=10, pady=20)
 
         self.consulta_nome.bind("<Return>", lambda event: self.auto_fill_form('nome'))
         self.consulta_cpf.bind("<Return>", lambda event: self.auto_fill_form('cpf'))
 
         self.button_clear = ct.CTkButton(self.form_consulta_menu, text="Limpar", command=self.clear_form)
-        self.button_clear.grid(row=0, column=4, padx=10, pady=10)
+        self.button_clear.grid(row=1, column=5, padx=10, pady=10)
 
+    
 
-    def create_form_consulta(self):
-        self.form_consulta = ct.CTkFrame(self, corner_radius=10)
+    # Agenda
 
-        #Funcão de validação
-        validate_cmd = self.register(self.validate_entry)
-
-        # ID
-        self.cliente_id_entry = ct.CTkEntry(self.form_consulta, width=200)
-        self.cliente_id_entry.grid(row=0, column=3, pady=10)
-
-        # Nome
-        self.name1_label = ct.CTkLabel(self.form_consulta, text="Nome:")
-        self.name1_label.grid(row=0, column=0, pady=10)
-        self.name1_entry = ct.CTkEntry(self.form_consulta, width=200)
-        self.name1_entry.grid(row=0, column=1, pady=10)
-        
-        # CPF
-        self.cpf1_label = ct.CTkLabel(self.form_consulta, text="CPF:")
-        self.cpf1_label.grid(row=1, column=0, padx=10, pady=10)
-        self.cpf1_entry = ct.CTkEntry(self.form_consulta, width=200, validate="key", validatecommand=(validate_cmd, '%P', '11'))
-        self.cpf1_entry.grid(row=1, column=1, padx=10, pady=10)
-
-        # RG
-        self.rg1_label = ct.CTkLabel(self.form_consulta, text="RG:")
-        self.rg1_label.grid(row=2, column=0, padx=10, pady=10)
-        self.rg1_entry = ct.CTkEntry(self.form_consulta, width=200, validate="key", validatecommand=(validate_cmd, '%P', '9'))
-        self.rg1_entry.grid(row=2, column=1, padx=10, pady=10)
-
-        
-        # Email
-        self.email1_label = ct.CTkLabel(self.form_consulta, text="Email:")
-        self.email1_label.grid(row=3, column=0, padx=10, pady=10)
-        self.email1_entry = ct.CTkEntry(self.form_consulta, width=200)
-        self.email1_entry.grid(row=3, column=1, padx=10, pady=10)
-
-        # Telefone
-        self.telefone1_label = ct.CTkLabel(self.form_consulta, text="Telefone:")
-        self.telefone1_label.grid(row=4, column=0, padx=10, pady=10)
-        self.telefone1_entry = ct.CTkEntry(self.form_consulta, width=200)
-        self.telefone1_entry.grid(row=4, column=1, padx=10, pady=10)
-
-        # Endereço
-        self.endereco1_label = ct.CTkLabel(self.form_consulta, text="Endereço:")
-        self.endereco1_label.grid(row=5, column=0, padx=10, pady=10)
-        self.endereco1_entry = ct.CTkEntry(self.form_consulta, width=200)
-
-        # CEP
-        self.cep1_label = ct.CTkLabel(self.form_consulta, text="CEP:")
-        self.cep1_label.grid(row=6, column=0, padx=10, pady=10)
-        self.cep1_entry = ct.CTkEntry(self.form_consulta, width=200, validate="key", validatecommand=(validate_cmd, '%P', '8'))
-        self.cep1_entry.grid(row=6, column=1, padx=10, pady=10)
-
-        # Bairro
-        self.bairro1_label = ct.CTkLabel(self.form_consulta, text="Bairro:")
-        self.bairro1_label.grid(row=7, column=0, padx=10, pady=10)
-        self.bairro1_entry = ct.CTkEntry(self.form_consulta, width=200)
-        self.bairro1_entry.grid(row=7, column=1, padx=10, pady=10)
-
-        # Botões de operações
-        self.button_clear = ct.CTkButton(self.form_consulta, text="Limpar", command=self.clear_form())
-        self.button_clear.grid(row=8, column=0, padx=10, pady=10)
-
-        self.button_clear = ct.CTkButton(self.form_consulta, text="Editar", command=self.edit_form)
-        self.button_clear.grid(row=8, column=1, padx=10, pady=10)
-
-        self.button_clear = ct.CTkButton(self.form_consulta, text="Excluir", command=self.delete_form)
-        self.button_clear.grid(row=8, column=2, padx=10, pady=10)
-
-        self.button_save = ct.CTkButton(self.form_consulta, text="Salvar", command=self.save_form)
-        self.button_save.grid(row=8, column=3, padx=10, pady=10)
+    def create_form_agenda(self):
+        self.form_agenda = ct.CTkFrame(self, corner_radius=10)
+        self.form_agenda.pack(side="top", padx=5, pady=5, fill="both")
 
     # Função para preencher automaticamente o formulário ao digitar.
     def auto_fill_form(self, field):
@@ -281,29 +230,29 @@ class App(ct.CTk):
 
             # Se encontrar resultado, preenche os campos
             if result:
-                self.name1_entry.delete(0, "end")
-                self.name1_entry.insert(0, result[0])
+                self.name_entry.delete(0, "end")
+                self.name_entry.insert(0, result[0])
 
-                self.rg1_entry.delete(0, "end")
-                self.rg1_entry.insert(0, result[1])
+                self.rg_entry.delete(0, "end")
+                self.rg_entry.insert(0, result[1])
 
-                self.cpf1_entry.delete(0, "end")
-                self.cpf1_entry.insert(0, result[2])
+                self.cpf_entry.delete(0, "end")
+                self.cpf_entry.insert(0, result[2])
 
-                self.email1_entry.delete(0, "end")
-                self.email1_entry.insert(0, result[3])
+                self.email_entry.delete(0, "end")
+                self.email_entry.insert(0, result[3])
 
-                self.telefone1_entry.delete(0, "end")
-                self.telefone1_entry.insert(0, result[4])
+                self.telefone_entry.delete(0, "end")
+                self.telefone_entry.insert(0, result[4])
 
-                self.endereco1_entry.delete(0, "end")
-                self.endereco1_entry.insert(0, result[5])
+                self.endereco_entry.delete(0, "end")
+                self.endereco_entry.insert(0, result[5])
 
-                self.cep1_entry.delete(0, "end")
-                self.cep1_entry.insert(0, result[6])
+                self.cep_entry.delete(0, "end")
+                self.cep_entry.insert(0, result[6])
 
-                self.bairro1_entry.delete(0, "end")
-                self.bairro1_entry.insert(0, result[7])
+                self.bairro_entry.delete(0, "end")
+                self.bairro_entry.insert(0, result[7])
 
                 self.cliente_id_entry.delete(0, "end")
                 self.cliente_id_entry.insert(0, result[8])
@@ -324,29 +273,20 @@ class App(ct.CTk):
             self.endereco_entry.delete(0, tk.END)
             self.cep_entry.delete(0, tk.END)
             self.bairro_entry.delete(0, tk.END)
-            self.name1_entry.delete(0, tk.END)
-            self.rg1_entry.delete(0, tk.END)
-            self.cpf1_entry.delete(0, tk.END)
-            self.email1_entry.delete(0, tk.END)
-            self.telefone1_entry.delete(0, tk.END)
-            self.endereco1_entry.delete(0, tk.END)
-            self.cep1_entry.delete(0, tk.END)
-            self.bairro1_entry.delete(0, tk.END)
+            
             
     # Função para alternar entre formulários
     def show_form(self, form_name):
-        # Esconder todos os formulários
-        self.form_cadastro.pack_forget()
-        self.form_consulta.pack_forget()
-        self.form_consulta_menu.pack_forget()
-        # self.form_agenda.pack_forget()
 
         # Renderizar o formulário selecionado
         if form_name == "cadastro":
             self.form_cadastro.pack(fill="both", padx=10, pady=10)
-        elif form_name == "consulta":
             self.form_consulta_menu.pack(fill="both", padx=10, pady=10)
-            self.form_consulta.pack(fill="both", padx=10, pady=10)
+            self.form_agenda.pack_forget()
+        elif form_name == "agenda":
+            self.form_agenda.pack(fill="both", padx=10, pady=10)
+            self.form_cadastro.pack_forget()
+            self.form_consulta_menu.pack_forget()
             
       
 
@@ -525,14 +465,14 @@ class App(ct.CTk):
 
             # Pegando os valores dos campos
             cliente_id = self.cliente_id_entry.get()
-            nome = self.name1_entry.get()
-            rg = self.rg1_entry.get()
-            cpf = self.cpf1_entry.get()
-            email = self.email1_entry.get()
-            telefone = self.telefone1_entry.get()
-            endereco = self.endereco1_entry.get()
-            cep = self.cep1_entry.get()
-            bairro = self.bairro1_entry.get()
+            nome = self.name_entry.get()
+            rg = self.rg_entry.get()
+            cpf = self.cpf_entry.get()
+            email = self.email_entry.get()
+            telefone = self.telefone_entry.get()
+            endereco = self.endereco_entry.get()
+            cep = self.cep_entry.get()
+            bairro = self.bairro_entry.get()
 
             # Validação do CPF
             if not self.validate_cpf(cpf):
