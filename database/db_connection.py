@@ -1,9 +1,9 @@
-import customtkinter as ct
+import psycopg2
 
-def connet_db():
+def connect_db():
     try:
         conn = psycopg2.connect(
-            host="localhost",
+            host="192.168.1.36",
             database="loja_MF",
             user="postgres",
             password="milla1207",
