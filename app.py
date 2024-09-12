@@ -26,8 +26,7 @@ class App(ct.CTk):
         # Frame principal
         self.current_frame = None
         self.show_cadastro_frame()
-        # Frame formulários
-        self.forms_frame = None
+   
 
     def clear_current_frame(self):
         if self.current_frame:
