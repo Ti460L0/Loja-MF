@@ -1,31 +1,33 @@
 import customtkinter as ct
-from database.db_connection import connet_db
+from database.db_connection import connect_db
 
 class ConsultaFrame(ct.CTkFrame):
-    def _init_(self, master):
-        super()._init_(master)
+    def __init__(self, master):
+        super().__init__(master)
         self.create_form()
 
     def create_form(self):
-        self.form_consulta_menu = ct.CTkFrame(self, corner_radius=10)
-    
-        # Campos de consulta 
+        # Campos de consulta
+        self.consulta_label = ct.CTkLabel(self, text="Consultar por CPF:")
+        self.consulta_label.grid(row=0, column=0, padx=10, pady=10)
+        self.cpf_entry = ct.CTkEntry(self, width=200)
+        self.cpf_entry.grid(row=0, column=1, padx=10, pady=10)
 
-        self.consulta_label = ct.CTkLabel(self.form_consulta_menu, text="Consultar:")
-        self.consulta_label.grid(row=0, column=0, padx=2)
+        self.consulta_button = ct.CTkButton(self, text="Buscar", command=self.auto_fill_form)
+        self.consulta_button.grid(row=1, column=0, padx=10, pady=10)
 
-        self.consulta_label = ct.CTkLabel(self.form_consulta_menu, text="Nome: ")
-        self.consulta_label.grid(row=1, column=1, padx=10, pady=10)
-        self.consulta_nome = ct.CTkEntry(self.form_consulta_menu, width=200)
-        self.consulta_nome.grid(row=1, column=2, padx=10, pady=20)
+    def auto_fill_form(self):
+        cpf = self.cpf_entry.get()
+        conn = connect_db()
 
-        self.consulta_label = ct.CTkLabel(self.form_consulta_menu, text="CPF:")
-        self.consulta_label.grid(row=1, column=3, padx=10, pady=10)
-        self.consulta_cpf = ct.CTkEntry(self.form_consulta_menu, width=200)
-        self.consulta_cpf.grid(row=1, column=4, padx=10, pady=20)
+        if conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT nome, rg FROM clientes WHERE cpf = %s", (cpf,))
+            result = cursor.fetchone()
 
-        self.consulta_nome.bind("<Return>", lambda event: self.auto_fill_form('nome'))
-        self.consulta_cpf.bind("<Return>", lambda event: self.auto_fill_form('cpf'))
+            if result:
+                # Preencha os campos
+                pass
 
-        self.button_clear = ct.CTkButton(self.form_consulta_menu, text="Limpar", command=self.clear_form)
-        self.button_clear.grid(row=1, column=5, padx=10, pady=10)
+            cursor.close()
+            conn.close()
