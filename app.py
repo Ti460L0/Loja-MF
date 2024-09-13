@@ -1,54 +1,42 @@
 import customtkinter as ct
-import tkinter as tk
-from frames.cadastro_frame import CadastroFrame
-from frames.consulta_frame import ConsultaFrame
-from frames.agenda_frame import AgendaFrame
-
 
 class App(ct.CTk):
     def __init__(self):
         super().__init__()
-        
-        self.title("Banco de Dados - Loja MF")
-        self.geometry("1280x720")
 
-        # Barra de menu
-        self.menu_bar = tk.Menu(self)
-        self.config(menu=self.menu_bar)
-        
-        # Menu de Formulário
-        self.form_menu = tk.Menu(self.menu_bar, tearoff=0)
-        self.form_menu.add_command(label="Cadastrar", command=self.show_cadastro_frame)
-        self.form_menu.add_command(label="Consultar", command=self.show_consulta_frame)
-        self.form_menu.add_command(label="Agenda", command=self.show_agenda_frame)
-        self.menu_bar.add_cascade(label="Formulário", menu=self.form_menu)
+        self.title("Loja-MF")
 
-        # Frame principal
-        self.current_frame = None
-        self.show_cadastro_frame()
-        # Frame formulários
-        self.forms_frame = None
+        # APAGAR ANTES DA VERSÃO FINAL
+        self.bind("<Escape>", lambda event: self.destroy())
 
-    def clear_current_frame(self):
-        if self.current_frame:
-            self.current_frame.pack_forget()
-            self.current_frame.destroy()
+        # Iniciar centralizado
+        screen_width = self.winfo_screenwidth()
+        screen_height = self.winfo_screenheight()
+        x = int((screen_width / 2) - (1400 / 2))
+        y = int((screen_height / 2) - (780 / 2))
+        self.geometry(f"1400x700+{x}+{y}")
 
-    def show_cadastro_frame(self):
-        self.clear_current_frame()
-        self.current_frame = CadastroFrame(self)
-        self.current_frame.pack(fill="both", expand=True)
+        # Conf da barra de janela
+        self.overrideredirect(True)
 
-    def show_consulta_frame(self):
-        self.clear_current_frame()
-        self.current_frame = ConsultaFrame(self)
-        self.current_frame.pack(fill="both", expand=True)
-        
+        # Formulário superior (top_frame)
+        top_frame = ct.CTkFrame(self,  height=40)
+        top_frame.place(relx=0, rely=0, anchor='nw', relwidth=1, relheight=0.05)
 
-    def show_agenda_frame(self):
-        self.clear_current_frame()
-        self.current_frame = AgendaFrame(self)
-        self.current_frame.pack(fill="both", expand=True)
+        # Formulário menu
+        menu_frame = ct.CTkFrame(self, width=100)
+        menu_frame.place(relx=0, rely=0.05, anchor='nw', relwidth=0.25, relheight=0.95)
+
+        # Formulário main
+        main_frame = ct.CTkFrame(self)
+        main_frame.place(relx=1, rely=0.05, anchor='ne', relwidth=0.745, relheight=0.95)
+
+
+        #Botoes da barra superior 
+        self.close_button = ct.CTkButton(top_frame, text="❌",fg_color="transparent", hover_color="red", width=40, command=self.destroy)
+        self.close_button.pack(side="right", padx=10)
+        self.minimize_button = ct.CTkButton(top_frame, text="➖",fg_color="transparent", hover_color="dimgrey", width=40, command=self.iconify)
+        self.minimize_button.pack(side="right")
 
 
 if __name__ == "__main__":
