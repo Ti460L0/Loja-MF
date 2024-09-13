@@ -1,62 +1,78 @@
 import customtkinter as ct
 from tkinter import messagebox
-from database.db_connection import connect_db
+from ..database.db_connection import connect_db
 
-class CadastroCliente(ct.CTkFrame):
-    def __init__(self, master):
-        super().__init__(master)
-        self.create_form()
+class CadastroCliente(ct.CTk):
+    def __init__(self):
+        super().__init__()
 
-    def create_form(self):
+        self.title("Loja-MF")
+
+        # APAGAR ANTES DA VERSÃO FINAL
+        self.bind("<Escape>", lambda event: self.destroy())
+
+        # Iniciar centralizado
+        screen_width = self.winfo_screenwidth()
+        screen_height = self.winfo_screenheight()
+        x = int((screen_width / 2) - (1400 / 2))
+        y = int((screen_height / 2) - (780 / 2))
+        self.geometry(f"800x400+{x}+{y}")
+
+        # Conf da barra de janela
+        self.overrideredirect(True)
         validate_cmd = self.register(self.validate_entry)
 
+        # Frame das entradas
+        self.entradas_frame = ct.CTkFrame(self)
+        self.entradas_frame.place(relx=0.5, rely=0.5, anchor='center')
+
         # Nome
-        self.name_label = ct.CTkLabel(self, text='Nome:')
+        self.name_label = ct.CTkLabel(self.entradas_frame, text='Nome:')
         self.name_label.grid(row=0, column=0, pady=10)
-        self.name_entry = ct.CTkEntry(self, width=200)
+        self.name_entry = ct.CTkEntry(self.entradas_frame, width=200)
         self.name_entry.grid(row=0, column=1, pady=10)
 
         # RG
-        self.rg_label = ct.CTkLabel(self, text='RG:')
+        self.rg_label = ct.CTkLabel(self.entradas_frame, text='RG:')
         self.rg_label.grid(row=1, column=0, padx=10, pady=10)
-        self.rg_entry = ct.CTkEntry(self, width=200, validate='key', validatecommand=(validate_cmd, '%P', '9'))
+        self.rg_entry = ct.CTkEntry(self.entradas_frame, width=200, validate='key', validatecommand=(validate_cmd, '%P', '9'))
         self.rg_entry.grid(row=1, column=1, padx=10, pady=10)
 
         # CPF
-        self.cpf_label = ct.CTkLabel(self, text='CPF:')
-        self.cpf_label.grid(row=1, column=1, padx=10, pady=10)
-        self.cpf_entry = ct.CTkEntry(self, width=200, validate='key', validatecommand=(validate_cmd, '%P', '11'))
-        self.cpf_entry.grid(row=1, column=2, padx=10, pady=10)
+        self.cpf_label = ct.CTkLabel(self.entradas_frame, text='CPF:')
+        self.cpf_label.grid(row=1, column=2, padx=10, pady=10)
+        self.cpf_entry = ct.CTkEntry(self.entradas_frame, width=200, validate='key', validatecommand=(validate_cmd, '%P', '11'))
+        self.cpf_entry.grid(row=1, column=3, padx=10, pady=10)
 
         # E-mail 
-        self.email_label = ct.CTkLabel(self, text='E-mail:')
-        self.email_label.grid(row=0, column=1, padx=10, pady=10)
-        self.email_entry = ct.CTkEntry(self, width=200)
-        self.email_entry.grid(row=0, column=2, padx=10, pady=10)
+        self.email_label = ct.CTkLabel(self.entradas_frame, text='E-mail:')
+        self.email_label.grid(row=0, column=2, padx=10, pady=10)
+        self.email_entry = ct.CTkEntry(self.entradas_frame, width=200)
+        self.email_entry.grid(row=0, column=3, padx=10, pady=10)
 
         # Telefone
-        self.telefone_label = ct.CTkLabel(self, text='Telefone:')
+        self.telefone_label = ct.CTkLabel(self.entradas_frame, text='Telefone:')
         self.telefone_label.grid(row=2, column=0, padx=10, pady=10)
-        self.telefone_entry = ct.CTkEntry(self, width=200)
+        self.telefone_entry = ct.CTkEntry(self.entradas_frame, width=200)
         self.telefone_entry.grid(row=2, column=1, padx=10, pady=10)
 
         # Endereço
-        self.endereco_label = ct.CTkLabel(self, text='Endereço:')
-        self.endereco_label.grid(row=2, column=1, padx=10, pady=10)
-        self.endereco_entry = ct.CTkEntry(self, width=200)
-        self.endereco_entry.grid(row=2, column=2, padx=10, pady=10)
+        self.endereco_label = ct.CTkLabel(self.entradas_frame, text='Endereço:')
+        self.endereco_label.grid(row=2, column=2, padx=10, pady=10)
+        self.endereco_entry = ct.CTkEntry(self.entradas_frame, width=200)
+        self.endereco_entry.grid(row=2, column=3, padx=10, pady=10)
 
         # Cep
-        self.cep_label = ct.CTkLabel(self, text='CEP:')
+        self.cep_label = ct.CTkLabel(self.entradas_frame, text='CEP:')
         self.cep_label.grid(row=3, column=0, padx=10, pady=10)
-        self.cep_entry = ct.CTkEntry(self, width=200, validate='key', validatecommand=(validate_cmd, '%P', '8'))
+        self.cep_entry = ct.CTkEntry(self.entradas_frame, width=200, validate='key', validatecommand=(validate_cmd, '%P', '8'))
         self.cep_entry.grid(row=3, column=1, padx=10, pady=10)
 
         # Bairro
-        self.bairro_label = ct.CTkLabel(self, text='Bairro:')
-        self.bairro_label.grid(row=3, column=1, padx=10, pady=10)
-        self.bairro_entry = ct.CTkEntry(self, width=200)
-        self.bairro_entry.grid(row=3, column=2, padx=10, pady=10)
+        self.bairro_label = ct.CTkLabel(self.entradas_frame, text='Bairro:')
+        self.bairro_label.grid(row=3, column=2, padx=10, pady=10)
+        self.bairro_entry = ct.CTkEntry(self.entradas_frame, width=200)
+        self.bairro_entry.grid(row=3, column=3, padx=10, pady=10)
 
 
     # Função para validar o campo RG e CPF usando uma expressão regular
@@ -132,7 +148,7 @@ class CadastroCliente(ct.CTkFrame):
             cursor.execute(query, (nome, rg, cpf, email, telefone, endereco, cep, bairro))
             conn.commit()
 
-            self.clear_form()
+           
 
             messagebox.showinfo("Sucesso", "Cadastro realizado com sucesso!")
 
@@ -141,3 +157,7 @@ class CadastroCliente(ct.CTkFrame):
         finally:
             cursor.close()
             conn.close()
+
+if __name__ == "__main__":
+    app = CadastroCliente()
+    app.mainloop()
