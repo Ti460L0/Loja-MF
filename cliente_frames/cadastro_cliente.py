@@ -4,30 +4,39 @@ from database.db_connection import connect_db
 
 class CadastroCliente(ct.CTkFrame):
     def __init__(self, master=None):
-        super().__init__(master, bg_color="transparent", fg_color="transparent")
+        super().__init__(master)
         
-
-        # APAGAR ANTES DA VERSÃO FINAL
-        self.bind("<Escape>", lambda event: self.destroy())
+        # HotKeys
+        self.master.bind("<Return>", self.submit_form)
+        self.master.bind("<Escape>", lambda event: self.master.destroy())
 
         # Validar campos
         validate_cmd = self.register(self.validate_entry)
 
+        ### FRAMES ###
+
+        # Main Frame
+        self.main_frame = ct.CTkFrame(self.master, border_color="darkgoldenrod", border_width=5, corner_radius=10)
+        self.main_frame.place(relx=0.5, rely=0.5, anchor="center", relwidth=1, relheight=1)
+
+        # Frame do Titulo
+        self.title_frame = ct.CTkFrame(self.main_frame, height=50, corner_radius=10)
+        self.title_frame.pack(side="top", fill="x", padx=20, expand=True)
+
         # Frame das entradas
-        self.entradas_frame = ct.CTkFrame(self)
-        self.entradas_frame.place(relx=0.5, rely=0.5, anchor='center')
+        self.entradas_frame = ct.CTkFrame(self.main_frame)
+        self.entradas_frame.pack(side="top", fill="x", padx=20, expand=True)
+
+
+        # Titulo
+        self.title_label = ct.CTkLabel(self.title_frame, text="Cadastrar cliente", font=("Arial", 20))
+        self.title_label.pack(side="left", padx=10, pady=10)
 
         # Nome
         self.name_label = ct.CTkLabel(self.entradas_frame, text='Nome:')
         self.name_label.grid(row=0, column=0, pady=10)
         self.name_entry = ct.CTkEntry(self.entradas_frame, width=200)
         self.name_entry.grid(row=0, column=1, pady=10)
-
-        # RG
-        self.rg_label = ct.CTkLabel(self.entradas_frame, text='RG:')
-        self.rg_label.grid(row=1, column=0, padx=10, pady=10)
-        self.rg_entry = ct.CTkEntry(self.entradas_frame, width=200, validate='key', validatecommand=(validate_cmd, '%P', '9'))
-        self.rg_entry.grid(row=1, column=1, padx=10, pady=10)
 
         # CPF
         self.cpf_label = ct.CTkLabel(self.entradas_frame, text='CPF:')
@@ -68,8 +77,12 @@ class CadastroCliente(ct.CTkFrame):
         # Submit
         self.submit_button = ct.CTkButton(self.entradas_frame, text='Cadastrar', command=self.submit_form)
         self.submit_button.grid(row=4, column=2, padx=10, pady=10)
+        # Cancel
+        self.cancel_button = ct.CTkButton(self.entradas_frame, text='Cancelar', command=self.master.destroy)
+        self.cancel_button.grid(row=4, column=3, padx=10, pady=10)
 
-
+        
+    
     # Função para validar o campo RG e CPF usando uma expressão regular
     def validate_entry(self, input_value, max_length):
     
@@ -122,7 +135,6 @@ class CadastroCliente(ct.CTkFrame):
 
             # Pegando os valores dos campos
             nome = self.name_entry.get()
-            rg = self.rg_entry.get()
             cpf = self.cpf_entry.get()
             email = self.email_entry.get()
             telefone = self.telefone_entry.get()
@@ -137,10 +149,10 @@ class CadastroCliente(ct.CTkFrame):
 
         # Inserindo os dados no banco de dados
             query = """
-                INSERT INTO clientes (nome, rg, cpf, email, telefone, endereco, cep, bairro)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                INSERT INTO clientes (nome, cpf, email, telefone, endereco, cep, bairro)
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
             """
-            cursor.execute(query, (nome, rg, cpf, email, telefone, endereco, cep, bairro))
+            cursor.execute(query, (nome, cpf, email, telefone, endereco, cep, bairro))
             conn.commit()
 
            

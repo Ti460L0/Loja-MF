@@ -11,16 +11,18 @@ class App(ct.CTk):
         super().__init__()
 
         self.title("Loja-MF")
+        
+        master_frame = ct.CTkFrame(self)
 
         # APAGAR ANTES DA VERSÃO FINAL
-        self.bind("<Escape>", lambda event: self.destroy())
+        
 
         # Iniciar centralizado
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()
         x = int((screen_width / 2) - (1400 / 2))
         y = int((screen_height / 2) - (780 / 2))
-        self.geometry(f"1400x700+{x}+{y}")
+        self.geometry(f"1400x780+{x}+{y}")
 
         # Conf da barra de janela
         self.overrideredirect(True)
@@ -79,7 +81,7 @@ class App(ct.CTk):
         self.options_label = ct.CTkLabel(self.options_frame, text="Clientes:", font=("Arial", 14))
         self.options_label.pack(side="top", pady=10, padx=10)
 
-        self.options_button = ct.CTkButton(self.options_frame, width=40, text="  Cadastrar", font=("Arial", 14), command=lambda: create_window())
+        self.options_button = ct.CTkButton(self.options_frame, width=40, text="Cadastrar", font=("Arial", 14), command=lambda: create_window())
         self.options_button.pack(side="left", pady=10, padx=10)
 
         def create_window():
@@ -87,12 +89,16 @@ class App(ct.CTk):
             window.title("Cadastrar")
             screen_width = self.winfo_screenwidth()
             screen_height = self.winfo_screenheight()
-            x = int((screen_width / 2) - (600 / 2))
-            y = int((screen_height / 2) - (400 / 2))
-            window.geometry(f"600x400+{x}+{y}")
+            x = int((screen_width / 2) - (800 / 2))
+            y = int((screen_height / 2) - (600 / 2))
+            window.geometry(f"800x600+{x}+{y}")
             window.overrideredirect(True)
-            window.attributes("-alpha", 0.9)
-            CadastroCliente(window).pack(fill="both", expand=True)
+            window.attributes("-topmost", True)
+            CadastroCliente(window)
+            
+            
+
+        
 
 
 
