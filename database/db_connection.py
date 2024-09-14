@@ -3,7 +3,7 @@ import psycopg2
 def connect_db():
     try:
         conn = psycopg2.connect(
-            host="192.168.1.36",
+            host="postgreslojamf.cjoou8goivt4.us-east-2.rds.amazonaws.com",
             database="loja_MF",
             user="postgres",
             password="milla1207",
