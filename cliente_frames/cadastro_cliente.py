@@ -1,25 +1,16 @@
 import customtkinter as ct
 from tkinter import messagebox
-from ..database.db_connection import connect_db
+from database.db_connection import connect_db
 
-class CadastroCliente(ct.CTk):
-    def __init__(self):
-        super().__init__()
-
-        self.title("Loja-MF")
+class CadastroCliente(ct.CTkFrame):
+    def __init__(self, master=None):
+        super().__init__(master, bg_color="transparent", fg_color="transparent")
+        
 
         # APAGAR ANTES DA VERSÃO FINAL
         self.bind("<Escape>", lambda event: self.destroy())
 
-        # Iniciar centralizado
-        screen_width = self.winfo_screenwidth()
-        screen_height = self.winfo_screenheight()
-        x = int((screen_width / 2) - (1400 / 2))
-        y = int((screen_height / 2) - (780 / 2))
-        self.geometry(f"800x400+{x}+{y}")
-
-        # Conf da barra de janela
-        self.overrideredirect(True)
+        # Validar campos
         validate_cmd = self.register(self.validate_entry)
 
         # Frame das entradas
@@ -157,7 +148,3 @@ class CadastroCliente(ct.CTk):
         finally:
             cursor.close()
             conn.close()
-
-if __name__ == "__main__":
-    app = CadastroCliente()
-    app.mainloop()

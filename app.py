@@ -84,10 +84,12 @@ class App(ct.CTk):
             window.title("Cadastrar")
             screen_width = self.winfo_screenwidth()
             screen_height = self.winfo_screenheight()
-            x = int((screen_width / 2) - (1400 / 2))
-            y = int((screen_height / 2) - (780 / 2))
-            window.geometry(f"800x400+{x}+{y}")
+            x = int((screen_width / 2) - (600 / 2))
+            y = int((screen_height / 2) - (400 / 2))
+            window.geometry(f"600x400+{x}+{y}")
             window.overrideredirect(True)
+            window.attributes("-topmost", True)
+            window.attributes("-alpha", 0.9)
             CadastroCliente(window).pack(fill="both", expand=True)
 
 
