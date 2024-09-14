@@ -65,6 +65,10 @@ class CadastroCliente(ct.CTkFrame):
         self.bairro_entry = ct.CTkEntry(self.entradas_frame, width=200)
         self.bairro_entry.grid(row=3, column=3, padx=10, pady=10)
 
+        # Submit
+        self.submit_button = ct.CTkButton(self.entradas_frame, text='Cadastrar', command=self.submit_form)
+        self.submit_button.grid(row=4, column=2, padx=10, pady=10)
+
 
     # Função para validar o campo RG e CPF usando uma expressão regular
     def validate_entry(self, input_value, max_length):

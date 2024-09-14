@@ -3,6 +3,9 @@ import tkinter as tk
 from cliente_frames.cadastro_cliente import CadastroCliente
 from PIL import Image
 
+
+
+
 class App(ct.CTk):
     def __init__(self):
         super().__init__()
@@ -88,7 +91,6 @@ class App(ct.CTk):
             y = int((screen_height / 2) - (400 / 2))
             window.geometry(f"600x400+{x}+{y}")
             window.overrideredirect(True)
-            window.attributes("-topmost", True)
             window.attributes("-alpha", 0.9)
             CadastroCliente(window).pack(fill="both", expand=True)
 
