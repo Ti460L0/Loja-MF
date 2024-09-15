@@ -75,7 +75,7 @@ class CadastroCliente(ct.CTkFrame):
         self.bairro_entry.grid(row=3, column=3, padx=10, pady=10)
 
         # Submit
-        self.submit_button = ct.CTkButton(self.entradas_frame, text='Cadastrar', command=self.submit_form)
+        self.submit_button = ct.CTkButton(self.entradas_frame, text='Cadastrar Cliente', command=self.submit_form)
         self.submit_button.grid(row=4, column=2, padx=10, pady=10)
         # Cancel
         self.cancel_button = ct.CTkButton(self.entradas_frame, text='Cancelar', command=self.master.destroy)

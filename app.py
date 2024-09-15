@@ -1,6 +1,7 @@
 import customtkinter as ct
 import tkinter as tk
 from cliente_frames.cadastro_cliente import CadastroCliente
+from produtos_frames.cadastro_produto import CadastroProduto
 from PIL import Image
 
 
@@ -86,7 +87,7 @@ class App(ct.CTk):
 
         def create_window():
             window = tk.Toplevel()
-            window.title("Cadastrar")
+            window.title("Cadastrar Cliente")
             screen_width = self.winfo_screenwidth()
             screen_height = self.winfo_screenheight()
             x = int((screen_width / 2) - (800 / 2))
@@ -95,7 +96,19 @@ class App(ct.CTk):
             window.overrideredirect(True)
             window.attributes("-topmost", True)
             CadastroCliente(window)
-            
+
+        def create_window():
+            window = tk.Toplevel()
+            window.title("Cadastrar Produto")
+            screen_width = self.winfo_screenwidth()
+            screen_height = self.winfo_screenheight()
+            x = int((screen_width / 2) - (800 / 2))
+            y = int((screen_height / 2) - (600 / 2))
+            window.geometry(f"800x600+{x}+{y}")
+            window.overrideredirect(True)
+            window.attributes("-topmost", True)
+            CadastroProduto(window)
+
             
 
         

@@ -76,13 +76,23 @@ class ConsultaCliente(ct.CTk):
                     self.cpf_entry.delete(0, 'end')
                     self.cpf_entry.insert(0, result[2])   # CPF
 
-                    # Preencher outros campos se necessário, crie entradas para RG, Email, Telefone, Endereço, CEP e Bairro
-                    # Adicione os campos correspondentes ao seu layout se ainda não estiverem presentes
-                    # Exemplo para RG:
-                    # self.rg_entry.delete(0, 'end')
-                    # self.rg_entry.insert(0, result[1])  # RG
-                    
-                    # Continue para os outros campos conforme necessário...
+                    self.rg_entry.delete(0, 'end')
+                    self.rg_entry.insert(0, result[1])  # RG
+
+                    self.email_entry.delete(0, 'end')
+                    self.email_entry.insert(0, result[3])  # Email
+
+                    self.telefone_entry.delete(0, 'end')
+                    self.telefone_entry.insert(0, result[4])  # Telefone
+
+                    self.endereco_entry.delete(0, 'end')
+                    self.endereco_entry.insert(0, result[5])  # Endereço
+
+                    self.cep_entry.delete(0, 'end')
+                    self.cep_entry.insert(0, result[6])  # CEP
+
+                    self.bairro_entry.delete(0, 'end')
+                    self.bairro_entry.insert(0, result[7])  # Bairro
                     
                 else:
                     messagebox.showinfo("Não encontrado", "Cliente não encontrado.")
