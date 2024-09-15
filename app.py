@@ -1,10 +1,13 @@
 import customtkinter as ct
 import tkinter as tk
 
-from cliente_frames.cadastro_cliente import CadastroCliente
-from cliente_frames.consulta_cliente import ConsultaCliente
+from screens.cadastro_cliente import CadastroCliente
+from screens.cadastro_produto import CadastroProduto
 
-from produtos_frames.cadastro_produto import CadastroProduto
+from screens.consulta_cliente import ConsultaCliente
+from screens.lista_produtos import ListaProdutos
+from screens.agendar_produto import Agendar
+from screens.info_produto import InfoProduto
 
 from PIL import Image
 
@@ -14,7 +17,15 @@ class App(ct.CTk):
     def __init__(self):
         super().__init__()
         
-        self.title("Loja-MF")        
+        self.title("Loja-MF")   
+
+        # Conf da janela
+        # self.configure(borderwidth=5, border_color="darkgoldenrod")
+        # self.configure(bg_color="transparent")
+        # self.configure(fg_color="darkgoldenrod")
+        # self.configure(cursor="hand2")
+        # self.configure(menu=None)
+        
 
         # Iniciar centralizado
         screen_width = self.winfo_screenwidth()
@@ -23,6 +34,8 @@ class App(ct.CTk):
         y = int((screen_height / 2) - (780 / 2))
         self.geometry(f"1400x780+{x}+{y}")
         self.overrideredirect(1)
+
+
         # Conf da grid
 
         self.grid_rowconfigure(0, weight=0)
@@ -30,14 +43,16 @@ class App(ct.CTk):
         self.grid_columnconfigure(1, weight=1)
 
         # Frame superior
-        top_frame = ct.CTkFrame(self, height=40, bg_color="transparent", fg_color="goldenrod", corner_radius=5)
-        top_frame.grid(row=0, column=0, columnspan=2, sticky="nsew", padx=5, pady=(0,5))
+        top_frame = ct.CTkFrame(self, height=40, bg_color="transparent", fg_color="transparent", corner_radius=5)
+        top_frame.grid(row=0, column=0, columnspan=2, sticky="nsew")
         # Frame do menu
-        menu_frame = ct.CTkFrame(self)
+        menu_frame = ct.CTkFrame(self, bg_color="transparent", fg_color="transparent", corner_radius=5)
         menu_frame.grid(row=1, column=0, sticky="nswe", padx=5, pady=5)
         # Frame do conteudo
-        main_frame = ct.CTkFrame(self)
+        main_frame = ct.CTkFrame(self, bg_color="transparent", fg_color="transparent", corner_radius=5)
         main_frame.grid(row=1, column=1, rowspan=2 , sticky="nsew", padx=5, pady=5)
+
+              
         
         
 
@@ -55,10 +70,17 @@ class App(ct.CTk):
 
 
     ######### Frame Principal (main_frame) #########
+        main_frame.grid_rowconfigure(0, weight=1)
+        main_frame.grid_rowconfigure(1, weight=0)
+        main_frame.grid_columnconfigure(0, weight=1)
+
+        # Grid Superior
+        Agendar(master=main_frame).grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
+        # Grid Direita
+        InfoProduto(master=main_frame).grid(row=0, column=1, sticky="nsew", padx=10, pady=10)
+        # Grid Inferior
+        ListaProdutos(master=main_frame).grid(row=1, column=0, sticky="nsew", padx=10, pady=10)
         
-        # Importando frame de consulta de clientes dentro do main frame
-        self.consulta_frame = ConsultaCliente(master=main_frame)
-        self.consulta_frame.pack(fill="both", expand=True)
 
 
     ######### MENU LATERAL ##########
@@ -71,7 +93,7 @@ class App(ct.CTk):
         self.logo_label.pack(side="top", pady=10, padx=10)
 
        # Campo de pesquisa
-        self.search_frame = ct.CTkFrame(menu_frame, border_color="darkgoldenrod", border_width=2, bg_color="transparent", fg_color="transparent")
+        self.search_frame = ct.CTkFrame(menu_frame, bg_color="transparent", fg_color="transparent")
         self.search_frame.pack(side="top", pady=10, padx=10)
 
         self.search_frame.grid_columnconfigure(0, weight=1)
@@ -88,7 +110,7 @@ class App(ct.CTk):
         self.search_input.bind("<FocusIn>", lambda event: self.search_input.delete(0, "end"))
 
         # Botão de busca
-        self.search_button = ct.CTkButton(self.search_frame, width=40, text="🔎", font=("Calibri", 20), bg_color='transparent', fg_color='transparent', command=self.realizar_busca)
+        self.search_button = ct.CTkButton(self.search_frame, width=40, text="🔎", font=("Calibri", 20), bg_color='transparent', fg_color='transparent', border_color='goldenrod', border_width=1, command=self.realizar_busca)
         self.search_button.grid(row=1, column=2, sticky="w", padx=(5,10), pady=10)
 
         # Opções de busca (Cliente ou Produto)
