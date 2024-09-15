@@ -13,3 +13,5 @@ class Agendar(ct.CTkFrame):
         # Frame do Titulo
         self.title_frame = ct.CTkFrame(self.main_frame, height=50, corner_radius=10)
         self.title_frame.place(relx=0.5, rely=0.5, anchor="center")
+
+        

@@ -3,6 +3,8 @@ import customtkinter as ct
 # Variável global para armazenar o produto selecionado
 selected_product = None
 
+
+
 class InfoProduto(ct.CTkFrame):
     def __init__(self, master):
         super().__init__(master)
@@ -40,6 +42,12 @@ class InfoProduto(ct.CTkFrame):
         # Labels para cada campo
         fields = ["Código", "Modelo/Tipo", "Tamanho", "Cor", "Status", "Valor"]
         for idx, field in enumerate(fields):
-            label = ct.CTkLabel(self, text=f"{field}: {selected_product[idx]}", font=("Arial", 14))
-            label.pack(padx=10, pady=5)
+            label = ct.CTkLabel(self.main_frame, text=f"{field}: {selected_product[idx]}", font=("Arial", 14))
+            label.pack(side="top", padx=10, pady=5)
+            # img_url = f"https://loja-milla-fashion.s3.amazonaws.com/produtos/{selected_product[0]}.jpg"
+            # img = Image.open(requests.get(img_url, stream=True).raw)
+            
+            
+
+    
 

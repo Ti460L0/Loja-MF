@@ -30,6 +30,7 @@ class ListaProdutos(ct.CTkFrame):
 
         self.headers = ["Código", "Modelo/Tipo", "Tamanho", "Cor", "Status", "Valor"]
         self.create_headers()
+        
 
         # Tabela de produtos
         self.lista_frame = ct.CTkScrollableFrame(self.main_frame)
@@ -89,7 +90,7 @@ class ListaProdutos(ct.CTkFrame):
                 cursor.execute("SELECT codigo_vestido, modelo_vestido, tamanho_vestido, cor_vestido, status_vestido, valor_vestido FROM vestidos")
                 items = cursor.fetchall()
             elif self.data_type == "acessorios":
-                cursor.execute("SELECT codigo_acessorio, tipo_acessorio, tamanho_acessorio, cor_acessorio, status_acessorio, NULL FROM acessorios")
+                cursor.execute("SELECT tipo_acessorio, tamanho_acessorio, cor_acessorio, status_acessorio, NULL FROM acessorios")
                 items = cursor.fetchall()
             elif self.data_type == "clientes":
                 cursor.execute("SELECT nome, cpf, email, telefone, endereco, cep, bairro, observacao, NULL FROM clientes")
