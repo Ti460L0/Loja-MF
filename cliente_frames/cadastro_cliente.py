@@ -77,7 +77,7 @@ class CadastroCliente(ct.CTkFrame):
         # Observações
         self.observacoes_label = ct.CTkLabel(self.entradas_frame, text='Observações:')
         self.observacoes_label.grid(row=4, column=0, padx=10, pady=10)
-        self.observacoes_entry = ct.CTkEntry(self.entradas_frame, width=200, height=300)
+        self.observacoes_entry = ct.CTkTextbox(self.entradas_frame, width=200, height=300)
         self.observacoes_entry.grid(row=4, column=1, padx=10, pady=10)
 
         # Submit

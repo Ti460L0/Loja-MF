@@ -71,7 +71,7 @@ class CadastroProduto(ct.CTkFrame):
         self.valorVestido_entry.place(relx=0.3, rely=0.5, anchor="w")
 
         # Submit button
-        self.submit_button = ct.CTkButton(self.entradas_frame_vestidos, text='Cadastrar Produto', width=200, command=lambda: self.submit_vestido())
+        self.submit_button = ct.CTkButton(self.entradas_frame_vestidos, text='Salvar', width=200, command=lambda: self.submit_vestido())
         self.submit_button.place(relx=0.3, rely=0.7, anchor="e")
 
         # Cancel button
@@ -116,7 +116,7 @@ class CadastroProduto(ct.CTkFrame):
         self.statusAcessorio_entry.grid(row=4, column=1, pady=10)
 
         # Submit
-        self.submit_button = ct.CTkButton(self.entradas_frame_acessorios, text='Cadastrar Produto', command=lambda: self.submit_acessorio)
+        self.submit_button = ct.CTkButton(self.entradas_frame_acessorios, text='Salvar', command=lambda: self.submit_acessorio())
         self.submit_button.grid(row=5, column=2, padx=10, pady=10)
         
         # Voltar
@@ -163,7 +163,7 @@ class CadastroProduto(ct.CTkFrame):
 
             # Inserir os valores no banco de dados
             query = """
-                INSERT INTO vestidos (modeloVestido, tamanhoVestido, corVestido, statusVestido, valorVestido, codigoVestido) 
+                INSERT INTO vestidos (modelo_vestido, tamanho_vestido, cor_vestido, status_vestido, valor_vestido, codigo_vestido) 
                 VALUES (%s, %s, %s, %s, %s, %s)
             """
             cursor.execute(query, (modeloVestido, tamanhoVestido, corVestido, statusVestido, valorVestido, codigoVestido))
@@ -180,26 +180,35 @@ class CadastroProduto(ct.CTkFrame):
 
 
     ### ENVIAR FORMULÁRIO ACESSÓRIO ###
+
     def submit_acessorio(self):
+
         conn = connect_db()
         if conn is None:
             messagebox.showerror("Erro", "Não foi possível conectar ao banco de dados.")
             return
         try:
             cursor = conn.cursor()
+
             # Receber os valores do formulário
             tipoAcessorio = self.tipoAcessorio_entry.get()
             tamanhoAcessorio = self.tamanhoAcessorio_entry.get()
             corAcessorio = self.corAcessorio_entry.get()
             statusAcessorio = self.statusAcessorio_entry.get()
+
             # Inserir os valores no banco de dados
-            query_acessorios = "INSERT INTO acessorios (tipoAcessorio, tamanhoAcessorio, corAcessorio, statusAcessorio) VALUES (%s, %s, %s, %s)"
-            cursor.execute(query_acessorios, (tipoAcessorio, tamanhoAcessorio, corAcessorio, statusAcessorio))
+            query = """
+                INSERT INTO acessorios (tipo_acessorio, tamanho_acessorio, cor_acessorio, status_acessorio) 
+                VALUES (%s, %s, %s, %s)
+            """
+            cursor.execute(query, (tipoAcessorio, tamanhoAcessorio, corAcessorio, statusAcessorio))
             conn.commit()
             messagebox.showinfo("Sucesso", "Acessório inserido com sucesso!")
+
         except Exception as e:
             messagebox.showerror("Erro", f"Erro ao inserir acessório: {e}")
             conn.rollback()
+
         finally:
             cursor.close()
             conn.close()

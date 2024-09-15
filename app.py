@@ -97,7 +97,6 @@ class App(ct.CTk):
             y = int((screen_height / 2) - (600 / 2))
             window.geometry(f"800x600+{x}+{y}")
             window.overrideredirect(True)
-            window.attributes("-topmost", True)
             CadastroCliente(window)
 
         def create_window_produto():
@@ -109,7 +108,6 @@ class App(ct.CTk):
             y = int((screen_height / 2) - (600 / 2))
             window.geometry(f"800x600+{x}+{y}")
             window.overrideredirect(True)
-            window.attributes("-topmost", True)
             CadastroProduto(window)
 
             
