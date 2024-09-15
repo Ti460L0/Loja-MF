@@ -82,11 +82,13 @@ class App(ct.CTk):
         self.search_label.grid(row=0, column=0, sticky="nw", padx=10, pady=(0,10))
         
         # Campo de entrada de busca
-        self.search_input = ct.CTkEntry(self.search_frame, width=200)
+        self.search_input = ct.CTkEntry(self.search_frame, width=200, font=("Calibri", 14))
         self.search_input.grid(row=1, column=0, columnspan=2, sticky="w", padx=(10,0), pady=10)
+        self.search_input.bind("<Return>", self.realizar_busca)
+        self.search_input.bind("<FocusIn>", lambda event: self.search_input.delete(0, "end"))
 
         # Botão de busca
-        self.search_button = ct.CTkButton(self.search_frame, width=40, text="🔎", font=("Calibri", 14), command=self.realizar_busca)
+        self.search_button = ct.CTkButton(self.search_frame, width=40, text="🔎", font=("Calibri", 20), bg_color='transparent', fg_color='transparent', command=self.realizar_busca)
         self.search_button.grid(row=1, column=2, sticky="w", padx=(5,10), pady=10)
 
         # Opções de busca (Cliente ou Produto)
@@ -132,15 +134,23 @@ class App(ct.CTk):
 
     def search_options(self, value):
         """ Alterna entre os botões de critérios de busca dependendo da opção escolhida. """
+        
         if value == "Cliente":  
             self.search_cliente.grid(row=3, column=0, columnspan=3, sticky="nsew", padx=10, pady=10)
+            self.textValue = "Digite nome ou CPF"
+            self.search_input.delete(0, "end")
+            self.search_input.insert(0, self.textValue)
             self.search_produto.grid_forget()  # Esconde as opções de Produto
         elif value == "Produto":
             self.search_cliente.grid_forget()  # Esconde as opções de Cliente
+            self.textValue = "Digite vestido ou acessoário"
+            self.search_input.delete(0, "end")
+            self.search_input.insert(0, self.textValue)
             self.search_produto.grid(row=3, column=0, columnspan=3, sticky="nsew", padx=10, pady=10)
         else:
             self.search_cliente.grid_forget()
             self.search_produto.grid_forget()
+    
 
     def realizar_busca(self):
         """ Lógica para realizar a busca baseada na opção selecionada. """

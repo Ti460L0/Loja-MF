@@ -31,7 +31,7 @@ class CadastroProduto(ct.CTkFrame):
         self.acessorio_button = ct.CTkButton(self.title_frame, text="👑\nCadastrar acessorio", font=("Arial", 20), height=150, width=200, command=lambda: self.change_frame('acessorios'))
         self.acessorio_button.grid(row=0, column=1, padx=10, pady=10)
 
-        self.voltar_button = ct.CTkButton(self.title_frame, text="↩️\nVoltar", font=("Arial", 20), fg_color="red", height=50, width=100, command=lambda: self.master.destroy())
+        self.voltar_button = ct.CTkButton(self.title_frame, text="↩️\nVoltar", font=("Arial", 20), fg_color="red", height=50, width=100, command=lambda: self.destroy())
         self.voltar_button.grid(row=1, column=0, padx=10, pady=10, columnspan=2, sticky="nsew")
 
 
