@@ -82,10 +82,13 @@ class App(ct.CTk):
         self.options_label = ct.CTkLabel(self.options_frame, text="Clientes:", font=("Arial", 14))
         self.options_label.pack(side="top", pady=10, padx=10)
 
-        self.options_button = ct.CTkButton(self.options_frame, width=40, text="Cadastrar", font=("Arial", 14), command=lambda: create_window())
+        self.options_button = ct.CTkButton(self.options_frame, width=40, text="Cadastrar Cliente", font=("Arial", 14), command=lambda: create_window_cliente())
         self.options_button.pack(side="left", pady=10, padx=10)
 
-        def create_window():
+        self.options_button = ct.CTkButton(self.options_frame, width=40, text="Cadastrar Produto", font=("Arial", 14), command=lambda: create_window_produto())
+        self.options_button.pack(side="left", pady=10, padx=10, )
+
+        def create_window_cliente():
             window = tk.Toplevel()
             window.title("Cadastrar Cliente")
             screen_width = self.winfo_screenwidth()
@@ -97,7 +100,7 @@ class App(ct.CTk):
             window.attributes("-topmost", True)
             CadastroCliente(window)
 
-        def create_window():
+        def create_window_produto():
             window = tk.Toplevel()
             window.title("Cadastrar Produto")
             screen_width = self.winfo_screenwidth()

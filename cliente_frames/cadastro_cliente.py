@@ -74,6 +74,12 @@ class CadastroCliente(ct.CTkFrame):
         self.bairro_entry = ct.CTkEntry(self.entradas_frame, width=200)
         self.bairro_entry.grid(row=3, column=3, padx=10, pady=10)
 
+        # Observações
+        self.observacoes_label = ct.CTkLabel(self.entradas_frame, text='Observações:')
+        self.observacoes_label.grid(row=4, column=0, padx=10, pady=10)
+        self.observacoes_entry = ct.CTkEntry(self.entradas_frame, width=200, height=300)
+        self.observacoes_entry.grid(row=4, column=1, padx=10, pady=10)
+
         # Submit
         self.submit_button = ct.CTkButton(self.entradas_frame, text='Cadastrar Cliente', command=self.submit_form)
         self.submit_button.grid(row=4, column=2, padx=10, pady=10)
@@ -141,6 +147,7 @@ class CadastroCliente(ct.CTkFrame):
             endereco = self.endereco_entry.get()
             cep = self.cep_entry.get()
             bairro = self.bairro_entry.get()
+            observacao = self.observacoes_entry.get( 1.0, 'end-1c' )
 
         # Validação do CPF
             if not self.validate_cpf(cpf):
@@ -149,10 +156,10 @@ class CadastroCliente(ct.CTkFrame):
 
         # Inserindo os dados no banco de dados
             query = """
-                INSERT INTO clientes (nome, cpf, email, telefone, endereco, cep, bairro)
-                VALUES (%s, %s, %s, %s, %s, %s, %s)
+                INSERT INTO clientes (nome, cpf, email, telefone, endereco, cep, bairro,observacao)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
             """
-            cursor.execute(query, (nome, cpf, email, telefone, endereco, cep, bairro))
+            cursor.execute(query, (nome, cpf, email, telefone, endereco, cep, bairro, observacao))
             conn.commit()
 
            
