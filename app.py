@@ -79,7 +79,7 @@ class App(ct.CTk):
         # Grid Direita
         InfoProduto(master=main_frame).grid(row=0, column=1, sticky="nsew", padx=10, pady=10)
         # Grid Inferior
-        ListaProdutos(master=main_frame).grid(row=1, column=0, sticky="nsew", padx=10, pady=10)
+        ListaProdutos(master=main_frame).grid(row=1, column=0, columnspan=2, sticky="nsew", padx=10, pady=10)
         
 
 
