@@ -7,7 +7,7 @@ from screens.cadastro_produto import CadastroProduto
 from screens.consulta_cliente import ConsultaCliente
 from screens.lista_produtos import ListaProdutos
 from screens.agendar_produto import Agendar
-from screens.info_produto import InfoProduto
+from screens.object_details import ObjectDetails
 
 from PIL import Image
 
@@ -41,31 +41,18 @@ class App(ct.CTk):
         self.grid_rowconfigure(1, weight=1)
         self.grid_columnconfigure(1, weight=1)
 
-        # Frame superior
-        # top_frame = ct.CTkFrame(self, height=40, bg_color="transparent", fg_color="transparent", corner_radius=5)
-        # top_frame.grid(row=0, column=0, columnspan=2, sticky="nsew")
+        
         # Frame do menu
         menu_frame = ct.CTkFrame(self, bg_color="transparent", fg_color="transparent", corner_radius=5)
-        menu_frame.grid(row=1, column=0, sticky="nswe", padx=5, pady=5)
+        menu_frame.grid(row=0, column=2, sticky="nswe", padx=5, pady=5)
         # Frame do conteudo
         main_frame = ct.CTkFrame(self, bg_color="transparent", fg_color="transparent", corner_radius=5)
-        main_frame.grid(row=1, column=1, rowspan=2 , sticky="nsew", padx=5, pady=5)
+        main_frame.grid(row=0, column=1, rowspan=2 , sticky="nsew", padx=5, pady=5)
+        # Frame Detalhes
+        details_frame = ct.CTkFrame(self, bg_color="transparent", fg_color="transparent", corner_radius=5)
+        details_frame.grid(row=0, column=0, sticky="nsew", padx=5, pady=5)
 
               
-        
-        
-
-    ######## Frame Superior (top_frame) #########
-        
-        # # Botoes da barra superior 
-        # self.titulo = ct.CTkLabel(top_frame, text="Sistema de Disponibilização de Produtos - Loja Milla Fashion", font=("Calibri", 15))
-        # self.titulo.pack(side="left", padx=10)
-
-        # self.close_button = ct.CTkButton(top_frame, text="❌", fg_color="transparent", hover_color="red", width=40, font=("Calibri", 15), command=self.destroy)
-        # self.close_button.pack(side="right", padx=10)    
-        
-        # self.minimize_button = ct.CTkButton(top_frame, text="➖", fg_color="transparent", hover_color="dimgrey", width=40, font=("Calibri", 15), command=self.iconify)
-        # self.minimize_button.pack(side="right")
 
 
     ######### Frame Principal (main_frame) #########
@@ -75,17 +62,16 @@ class App(ct.CTk):
 
         # Grid Superior
         Agendar(master=main_frame).grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
-        # Grid Direita
-        InfoProduto(master=main_frame).grid(row=0, column=1, sticky="nsew", padx=10, pady=10)
+            
         # Grid Inferior
-        ListaProdutos(master=main_frame).grid(row=1, column=0, columnspan=2, sticky="nsew", padx=10, pady=10)
+        ListaProdutos(master=main_frame).grid(row=1, column=0, rowspan=2, sticky="nsew", padx=10, pady=10)
         
 
 
-    ######### MENU LATERAL ##########
+    ######### Frame Logo e Detalhes (details_frame) #########    
         
         # Logo
-        self.logo_frame = ct.CTkFrame(menu_frame, bg_color="transparent", fg_color="transparent")
+        self.logo_frame = ct.CTkFrame(details_frame, bg_color="transparent", fg_color="transparent")
         self.logo_frame.pack(side="top", pady=10, padx=10)
         
         self.logo = ct.CTkImage(Image.open("logo.png"), size=(150, 150))
@@ -93,9 +79,16 @@ class App(ct.CTk):
         self.logo_label = ct.CTkLabel(self.logo_frame, image=self.logo, text="")
         self.logo_label.pack(side="top", pady=10, padx=10)
 
+        # Details
+
+        ObjectDetails(details_frame).pack(side="top", pady=20, padx=10)
+
+
+    ######### Frame de menu (menu_frame) #########ñ
+
        # Campo de pesquisa
         self.search_frame = ct.CTkFrame(menu_frame, bg_color="transparent", fg_color="transparent")
-        self.search_frame.pack(side="top", pady=10, padx=10)
+        self.search_frame.pack(side="top", pady=10)
 
         self.search_frame.grid_columnconfigure(0, weight=1)
         self.search_frame.grid_rowconfigure(0, weight=1)
@@ -105,13 +98,13 @@ class App(ct.CTk):
         self.search_label.grid(row=0, column=0, sticky="nw", padx=10, pady=(0,10))
         
         # Campo de entrada de busca
-        self.search_input = ct.CTkEntry(self.search_frame, width=200, font=("Calibri", 14))
+        self.search_input = ct.CTkEntry(self.search_frame, font=("Calibri", 14))
         self.search_input.grid(row=1, column=0, columnspan=2, sticky="w", padx=(10,0), pady=10)
         self.search_input.bind("<Return>", self.realizar_busca)
         self.search_input.bind("<FocusIn>", lambda event: self.search_input.delete(0, "end"))
 
         # Botão de busca
-        self.search_button = ct.CTkButton(self.search_frame, width=40, text="🔎", font=("Calibri", 20), bg_color='transparent', fg_color='transparent', border_color='goldenrod', border_width=1, command=self.realizar_busca)
+        self.search_button = ct.CTkButton(self.search_frame, width=20, text="🔎", font=("Calibri", 20), bg_color='transparent', fg_color='transparent', border_color='goldenrod', border_width=1, command=self.realizar_busca)
         self.search_button.grid(row=1, column=2, sticky="w", padx=(5,10), pady=10)
 
         # Opções de busca (Cliente ou Produto)

@@ -1,7 +1,7 @@
 import customtkinter as ct
 from tkinter import messagebox
 from database.db_connection import connect_db
-from screens.info_produto import InfoProduto
+from screens.object_details import ObjectDetails  # Certifique-se de que o nome do arquivo e da classe estão corretos
 
 class ListaProdutos(ct.CTkFrame):
     def __init__(self, master):
@@ -31,7 +31,6 @@ class ListaProdutos(ct.CTkFrame):
         self.headers = ["Código", "Modelo/Tipo", "Tamanho", "Cor", "Status", "Valor"]
         self.create_headers()
         
-
         # Tabela de produtos
         self.lista_frame = ct.CTkScrollableFrame(self.main_frame)
         self.lista_frame.pack(side="top", fill="x")
@@ -62,12 +61,10 @@ class ListaProdutos(ct.CTkFrame):
         self.load_data()
 
     def on_item_click(self, item_data):
-        """
-        Função que captura o clique em um item da lista e envia os dados para info_produto.py.
+        ObjectDetails.set_selected_product(item_data)
         
-        :param item_data: Tupla com os dados do item (vestido/acessório/cliente).
-        """
-        InfoProduto.set_selected_product(item_data)  # Chama a função para armazenar o item selecionado
+
+        
         print(f"Produto {item_data[1]} selecionado.")  # Exibe o item selecionado no console
 
     def load_data(self):
@@ -112,4 +109,3 @@ class ListaProdutos(ct.CTkFrame):
         finally:
             cursor.close()
             conn.close()
-
