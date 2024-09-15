@@ -41,10 +41,11 @@ class App(ct.CTk):
 
         # Conf da grid
 
-        self.grid_rowconfigure(0, weight=0)
-        self.grid_rowconfigure(1, weight=1)
+        self.grid_rowconfigure(0, weight=1)
+        self.grid_rowconfigure(1, weight=0)
         self.grid_columnconfigure(0, weight=0)
         self.grid_columnconfigure(1, weight=1)
+        
 
         
         # Frame do Menu
@@ -53,27 +54,34 @@ class App(ct.CTk):
         # Frame do Conteudo
         main_frame = ct.CTkFrame(self, bg_color="transparent", fg_color="transparent", corner_radius=5)
         main_frame.grid(row=0, column=1, sticky="nsew", padx=5, pady=5)
-        # Frame Detalhes
-        details_frame = ct.CTkFrame(menu_frame, bg_color="transparent", fg_color="transparent", corner_radius=5)
-        details_frame.pack(side="bottom", fill="both", padx=10, pady=10)
+        # Frame de Lista
+        list_frame = ct.CTkFrame(self, bg_color="transparent", fg_color="transparent", corner_radius=5)
+        list_frame.grid(row=1, column=1, sticky="nsew", padx=5, pady=5)
+        
 
               
 
 
     ######### Frame Principal (main_frame) #########
+
         main_frame.grid_rowconfigure(0, weight=1)
-        main_frame.grid_rowconfigure(1, weight=0)
-        main_frame.grid_columnconfigure(0, weight=1)
+        main_frame.grid_columnconfigure(0, weight=3)
+        main_frame.grid_columnconfigure(1, weight=2)
+        main_frame.grid_columnconfigure(2, weight=1)
 
         # Grid Superior
-        Agendar(master=main_frame).grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
+        Agendar(main_frame).grid(row=0, column=0, columnspan=2, sticky="nsew")
+        
+        # Grid Detalhes
+        ObjectDetails(main_frame).grid(row=0, column=2, sticky="nsew")
             
         # Grid Inferior
-        ListaProdutos(master=main_frame).grid(row=1, column=0, rowspan=2, sticky="nsew", padx=10, pady=10)
+        ListaProdutos(list_frame).pack(side="top", fill="both", expand=True)
+
         
 
 
-    ######### Frame Logo e Detalhes (details_frame) #########    
+    ######### Frame Logo #########    
         
         # Logo
         self.logo_frame = ct.CTkFrame(menu_frame, bg_color="transparent", fg_color="transparent")
@@ -84,41 +92,8 @@ class App(ct.CTk):
         self.logo_label = ct.CTkLabel(self.logo_frame, image=self.logo, text="")
         self.logo_label.pack(side="top", pady=10, padx=10)
 
-        # Details
-
-        ObjectDetails(details_frame).pack(side="top", pady=20, padx=10)
-
 
     ######### Frame de menu (menu_frame) #########ñ
-
-       # Campo de pesquisa
-        self.search_frame = ct.CTkFrame(menu_frame, bg_color="transparent", fg_color="transparent")
-        self.search_frame.pack(side="top", pady=10)
-
-        self.search_frame.grid_columnconfigure(0, weight=1)
-        self.search_frame.grid_rowconfigure(0, weight=1)
-
-        # Label de busca
-        self.search_label = ct.CTkLabel(self.search_frame, text="Buscar:", font=("Calibri", 20))
-        self.search_label.grid(row=0, column=0, sticky="nw", padx=10, pady=(0,10))
-        
-        # Campo de entrada de busca
-        self.search_input = ct.CTkEntry(self.search_frame, font=("Calibri", 14))
-        self.search_input.grid(row=1, column=0, columnspan=2, sticky="w", padx=(10,0), pady=10)
-        self.search_input.bind("<Return>", self.realizar_busca)
-        self.search_input.bind("<FocusIn>", lambda event: self.search_input.delete(0, "end"))
-
-        # Botão de busca
-        self.search_button = ct.CTkButton(self.search_frame, width=20, text="🔎", font=("Calibri", 20), bg_color='transparent', fg_color='transparent', border_color='goldenrod', border_width=1, command=self.realizar_busca)
-        self.search_button.grid(row=1, column=2, sticky="w", padx=(5,10), pady=10)
-
-        # Opções de busca (Cliente ou Produto)
-        self.search_option = ct.CTkSegmentedButton(self.search_frame, values=["Cliente", "Produto"], command=self.search_options)
-        self.search_option.grid(row=2, column=0, columnspan=3, sticky="nsew", padx=10, pady=10)
-
-        # Critérios de busca para Cliente e Produto
-        self.search_cliente = ct.CTkSegmentedButton(self.search_frame, values=["Nome", "CPF"])
-        self.search_produto = ct.CTkSegmentedButton(self.search_frame, values=["Vestido", "Acessório"])    
 
         # Menu de opções    
         self.options_frame = ct.CTkFrame(menu_frame, height=40, bg_color="transparent", fg_color="transparent")
@@ -152,51 +127,6 @@ class App(ct.CTk):
             # window.title("Cadastrar Produto")
             # window.geometry(f"{X}x{Y}+{x}+{y}")
             CadastroProduto(main_frame)
-
-    def search_options(self, value):
-        """ Alterna entre os botões de critérios de busca dependendo da opção escolhida. """
-        
-        if value == "Cliente":  
-            self.search_cliente.grid(row=3, column=0, columnspan=3, sticky="nsew", padx=10, pady=10)
-            self.textValue = "Digite nome ou CPF"
-            self.search_input.delete(0, "end")
-            self.search_input.insert(0, self.textValue)
-            self.search_produto.grid_forget()  # Esconde as opções de Produto
-        elif value == "Produto":
-            self.search_cliente.grid_forget()  # Esconde as opções de Cliente
-            self.textValue = "Digite vestido ou acessoário"
-            self.search_input.delete(0, "end")
-            self.search_input.insert(0, self.textValue)
-            self.search_produto.grid(row=3, column=0, columnspan=3, sticky="nsew", padx=10, pady=10)
-        else:
-            self.search_cliente.grid_forget()
-            self.search_produto.grid_forget()
-    
-
-    def realizar_busca(self):
-        """ Lógica para realizar a busca baseada na opção selecionada. """
-        search_value = self.search_input.get()
-        search_type = self.search_option.get()
-
-        if search_type == "Cliente":
-            criterio = self.search_cliente.get()  # Pode ser "Nome" ou "CPF"
-            print(f"Buscando cliente por {criterio}: {search_value}")
-        elif search_type == "Produto":
-            criterio = self.search_produto.get()  # Pode ser "Vestido" ou "Acessório"
-            print(f"Buscando produto por {criterio}: {search_value}")
-        else:
-            print("Nenhuma opção de busca válida selecionada")
-            
-
-        self.bind("<Return>", lambda event: search_function())
-
-        def search_function():
-            print("Pesquisando...")
-
-            
-
-        
-
 
 
 if __name__ == "__main__":
