@@ -12,9 +12,12 @@ from screens.object_details import ObjectDetails
 from PIL import Image
 
 
+
 class App(ct.CTk):
     def __init__(self):
         super().__init__()
+
+        self.after(100, lambda: self.state("zoomed") if self.winfo_exists() else None)
         
         self.title("Loja-MF")   
 
@@ -27,11 +30,12 @@ class App(ct.CTk):
         
 
         # Iniciar centralizado
-        screen_width = self.winfo_screenwidth()
-        screen_height = self.winfo_screenheight()
-        x = int((screen_width / 2) - (1400 / 2))
-        y = int((screen_height / 2) - (780 / 2))
-        self.geometry(f"1400x780+{x}+{y}")
+        # screen_width = self.winfo_screenwidth()
+        # screen_height = self.winfo_screenheight()
+        # x = int((screen_width / 2) - (1400 / 2))
+        # y = int((screen_height / 2) - (780 / 2))
+        # self.geometry(f"1400x780+{x}+{y}")
+        
         
 
 
@@ -39,18 +43,19 @@ class App(ct.CTk):
 
         self.grid_rowconfigure(0, weight=0)
         self.grid_rowconfigure(1, weight=1)
+        self.grid_columnconfigure(0, weight=0)
         self.grid_columnconfigure(1, weight=1)
 
         
-        # Frame do menu
+        # Frame do Menu
         menu_frame = ct.CTkFrame(self, bg_color="transparent", fg_color="transparent", corner_radius=5)
-        menu_frame.grid(row=0, column=2, sticky="nswe", padx=5, pady=5)
-        # Frame do conteudo
+        menu_frame.grid(row=0, column=0, sticky="nswe", padx=5, pady=5)
+        # Frame do Conteudo
         main_frame = ct.CTkFrame(self, bg_color="transparent", fg_color="transparent", corner_radius=5)
-        main_frame.grid(row=0, column=1, rowspan=2 , sticky="nsew", padx=5, pady=5)
+        main_frame.grid(row=0, column=1, sticky="nsew", padx=5, pady=5)
         # Frame Detalhes
-        details_frame = ct.CTkFrame(self, bg_color="transparent", fg_color="transparent", corner_radius=5)
-        details_frame.grid(row=0, column=0, sticky="nsew", padx=5, pady=5)
+        details_frame = ct.CTkFrame(menu_frame, bg_color="transparent", fg_color="transparent", corner_radius=5)
+        details_frame.pack(side="bottom", fill="both", padx=10, pady=10)
 
               
 
@@ -71,7 +76,7 @@ class App(ct.CTk):
     ######### Frame Logo e Detalhes (details_frame) #########    
         
         # Logo
-        self.logo_frame = ct.CTkFrame(details_frame, bg_color="transparent", fg_color="transparent")
+        self.logo_frame = ct.CTkFrame(menu_frame, bg_color="transparent", fg_color="transparent")
         self.logo_frame.pack(side="top", pady=10, padx=10)
         
         self.logo = ct.CTkImage(Image.open("logo.png"), size=(150, 150))
