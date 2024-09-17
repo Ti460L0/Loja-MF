@@ -54,6 +54,7 @@ class ListaProdutos(ct.CTkFrame):
             self.data_type = "clientes"
 
         self.load_data()
+        
         self.fields_instance.set_labels(self.headers_list)
         
 
@@ -77,11 +78,11 @@ class ListaProdutos(ct.CTkFrame):
             cursor = conn.cursor()
 
             if self.data_type == "vestidos":
-                cursor.execute("SELECT codigo_vestido, modelo_vestido, tamanho_vestido, cor_vestido, status_vestido, valor_vestido FROM vestidos")
+                cursor.execute("SELECT vestido_id, modelo_vestido, tamanho_vestido, cor_vestido, status_vestido, valor_vestido FROM vestidos")
                 items = cursor.fetchall()
                 self.headers_list = ["Código", "Modelo/Tipo", "Tamanho", "Cor", "Status", "Valor"]
             elif self.data_type == "acessorios":
-                cursor.execute("SELECT tipo_acessorio, tamanho_acessorio, cor_acessorio, status_acessorio FROM acessorios")
+                cursor.execute("SELECT acessorio_id, tipo_acessorio, tamanho_acessorio, cor_acessorio, status_acessorio FROM acessorios")
                 items = cursor.fetchall()
                 self.headers_list = ['Código', 'Tipo', 'Tamanho', 'Cor', 'Status']
             elif self.data_type == "clientes":

@@ -41,49 +41,55 @@ class App(ct.CTk):
         
 
 
-        # Conf da grid
+        # CONFIGURAR GRID PRINCIPAL
 
-        self.grid_rowconfigure(0, weight=2)
-        self.grid_rowconfigure(1, weight=1)
+        self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=0)
         self.grid_columnconfigure(1, weight=1)
-        self.grid_columnconfigure(2, weight=0, minsize=250)
+        self.grid_columnconfigure(2, weight=0, minsize=200)
         
         # Frame do Menu
         menu_frame = ct.CTkFrame(self, bg_color="transparent", fg_color="transparent", corner_radius=5)
         menu_frame.grid(row=0, column=0, sticky="nswe", padx=5, pady=5)
         # Frame do Conteudo
         main_frame = ct.CTkFrame(self, bg_color="transparent", fg_color="transparent", corner_radius=5)
-        main_frame.grid(row=0, column=1, sticky="nsew", padx=5, pady=5)
-        
+        main_frame.grid(row=0, column=1, columnspan=2, sticky="nsew", padx=5, pady=5)
+        # Frame de Detalhes
         details_frame = ct.CTkFrame(self, bg_color="transparent", fg_color="transparent", corner_radius=5)
-        details_frame.grid(row=0, column=2, sticky="nsew", padx=5, pady=5)
-        # Frame de Lista
-        list_frame = ct.CTkFrame(self, bg_color="transparent", fg_color="transparent", corner_radius=5)
-        list_frame.grid(row=1, column=1, sticky="nsew", padx=5, pady=5)
         
 
               
 
+    ######## FRAME DE DETALHES ########
+
+       
+        object_details = ObjectDetails(details_frame)
+        object_details.pack(side="right", fill="both", expand=True)
+
+        detail_close_button = ct.CTkButton(main_frame, text="<", width=15, bg_color="transparent", fg_color="transparent", command=lambda: open_close_details())
+        detail_close_button.grid(row=0, column=1, rowspan=2, sticky="nsew", padx=1, pady=1)
+
+        def open_close_details():
+            if details_frame.grid_info():
+                details_frame.grid_forget()
+                detail_close_button.configure(text=">")
+            else:
+                details_frame.grid(row=0, column=3, sticky="nsew", padx=5, pady=5)
+                detail_close_button.configure(text="<")
 
     ######### Frame Principal (main_frame) #########
 
         main_frame.grid_rowconfigure(0, weight=1)
-        main_frame.grid_columnconfigure(0, weight=3)
-        main_frame.grid_columnconfigure(1, weight=2)
-        main_frame.grid_columnconfigure(2, weight=1)
+        main_frame.grid_rowconfigure(1, weight=0)
+        main_frame.grid_columnconfigure(0, weight=1)
 
         # Grid Superior
         agendar_frame = Agendar(main_frame)
-        agendar_frame.pack(side="top", fill="both", expand=True)
-        
-        # Grid Detalhes
-        object_details = ObjectDetails(details_frame)
-        object_details.pack(side="top", fill="both", expand=True)
-            
+        agendar_frame.grid(row=0, column=0, sticky="nsew", padx=5, pady=5)
+         
         # Grid Inferior
-        lista_produtos = ListaProdutos(list_frame, object_details)
-        lista_produtos.pack(side="top", fill="both", expand=True)
+        lista_produtos = ListaProdutos(main_frame, object_details)
+        lista_produtos.grid(row=1, column=0, sticky="nsew", padx=5, pady=5)
 
         
     ######### Frame Logo #########    
