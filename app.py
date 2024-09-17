@@ -49,8 +49,6 @@ class App(ct.CTk):
         self.grid_columnconfigure(1, weight=1)
         self.grid_columnconfigure(2, weight=0, minsize=300)
         
-
-        
         # Frame do Menu
         menu_frame = ct.CTkFrame(self, bg_color="transparent", fg_color="transparent", corner_radius=5)
         menu_frame.grid(row=0, column=0, sticky="nswe", padx=5, pady=5)
