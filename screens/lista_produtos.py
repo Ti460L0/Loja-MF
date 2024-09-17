@@ -4,13 +4,13 @@ from database.db_connection import connect_db
 from screens.object_details import ObjectDetails
 
 
-class ListaProdutos(ct.CTkFrame):
-    def __init__(self, master):
-        super().__init__(master)
-        
-        global headers_list
 
-        headers_list = ["Vestido", "Tamanho", "Cor", "Preço", "Quantidade"]
+
+class ListaProdutos(ct.CTkFrame):
+    def __init__(self, master, fields_instance):
+        super().__init__(master)
+
+        self.fields_instance = fields_instance
 
 
         self.master = master
@@ -39,40 +39,29 @@ class ListaProdutos(ct.CTkFrame):
         self.change_button.set("Vestidos")
         self.change_button.grid(row=0, column=1, padx=10, pady=10)
 
-
-
-
-        # Tabela de produtos (agrupado dentro de lista_frame)
-
-        # # Cabeçalhos da Tabela
-        # self.header_frame = ct.CTkFrame(self.main_frame, border_color="darkgoldenrod", border_width=1, corner_radius=0)
-        # self.header_frame.pack(side="top", fill="x")
-
-        
-       
-
-        self.data_type = "vestidos"  # Tipo padrão ao iniciar o programa
+        self.data_type = "vestidos"  # Tipo padr o ao iniciar o programa
         self.load_data()
 
         
 
-    def change_option(self, value):
+    def change_option(self, fields):
 
-        if value == "Vestidos":
+        if fields == "Vestidos":
             self.data_type = "vestidos"
-        elif value == "Acessórios":
+        elif fields == "Acessórios":
             self.data_type = "acessorios"
-        elif value == "Clientes":
+        elif fields == "Clientes":
             self.data_type = "clientes"
 
-        # Recarregar a lista com base no tipo selecionado
         self.load_data()
-
-    def on_item_click(self, item_data):
-        ObjectDetails.set_selected_product(item_data)    
+        
+        self.fields_instance.set_labels(self.headers_list)
+        
 
         
-        print(f"Produto {item_data[1]} selecionado.")  # Exibe o item selecionado no console
+
+    def on_item_click(self, item_data):
+        self.fields_instance.set_fields(item_data)
 
     def load_data(self):
 
@@ -89,11 +78,11 @@ class ListaProdutos(ct.CTkFrame):
             cursor = conn.cursor()
 
             if self.data_type == "vestidos":
-                cursor.execute("SELECT codigo_vestido, modelo_vestido, tamanho_vestido, cor_vestido, status_vestido, valor_vestido FROM vestidos")
+                cursor.execute("SELECT vestido_id, modelo_vestido, tamanho_vestido, cor_vestido, status_vestido, valor_vestido FROM vestidos")
                 items = cursor.fetchall()
                 self.headers_list = ["Código", "Modelo/Tipo", "Tamanho", "Cor", "Status", "Valor"]
             elif self.data_type == "acessorios":
-                cursor.execute("SELECT tipo_acessorio, tamanho_acessorio, cor_acessorio, status_acessorio FROM acessorios")
+                cursor.execute("SELECT acessorio_id, tipo_acessorio, tamanho_acessorio, cor_acessorio, status_acessorio FROM acessorios")
                 items = cursor.fetchall()
                 self.headers_list = ['Código', 'Tipo', 'Tamanho', 'Cor', 'Status']
             elif self.data_type == "clientes":

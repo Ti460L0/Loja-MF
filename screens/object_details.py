@@ -3,12 +3,11 @@ import customtkinter as ct
 
 # Variável global para armazenar o produto selecionado e a instância de detalhes
 selected_product = None
-details_instance = None  # Variável para armazenar a instância que exibe os detalhes
+details_instance = None
 
 class ObjectDetails(ct.CTkFrame):  # Ou InfoProduto se for o nome da classe
     def __init__(self, master):
         super().__init__(master)
-    
 
 
         #### FORMULÁRIO DE DETALHES ####
@@ -25,54 +24,51 @@ class ObjectDetails(ct.CTkFrame):  # Ou InfoProduto se for o nome da classe
         self.title_label.pack(side="left", padx=10, pady=5)
 
         # Frame para detalhes do produto
-        self.details_frame = ct.CTkFrame(self.main_frame, width=400, bg_color="transparent", fg_color="transparent")
+        self.details_frame = ct.CTkFrame(self.main_frame, width=250, bg_color="transparent", fg_color="transparent")
         self.details_frame.pack(side="top", fill="both", padx=10, pady=10)
 
-        # Labels para cada campo, que serão preenchidos com os dados do produto selecionado
-        self.labels = {}
-        fields = ["Código", "Modelo/Tipo", "Tamanho", "Cor", "Status", "Valor"]
-
-        for idx, field in enumerate(fields):
-            label_field = ct.CTkLabel(self.details_frame, text=f"{field}:", font=("Calibri", 14), anchor="w")
-            label_field.pack(side="top", fill='x' , padx=10)
-
-            self.labels[field] = ct.CTkLabel(self.details_frame, text="", bg_color="dimgray", font=("Calibri", 18, "bold"), anchor="w")
-            self.labels[field].pack(side="top", fill='x' , padx=10, pady=1)
-
-        # Armazena a instância na variável global
         global details_instance
-        details_instance = self  # Define a instância que exibirá os detalhes
-
-
-    @classmethod
-    def set_selected_product(cls, product_data):
-        """
-        Função que recebe os dados do produto selecionado, armazena na variável global,
-        e chama a função para exibir os dados automaticamente.
+        details_instance = self  
         
-        :param product_data: Dados do produto selecionado (tupla contendo informações do produto).
-        """
-        global selected_product
-        selected_product = product_data
-        print(f"Produto selecionado: {selected_product}")
+        self.labels = {}
+        self.fields = []
         
-        # Chama automaticamente a função para exibir os detalhes do produto
-        if details_instance is not None:
-            details_instance.display_selected_product()
+    def set_labels(self, labels):
+        self.set_fields(None)
+        self.labels = labels
+        print(self.labels)
+        self.create_labels()
 
-    def display_selected_product(self):
-        """
-        Atualiza o formulário com os dados do produto selecionado.
-        """
-        # Limpa os campos antes de exibir os dados do produto
-        for label in self.labels.values():
-            label.configure(text="")
-            
-        global selected_product
-        if selected_product is not None:
-            fields = ["Código", "Modelo/Tipo", "Tamanho", "Cor", "Status", "Valor"]
-            for idx, field in enumerate(fields):
-                self.labels[field].configure(text=selected_product[idx] if idx < len(selected_product) else "")
+    def set_fields(self, data):
+        if data is None:
+            self.fields = ["Sem dados"] * len(self.labels)  # Garantir que haja um valor padrão para cada label
         else:
-            print("Nenhum produto foi selecionado.")
+            self.fields = data
+        self.create_labels()
+        print(self.fields)
+
+    def create_labels(self):
+        # Limpar widgets antigos
+        for widget in self.details_frame.winfo_children():
+            widget.destroy()
+        
+        # Adicionar novos labels e campos
+        for idx, label in enumerate(self.labels):
+            detail_label = ct.CTkLabel(self.details_frame, text=label, font=("Calibri", 12))
+            detail_label.pack(fill="x", anchor="w", padx=10, pady=5)
+            
+            detail_field_text = self.fields[idx] if idx < len(self.fields) else "Sem dados"
+            detail_field = ct.CTkLabel(self.details_frame, text=detail_field_text, fg_color="dimgray", font=("Calibri", 14))
+            detail_field.pack(fill="x", anchor="w", padx=10, pady=5)
+
+
+        
+
+        
+       
+
+
+    
+
+        
 
