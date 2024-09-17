@@ -36,7 +36,7 @@ class App(ct.CTk):
         x = int((screen_width / 2) - (1400 / 2))
         y = int((screen_height / 2) - (780 / 2))
         self.geometry(f"1400x780+{x}+{y}")
-        self.after(100, lambda: self.state("zoomed") if self.winfo_exists() else None)
+        # self.after(100, lambda: self.state("zoomed") if self.winfo_exists() else None)
         
         
 
@@ -47,7 +47,7 @@ class App(ct.CTk):
         self.grid_rowconfigure(1, weight=1)
         self.grid_columnconfigure(0, weight=0)
         self.grid_columnconfigure(1, weight=1)
-        self.grid_columnconfigure(2, weight=0, minsize=300)
+        self.grid_columnconfigure(2, weight=0, minsize=250)
         
         # Frame do Menu
         menu_frame = ct.CTkFrame(self, bg_color="transparent", fg_color="transparent", corner_radius=5)
@@ -55,6 +55,7 @@ class App(ct.CTk):
         # Frame do Conteudo
         main_frame = ct.CTkFrame(self, bg_color="transparent", fg_color="transparent", corner_radius=5)
         main_frame.grid(row=0, column=1, sticky="nsew", padx=5, pady=5)
+        
         details_frame = ct.CTkFrame(self, bg_color="transparent", fg_color="transparent", corner_radius=5)
         details_frame.grid(row=0, column=2, sticky="nsew", padx=5, pady=5)
         # Frame de Lista
@@ -73,13 +74,16 @@ class App(ct.CTk):
         main_frame.grid_columnconfigure(2, weight=1)
 
         # Grid Superior
-        Agendar(main_frame).pack(side="top", fill="both", expand=True)
+        agendar_frame = Agendar(main_frame)
+        agendar_frame.pack(side="top", fill="both", expand=True)
         
         # Grid Detalhes
-        ObjectDetails(details_frame).pack(side="top", fill="both", expand=True)
+        object_details = ObjectDetails(details_frame)
+        object_details.pack(side="top", fill="both", expand=True)
             
         # Grid Inferior
-        ListaProdutos(list_frame).pack(side="top", fill="both", expand=True)
+        lista_produtos = ListaProdutos(list_frame, object_details)
+        lista_produtos.pack(side="top", fill="both", expand=True)
 
         
     ######### Frame Logo #########    
