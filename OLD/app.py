@@ -72,10 +72,10 @@ class App(ct.CTk):
         def open_close_details():
             if details_frame.grid_info():
                 details_frame.grid_forget()
-                detail_close_button.configure(text=">")
+                detail_close_button.configure(text="<")
             else:
                 details_frame.grid(row=0, column=3, sticky="nsew", padx=5, pady=5)
-                detail_close_button.configure(text="<")
+                detail_close_button.configure(text=">")
 
     ######### Frame Principal (main_frame) #########
 
