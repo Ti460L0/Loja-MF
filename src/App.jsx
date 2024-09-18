@@ -3,26 +3,27 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Sidebar from './components/Sidebar';
-import FormularioCadastro from './components/MainContent';
 import './App.css';
   
 
 const App = () => {
   return (
     <Router>
-      <div className="w-dvw bg-red-600"> 
-        <Header />
-        <div className="content">
-          <Sidebar />
-          <main className="main-content">
-            <Routes>
-              <Route path="/registrar" element={<h2>Página de Registro</h2>} />
-              <Route path="/cadastrar" element={<FormularioCadastro />} />
-              <Route path="/agenda" element={<h2>Página de Agenda</h2>} />
-            </Routes>
-          </main>
+      <div className="min-h-screen flex items-center justify-center bg-dark">
+        <div className="w-dvw h-dvh bg-dark">
+          <Header />
+          <div className="flex">
+            <Sidebar />
+            <main className="w-dvw h-full flex flex-col items-start bg-dark">
+              <Routes>
+                <Route path="/registrar" element={<h2 className="text-3xl font-bold text-[#F7DC6F]">Pgina de Registro</h2>} />
+                <Route path='/cadastrar' element={<h2 className="text-3xl font-bold text-[#F7DC6F]">Pgina de Cadastramento</h2>} />
+                <Route path="/agenda" element={<h2 className="text-3xl font-bold text-[#F7DC6F]">Pgina de Agenda</h2>} />
+              </Routes>
+            </main>
+          </div>
+          <Footer />
         </div>
-        <Footer />
       </div>
     </Router>
   );
