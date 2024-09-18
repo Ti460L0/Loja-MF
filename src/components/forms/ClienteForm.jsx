@@ -17,6 +17,7 @@ const CadastroForm = () => {
       </label>
       <button type="submit">Cadastrar</button>
     </form>
+    
   )
 }
 
