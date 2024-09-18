@@ -9,9 +9,7 @@ class ObjectDetails(ct.CTkFrame):  # Ou InfoProduto se for o nome da classe
     def __init__(self, master):
         super().__init__(master)
 
-
         #### FORMULÁRIO DE DETALHES ####
-
 
         # Cria uma janela de formulário para exibir os dados do produto selecionado
         self.main_frame = ct.CTkFrame(self, bg_color="transparent", fg_color="transparent", corner_radius=5)
