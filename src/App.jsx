@@ -10,7 +10,7 @@ import './App.css';
 const App = () => {
   return (
     <Router>
-      <div className="app-container"> 
+      <div className="w-dvw bg-red-600"> 
         <Header />
         <div className="content">
           <Sidebar />
