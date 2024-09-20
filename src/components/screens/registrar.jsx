@@ -1,34 +1,27 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
+import CadastroForm from "../forms/ClienteForm";
+import VestidosForm from "../forms/VestidosForm";
+import AcessorioForm from "../forms/AcessorioForm";
 
 const Registrar = () => {
   return (
-    <div>
-      <h1>Registrar</h1>
-      <p>
-        <Link to="/login">Já tem uma conta? Clique aqui para logar.</Link>
-      </p>
-      <form>
-        <label>
-          Nome:
-          <input type="text" name="nome" />
-        </label>
-        <label>
-          Email:
-          <input type="email" name="email" />
-        </label>
-        <label>
-          Senha:
-          <input type="password" name="senha" />
-        </label>
-        <label>
-          Confirmar Senha:
-          <input type="password" name="confirmacao" />
-        </label>
-        <button type="submit">Registrar</button>
-      </form>
+    <div className="flex flex-col max-w-7xl w-full mx-auto p-4 gap-4">
+      <div className="bg-slate-800 p-4 w-full">
+        <h2 className="text-xl font-bold text-center mb-4">Dados cliente</h2>
+        <CadastroForm />
+      </div>
+      <div className="grid grid-cols-2 bg-slate-800	 max-w-7xl w-full mx-auto p-4 gap-4">
+        <div className="bg-slate-800 p-4 w-full">
+          <h2 className="text-xl font-bold text-center mb-4">Dados Produto</h2>
+          <VestidosForm />
+        </div>
+        <div className="bg-slate-800 p-4 w-full">
+          <h2 className="text-xl font-bold text-center mb-4">Dados Produto</h2>
+          <AcessorioForm />
+        </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Registrar
+export default Registrar;

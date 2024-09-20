@@ -1,6 +1,8 @@
-const { Pool } = require('pg');
+import { Pool } from 'pg';
 
-// Configurações do banco de dados PostgreSQL
+
+
+// Configura es do banco de dados PostgreSQL
 const pool = new Pool({
   user: 'postgres',
   host: 'postgreslojamf.cjoou8goivt4.us-east-2.rds.amazonaws.com',
@@ -10,7 +12,7 @@ const pool = new Pool({
 });
 
 exports.handler = async (event) => {
-  // Verifica o tipo de requisição HTTP (GET, POST, DELETE, etc.)
+  // Verifica o tipo de requisi o HTTP (GET, POST, DELETE, etc.)
   const httpMethod = event.httpMethod;
 
   let response;
@@ -28,7 +30,7 @@ exports.handler = async (event) => {
       default:
         response = {
           statusCode: 405,
-          body: JSON.stringify({ message: 'Método não permitido' }),
+          body: JSON.stringify({ message: 'M todo no permitido' }),
         };
         break;
     }
@@ -46,13 +48,13 @@ exports.handler = async (event) => {
   };
 };
 
-// Função para lidar com requisições GET
+// Fun o para lidar com requisi es GET
 const handleGetRequest = async () => {
   const result = await pool.query('SELECT * FROM', algo); // Exemplo de consulta para obter dados de vestidos
   return result.rows;
 };
 
-// Função para lidar com requisições POST
+// Fun o para lidar com requisi es POST
 const handlePostRequest = async (body) => {
   const { modelo_vestido, tamanho_vestido, cor_vestido } = JSON.parse(body);
   const result = await pool.query(
@@ -62,8 +64,9 @@ const handlePostRequest = async (body) => {
   return result.rows[0];
 };
 
-// Função para lidar com requisições DELETE
+// Fun o para lidar com requisi es DELETE
 const handleDeleteRequest = async (id) => {
   await pool.query('DELETE FROM vestidos WHERE id = $1', [id]);
   return { message: 'Registro deletado com sucesso' };
 };
+

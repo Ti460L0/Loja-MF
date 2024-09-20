@@ -1,9 +1,14 @@
-import React from 'react';
+import React from "react";
 
-const Header = () => {
+const Header = (props) => {
   return (
-    <header className='bg-red-400'>
-      <h1>Loja-MF</h1>
+    <header {...props}>
+      <div className="flex flex-row justify-between">
+        <img className="w-20 h-20 drop-shadow-sm" src="./logo.png" alt="Logo Milla Fashion" />
+        <h2 className="text-3xl text-indigo-950 font-sans font-bold">
+          Sistema de vendas Milla Fashion{" "}
+        </h2>
+      </div>
     </header>
   );
 };

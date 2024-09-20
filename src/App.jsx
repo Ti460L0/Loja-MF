@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Sidebar from "./components/Sidebar";
+import ButtonMenu from "./components/ButtonMenu";
 import "./App.css";
 
 import Registrar from "./components/screens/registrar";
@@ -10,26 +10,21 @@ import Cadastro from "./components/screens/cadastro";
 import Agenda from "./components/screens/agenda";
 
 const App = () => {
-
   return (
     <Router>
-      <div className="min-h-screen flex items-center justify-center bg-dark">
-        <div className="w-dvw h-dvh bg-dark">
-          <Header />
-          <div className="w-dvw">
-            <Sidebar />
-          </div>
-          <div className="flex">
-            <main className="flex w-full h-dvh flex-col items-start bg-red-900">
-              <Routes>
-                <Route path="/Registrar" element={<Registrar />} />
-                <Route path="/Cadastro" element={<Cadastro />} />
-                <Route path="/Agenda" element={<Agenda />} />
-              </Routes>
-            </main>
-          </div>
-          <Footer />
+      <div className="flex flex-col w-full max-w-6xl min- m-0 items-center justify-center">
+        <Header className="sticky top-0 w-full text-left p-4 bg-stone-800"/>
+        <ButtonMenu />
+        <div className="flex">
+          <main className="w-full h-full bg-slate-600">
+            <Routes>
+              <Route path="/" element={<Registrar />} />
+              <Route path="/Cadastro" element={<Cadastro />} />
+              <Route path="/Agenda" element={<Agenda />} />
+            </Routes>
+          </main>
         </div>
+        <Footer />
       </div>
     </Router>
   );
