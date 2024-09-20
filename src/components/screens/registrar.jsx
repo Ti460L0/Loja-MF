@@ -1,7 +1,17 @@
 import React from "react";
-import CadastroForm from "../forms/ClienteForm";
-import VestidosForm from "../forms/VestidosForm";
-import AcessorioForm from "../forms/AcessorioForm";
+import CadastroForm from "./forms/ClienteForm";
+import VestidosForm from "./forms/VestidosForm";
+import AcessorioForm from "./forms/AcessorioForm";
+
+
+const handleSubmit = () => {
+  fetch("https://localhost:5000/api", {
+    method: "GET",
+  })
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+}
 
 const Registrar = () => {
   return (
@@ -20,6 +30,7 @@ const Registrar = () => {
           <AcessorioForm />
         </div>
       </div>
+      <button className="bg-slate-800 p-4 w-full" onClick={() => {handleSubmit()}}>Registrar</button>
     </div>
   );
 };

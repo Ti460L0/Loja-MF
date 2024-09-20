@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import ClienteForm from "../forms/ClienteForm";
-import VestidoForm from "../forms/VestidosForm";
+import ClienteForm from "./forms/ClienteForm";
+import VestidoForm from "./forms/VestidosForm";
 
 const Cadastro = () => {
   const { valor } = useParams(); // Aqui está o useParams para capturar o parâmetro 'valor'
