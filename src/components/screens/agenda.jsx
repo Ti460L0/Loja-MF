@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom'
 const Agenda = () => {
   return (
     <div>
-      <h1>Agenda</h1>
+      <h1>Agendar Locação</h1>
       <p>
-        <Link to="/registrar">Voltar</Link>
+        <button><Link to="/registrar">Voltar</Link></button>
       </p>
     </div>
   )
