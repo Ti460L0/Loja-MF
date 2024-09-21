@@ -1,79 +1,52 @@
 import express from "express";
-import bodyParser from "body-parser";
 import pg from "pg";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 const port = 3000;
 
+// Middleware para processar o JSON no corpo das requisi es
+app.use(express.json());
+
 const db = new pg.Client({
-  user: "postgres",
-  host: "localhost",
-  database: "postgres",
-  password: "8dt7CCwe",
-  port: 5432,
+  user: process.env.PG_USER,
+  host: process.env.PG_HOST,
+  database: process.env.PG_DB,
+  password: process.env.PG_PASSWORD,
+  port: process.env.PG_PORT,
 });
 
+// Endpoint para buscar todos os clientes
+app.get("/", async (req, res) => {
+  try {
+    const result = await db.query("SELECT * FROM clientes");
+    res.json(result.rows); // Enviar resposta como JSON
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Erro ao buscar clientes" });
+  }
+});
+
+// Endpoint para adicionar um novo cliente
+app.post("/clientes", async (req, res) => {
+  const { nome, cpf, email } = req.body;
+  try {
+    const result = await db.query(
+      "INSERT INTO clientes (nome, cpf, email) VALUES ($1, $2, $3)",
+      [nome, cpf, email]
+    );
+    res.status(201).json(result.rows[0]); // Enviar resposta com o cliente criado
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Erro ao adicionar cliente" });
+  }
+});
+
+// Conectar ao banco de dados
 db.connect();
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static("public"));
-
-app.get("/", (req, res) => {
-  res.render("home.ejs");
-});
-
-app.get("/login", (req, res) => {
-  res.render("login.ejs");
-});
-
-app.get("/register", (req, res) => {
-  res.render("register.ejs");
-});
-
-
-app.post("/register", async (req, res) => {
-  const email = req.body.username;
-  const password = req.body.password;
-
-  try {
-    const checkResult = await db.query("SELECT * FROM users WHERE email = $1", [
-      email,
-    ]);
-
-    if (checkResult.rows.length > 0) {
-      res.send("Email already exists. Try logging in.");
-    } else {
-      const result = await db.query(
-        "INSERT INTO users (email, password) VALUES ($1, $2)",
-        [email, password]
-      );
-      console.log(result);
-      res.render("secrets.ejs");
-    }
-  } catch (err) {
-    console.log(err);
-  }
-});
-
-app.post("/login", async (req, res) => {
-  const username = req.body.username;
-  const password = req.body.password;
-
-  try {
-    const result = await db.query("SELECT * FROM users WHERE email = $1", [
-      username,
-    ]);
-
-    if (result.rows.length > 0 && result.rows[0].password === password) {
-      res.render("secrets.ejs");
-    } else {
-      res.send("<script>alert('Incorrect Username or Password');setTimeout(() => { location.href='/login'; }, 100);</script>");
-    }
-  } catch (err) {
-    console.log(err);
-  }
-});
-
 app.listen(port, () => {
-  console.log(`Server running on port http://localhost:${port}`);
+  console.log(`Servidor rodando na porta http://localhost:${port}`);
 });
