@@ -17,14 +17,14 @@ const Registrar = () => {
   // };
 
   return (
+
     <div className="flex flex-col max-w-full w-full mx-auto p-4 gap-4">
      <MainForm/>
       <button
         className="bg-slate-800 p-4 w-full"
         onClick={() => {
           handleSubmit();
-        }}
-      >
+        }}>
         Registrar
       </button>
     </div>

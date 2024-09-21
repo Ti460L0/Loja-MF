@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import ButtonMenu from "./components/ButtonMenu";
 import "./App.css";
 import Cadastrar from "./components/screens/Cadastar";
 import Consultar from "./components/screens/Consultar";
@@ -12,10 +11,9 @@ import Registrar from "./components/screens/registrar";
 const App = () => {
   return (
     <Router>
-      <div className="flex flex-col w-screen max-w-7xl min- m-0 items-center justify-center">
-        <Header className="sticky top-0 w-full text-left p-4 bg-stone-800"/>
-        <ButtonMenu />
-        <div className="block w-full">
+      <div className="flex flex-col top-0 bg-green-600 w-dvw min-h-screen items-center justify-between">
+        <Header  />
+        <div className="">
           <main className=" h-full bg-slate-600">
             <Routes>
               <Route path="/" element={<Registrar />} />
@@ -25,11 +23,10 @@ const App = () => {
             </Routes>
           </main>
         </div>
-        <Footer />
+        <Footer className="sticky bottom-0 w-full text-left p-4 bg-stone-800" />
       </div>
     </Router>
   );
 };
 
 export default App;
-

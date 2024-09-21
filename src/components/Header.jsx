@@ -1,15 +1,21 @@
 import React from "react";
+import ButtonMenu from "./ButtonMenu";
 
-const Header = (props) => {
+const Header = () => {
   return (
-    <header {...props}>
-      <div className="flex flex-row justify-between">
-        <img className="w-20 h-20 drop-shadow-sm" src="./logo.png" alt="Logo Milla Fashion" />
-        <h2 className="text-3xl text-indigo-950 font-sans font-bold">
+    <div className="sticky top-0 w-dvw text-center bg-yellow-600">
+    <header className="flex max-w-7xl mx-auto items-center p-2 justify-center">
+        <img
+          className="w-20 h-30 drop-shadow-sm"
+          src="src\img\logo.png"
+          alt="Logo Milla Fashion"
+        />
+        <h2 className="text-left  ml-6 text-2xl font-sans font-bold">
           Sistema de vendas Milla Fashion{" "}
         </h2>
-      </div>
-    </header>
+        <ButtonMenu className="sticky top-12 w-full text-left content-center" />
+      </header>
+    </div>
   );
 };
 

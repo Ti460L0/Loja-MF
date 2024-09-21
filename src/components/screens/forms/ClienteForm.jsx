@@ -1,9 +1,26 @@
 import React from "react";
+import { useEffect } from "react";
 
-const ClienteForm = (props) => {
+const ClienteForm = ({onSubmit}) => {
+ 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = {
+      nome: formData.get("nome"),
+      cpf: formData.get("cpf"),
+      dataNascimento: formData.get("dataNascimento"),
+      email: formData.get("email"),
+      telefone: formData.get("telefone"),
+      cep: formData.get("cep"),
+      logradouro: formData.get("endereco"),
+      bairro: formData.get("bairro"),
+    };
+    onSubmit(data);
+  };
+
   return (
-    <form {...props.className}>
-      
+    <form onSubmit={handleSubmit}>
       {/* Nome e CPF */}
       <div className="flex flex-row justify-between mb-4 gap-4">
         <div className="flex flex-col grow">
