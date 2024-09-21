@@ -6,7 +6,7 @@ import ButtonMenu from "./components/ButtonMenu";
 import "./App.css";
 
 import Registrar from "./components/screens/registrar";
-import Cadastro from "./components/screens/cadastro";
+import Consultar from "./components/screens/consultar";
 import Agenda from "./components/screens/agenda";
 
 const App = () => {
@@ -18,8 +18,8 @@ const App = () => {
         <div className="flex">
           <main className="w-full h-full bg-slate-600">
             <Routes>
-              <Route path="/" element={<Registrar />} />
-              <Route path="/Cadastro" element={<Cadastro />} />
+              <Route path="/Registrar" element={<Registrar />} />
+              <Route path="/Consultar" element={<Consultar />} />
               <Route path="/Agenda" element={<Agenda />} />
             </Routes>
           </main>
