@@ -1,8 +1,8 @@
 import React from 'react';
 
-const AcessorioForm = () => {
+const AcessorioForm = (props) => {
   return (
-    <form className="w-full text-nowrap bg-slate-600 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <form {...props.className} >
       
       {/* Tipo */}
       <div className="mb-4">

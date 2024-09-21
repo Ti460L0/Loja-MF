@@ -1,8 +1,8 @@
 import React from "react";
 
-const ClienteForm = () => {
+const ClienteForm = (props) => {
   return (
-    <form className="w-full text-nowrap bg-slate-600 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <form {...props.className}>
       
       {/* Nome e CPF */}
       <div className="flex flex-row justify-between mb-4 gap-4">
