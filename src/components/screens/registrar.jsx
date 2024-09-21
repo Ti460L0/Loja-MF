@@ -20,22 +20,22 @@ const Registrar = () => {
     } else if (screen === "acessorio") {
       return <AcessorioForm />;
     } else {
-      return <p>Selecione uma opção</p>;
+      return <p className="text-center">Selecione uma opção</p>;
     }
   };
 
   return (
     <>
-      <h1>Menu</h1>
+      <h1 className="text-2xl mb-4">Registrar: </h1>
       <ul>
-        <li>
-          <button onClick={() => changeScreen("cliente")}>Registrar cliente</button>
+        <li className="block mb-2">
+          <button onClick={() => changeScreen("cliente")}>Registrar cliente 🙋‍♀️</button>
         </li>
-        <li>
-          <button onClick={() => changeScreen("vestido")}>Registrar vestido</button>
+        <li className="block mb-2">
+          <button onClick={() => changeScreen("vestido")}>Registrar vestido 👗</button>
         </li>
-        <li>
-          <button onClick={() => changeScreen("acessorio")}>Registrar acessorio</button>
+        <li className="block mb-2">
+          <button onClick={() => changeScreen("acessorio")}>Registrar acessorio 👑</button>
         </li>
       </ul>
       <div>{renderForm()}</div>
