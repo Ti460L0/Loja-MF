@@ -2,17 +2,23 @@ import React from "react";
 
 const VestidosForm = () => {
   return (
-    <form className="w-full text-nowrap bg-slate-600 shadow-md rounded px-8 pt-6 pb-8 mb-4">
-      <div className="flex flex-col">
-        <label className="text-left">Código:</label>
+    <form className="w-full text-nowrap shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      
+      {/*Nome*/}
+      <div className= 'mb-4'>
+        <label className="block text-left mb-2">Código:</label>
         <input type="text" id="codigo" name="codigo" />
       </div>
-      <div className="flex flex-col">
-        <label className="text-left">Modelo:</label>
+
+      {/*Modelo*/}
+      <div className= 'mb-4'>
+        <label className="block text-left mb-2">Modelo:</label>
         <input type="text" id="modelo" name="modelo" />
       </div>
-      <div className="flex flex-col">
-        <label className="text-left">Tamanho:</label>
+
+      {/*Tamanho*/}
+      <div className= 'mb-4'>
+        <label className="block text-left mb-2">Tamanho:</label>
         <select id="tamanho" name="tamanho">
           <option value="">Selecione o tamanho</option>
           <option value="PP">PP</option>
@@ -22,18 +28,25 @@ const VestidosForm = () => {
           <option value="GG">GG</option>
         </select>
       </div>
-      <div className="flex flex-col">
-        <label className="text-left">Cor:</label>
+
+      {/*Cor*/}
+      <div className= 'mb-4'>
+        <label className="block text-left mb-2">Cor:</label>
         <input type="text" id="cor" name="cor" />
       </div>
-      <div className="flex flex-col">
-        <label className="text-left">Status:</label>
+
+      {/*Status*/}
+      <div className= 'mb-4'>
+        <label className="block text-left mb-2">Status:</label>
         <input type="text" id="status" name="status" />
       </div>
-      <div className="flex flex-col">
-        <label className="text-left">Valor:</label>
+
+      {/*Valor*/}
+      <div className= 'mb-4'>
+        <label className="block text-left mb-2">Valor:</label>
         <input type="text" id="valor" name="valor" />
       </div>
+
     </form>
   );
 };

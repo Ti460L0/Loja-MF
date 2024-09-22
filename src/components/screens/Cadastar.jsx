@@ -4,11 +4,11 @@ import ClienteForm from "./forms/ClienteForm";
 import VestidoForm from "./forms/VestidosForm";
 
 const Cadastro = () => {
-  const { valor } = useParams(); // Aqui está o useParams para capturar o parâmetro 'valor'
-  const [screen, setScreen] = useState(valor); // Estado para controlar a tela
+  const { valor } = useParams();
+  const [screen, setScreen] = useState(valor);
 
   const changeScreen = (screen) => {
-    setScreen(screen); // Atualiza o estado com a tela selecionada
+    setScreen(screen);
   };
 
   const renderForm = () => {
@@ -17,8 +17,24 @@ const Cadastro = () => {
     } else if (screen === "vestido") {
       return <VestidoForm />;
     } else {
-      return <p>Selecione uma opção</p>;
+      return <p>Selecione uma op o</p>;
     }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = {
+      nome: formData.get("nome"),
+      cpf: formData.get("cpf"),
+      dataNascimento: formData.get("dataNascimento"),
+      email: formData.get("email"),
+      telefone: formData.get("telefone"),
+      cep: formData.get("cep"),
+      logradouro: formData.get("endereco"),
+      bairro: formData.get("bairro"),
+    };
+    console.log(screen, data);
   };
 
   return (
@@ -37,6 +53,13 @@ const Cadastro = () => {
         </li>
       </ul>
       <div>{renderForm()}</div>
+
+      <form onSubmit={handleSubmit}>
+        <button className="bg-slate-800 p-4 w-full" type="submit">
+          Enviar
+        </button>
+      </form>
+
     </>
   );
 };
