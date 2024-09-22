@@ -1,45 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-const ClienteForm = () => {
-  const [formData, setFormData] = useState({
-    nome: "",
-    cpf: "",
-    email: "",
-    telefone: "",
-    endereco: "",
-    cep: "",
-    bairro: ""
-  });
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    try {
-      const response = await fetch("http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/clientes", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        throw new Error("Erro na requisição");
-      }
-
-      const data = await response.json();
-      console.log("Sucesso:", data);
-    } catch (error) {
-      console.error("Erro:", error);
-    }
-  };
+const ClienteForm = ({ formData, handleChange, handleSubmit }) => {
 
   return (
     <form className="w-full text-nowrap bg-slate-600 shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
@@ -132,10 +93,6 @@ const ClienteForm = () => {
           </div>
         </div>
       </div>
-
-      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-        Enviar
-      </button>
     </form>
   );
 };

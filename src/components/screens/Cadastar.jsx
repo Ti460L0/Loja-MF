@@ -4,38 +4,67 @@ import ClienteForm from "./forms/ClienteForm";
 import VestidoForm from "./forms/VestidosForm";
 
 const Cadastro = () => {
-  const { valor } = useParams();
-  const [screen, setScreen] = useState(valor);
+  
+  
+  // Tratando dados do fomulário CLIENTE
 
+  const [clienteData, setClienteData] = useState({
+    nome: "",
+    cpf: "",
+    email: "",
+    telefone: "",
+    endereco: "",
+    cep: "",
+    bairro: ""
+  });
+
+  const handleClienteChange = (e) => {
+    setClienteData({
+      ...clienteData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleClienteSubmit = async (e) => {
+    e.preventDefault();
+    
+    try {
+      const response = await fetch("http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/clientes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(clienteData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro na requisição");
+      }
+
+      const data = await response.json();
+      console.log("Sucesso:", data);
+    } catch (error) {
+      console.error("Erro:", error);
+    }
+  };
+
+// Renderizando os formulários conforme escolha.
+
+  const [screen, setScreen] = useState("cliente");
   const changeScreen = (screen) => {
     setScreen(screen);
   };
 
   const renderForm = () => {
     if (screen === "cliente") {
-      return <ClienteForm />;
+      return <ClienteForm handleChange={handleClienteChange} formData={clienteData}/>;
     } else if (screen === "vestido") {
       return <VestidoForm />;
     } else {
-      return <p>Selecione uma op o</p>;
+      return <p>Selecione uma opção</p>;
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const data = {
-      nome: formData.get("nome"),
-      cpf: formData.get("cpf"),
-      dataNascimento: formData.get("dataNascimento"),
-      email: formData.get("email"),
-      telefone: formData.get("telefone"),
-      cep: formData.get("cep"),
-      logradouro: formData.get("endereco"),
-      bairro: formData.get("bairro"),
-    };
-    console.log(screen, data);
-  };
 
   return (
     <>
@@ -54,7 +83,7 @@ const Cadastro = () => {
       </ul>
       <div>{renderForm()}</div>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleClienteSubmit}>
         <button className="bg-slate-800 p-4 w-full" type="submit">
           Enviar
         </button>
