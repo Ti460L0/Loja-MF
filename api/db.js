@@ -1,19 +1,25 @@
-import pkg from 'pg';
-import dotenv from 'dotenv';
+import pg from "pg";
+import dotenv from "dotenv";
+
+// Carregar as variáveis de ambiente
 dotenv.config();
 
-const { Client } = pkg;
-
-const db_connect = new Client({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT
+// Configuração do pool de conexões com as variáveis do .env
+const db = new pg.Pool({
+  user: process.env.PG_USER,
+  host: process.env.PG_HOST,
+  database: process.env.PG_DB,
+  password: process.env.PG_PASSWORD,
+  port: process.env.PG_PORT,
 });
 
-db_connect.connect()
-  .then(() => console.log('Conectado ao banco de dados na EC2!'))
-  .catch(err => console.error('Erro ao conectar no banco de dados:', err));
+// Testando a conexão com o banco
+db.connect((err) => {
+  if (err) {
+    console.error("Erro ao conectar ao banco de dados:", err);
+  } else {
+    console.log("Conexão ao banco de dados bem-sucedida!");
+  }
+});
 
-export default db_connect;
+export default db;
