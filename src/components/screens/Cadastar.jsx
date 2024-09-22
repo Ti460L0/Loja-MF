@@ -73,7 +73,7 @@ const Cadastro = () => {
 
   return (
     <div className="w-full text-nowrap bg-slate-600 shadow-md rounded px-8 pt-6 pb-8 mb-4">
-      <h1>Menu</h1>
+      <h1 className="text-2xl text-center">Menu</h1>
       <p style={{display: screen ? "none" : "block" }}>Escolha uma opção</p>
       <ul>
         <li>
