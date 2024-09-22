@@ -1,6 +1,6 @@
 import React from "react";
 
-const VestidosForm = ({ FormData, handleChange, handleSubmit }) => {
+const VestidosForm = ({ formData, handleChange, handleSubmit }) => {
 
   return (
     <form className="w-full text-nowrap bg-slate-600 shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
@@ -14,7 +14,7 @@ const VestidosForm = ({ FormData, handleChange, handleSubmit }) => {
           type="text"
           id="codigo"
           name="codigo"
-          value={FormData.codigo}
+          value={formData.codigo}
           onChange={handleChange} 
           />
         </div>
@@ -26,7 +26,7 @@ const VestidosForm = ({ FormData, handleChange, handleSubmit }) => {
            type="text"
            id="modelo"
            name="modelo"
-           value={FormData.modelo}
+           value={formData.modelo}
            onChange={handleChange}
           />
         </div>
@@ -40,7 +40,7 @@ const VestidosForm = ({ FormData, handleChange, handleSubmit }) => {
           className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-200 leading-tight focus:outline-none focus:shadow-outline" 
           id="tamanho"
           name="tamanho"
-          value={FormData.tamanho}
+          value={formData.tamanho}
           onChange={handleChange}>
             <option value="">Selecione o tamanho</option>
             <option value="PP">PP</option>
@@ -58,7 +58,7 @@ const VestidosForm = ({ FormData, handleChange, handleSubmit }) => {
           type="text"
           id="cor"
           name="cor"
-          value={FormData.cor}
+          value={formData.cor}
           onChange={handleChange}
           />
         </div>
@@ -72,7 +72,7 @@ const VestidosForm = ({ FormData, handleChange, handleSubmit }) => {
           className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-200 leading-tight focus:outline-none focus:shadow-outline" 
           id="status"
           name="status"
-          value={FormData.status}
+          value={formData.status}
           onChange={handleChange}>
             <option value="">Selecione o status</option>
             <option value="PP">Disponível</option>
@@ -89,7 +89,7 @@ const VestidosForm = ({ FormData, handleChange, handleSubmit }) => {
           type="text"
           id="valor"
           name="valor"
-          value={FormData.valor}
+          value={formData.valor}
           onChange={handleChange}
           />
         </div>

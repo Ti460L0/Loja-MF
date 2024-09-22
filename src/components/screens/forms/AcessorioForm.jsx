@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AcessorioForm = ({ FormData, handleChange, handleSubmit }) => {
+const AcessorioForm = ({ formData, handleChange, handleSubmit }) => {
   
   return (
     <form className="w-full text-nowrap bg-slate-600 shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
@@ -14,7 +14,7 @@ const AcessorioForm = ({ FormData, handleChange, handleSubmit }) => {
             type="text"
             id="tipo"
             name="tipo"
-            value={FormData.tipo}
+            value={formData.tipo}
             onChange={handleChange}
             />
         </div>
@@ -26,7 +26,7 @@ const AcessorioForm = ({ FormData, handleChange, handleSubmit }) => {
             type="text"
             id="tamanho"
             name="tamanho"
-            value={FormData.tamanho}
+            value={formData.tamanho}
             onChange={handleChange}
             />
         </div>
@@ -41,7 +41,7 @@ const AcessorioForm = ({ FormData, handleChange, handleSubmit }) => {
             type="text"
             id="cor"
             name="cor"
-            value={FormData.cor}
+            value={formData.cor}
             onChange={handleChange}
             />
         </div>
@@ -52,12 +52,12 @@ const AcessorioForm = ({ FormData, handleChange, handleSubmit }) => {
           className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-200 leading-tight focus:outline-none focus:shadow-outline" 
           id="status" 
           name="status"
-          value={FormData.status}
+          value={formData.status}
           onChange={handleChange}>
             <option value="">Selecione o status</option>
-            <option value="PP">Disponível</option>
-            <option value="P">Alugado</option>
-            <option value="M">Em manutenção</option>
+            <option value="Disponível">Disponível</option>
+            <option value="Alugado">Alugado</option>
+            <option value="Em manutenção">Em manutenção</option>
           </select>
         </div>
       </div>
