@@ -94,19 +94,23 @@ const Registrar = () => {
 
   return (
     <div className="w-full text-nowrap bg-slate-600 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <h2>Insira os dados do cliente: </h2>
       <ClienteForm
         formData={formData.cliente}
         handleOnChange={(e) => handleOnChange(e, "cliente")}
       />
-      <AcessorioForm
-        formData={formData.acessorio}
-        handleOnChange={(e) => handleOnChange(e, "acessorio")}
-      />
+      <h2>Insira os dados do vestido: </h2>
       <VestidoForm
         formData={formData.vestido}
         modoCadastro={modoCadastro}
         handleOnChange={(e) => handleOnChange(e, "vestido")}
       />
+      <h2>Insira os dados do acessório: </h2>
+      <AcessorioForm
+        formData={formData.acessorio}
+        handleOnChange={(e) => handleOnChange(e, "acessorio")}
+      />
+    
       <button
         className="bg-slate-800 p-4 w-full"
         type="submit"
