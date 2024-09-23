@@ -11,7 +11,7 @@ import Registrar from "./components/screens/registrar";
 const App = () => {
   return (
     <Router>
-  <div className="flex flex-col bg-green-600 w-full min-h-screen items-center justify-between overflow-x-hidden">
+  <div className="flex flex-col w-full min-h-screen items-center justify-between overflow-x-hidden">
     <Header />
     <div className="flex-grow w-full mx-auto max-w-[100vw]">
       <main className="w-full h-full bg-slate-600">

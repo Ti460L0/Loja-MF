@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 
-const VestidosForm = ({ handleChange, formData, handleSubmit }) => {
+const VestidosForm = ({ handleChange, formData, handleSubmit, modoCadastro }) => {
   const [codigo, setCodigo] = useState("");
 
   // Função para gerar um código aleatório
   const gerarCodigo = () => {
-    return "VST-" + Math.floor(1000 + Math.random() * 9000); // Exemplo: VST-1234
+    return Math.floor(1000 + Math.random() * 9000); // Exemplo: VST-1234
   };
 
   // Função para verificar se o código já existe no banco de dados
@@ -19,6 +19,7 @@ const VestidosForm = ({ handleChange, formData, handleSubmit }) => {
         gerarCodigoAutomaticamente();
       } else {
         setCodigo(codigoGerado); // Se não existir, usamos este código
+        handleChange({ target: { name: "codigo", value: codigoGerado } }); // Atualiza o estado do formulário
       }
     } catch (error) {
       console.error("Erro ao verificar código:", error);
@@ -33,8 +34,10 @@ const VestidosForm = ({ handleChange, formData, handleSubmit }) => {
 
   // useEffect para gerar o código automaticamente quando o formulário for carregado
   useEffect(() => {
-    gerarCodigoAutomaticamente();
-  }, []);
+    if (modoCadastro) {
+      gerarCodigoAutomaticamente();
+    }
+  }, [modoCadastro]);
 
   return (
     <form className="w-full text-nowrap shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
@@ -47,7 +50,6 @@ const VestidosForm = ({ handleChange, formData, handleSubmit }) => {
           name="codigo"
           value={codigo}
           onChange={handleChange}
-          readOnly
           className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
         />
       </div>
