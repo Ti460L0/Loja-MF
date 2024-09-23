@@ -3,7 +3,7 @@ import AcessorioForm from "./forms/AcessorioForm.jsx";
 import ClienteForm from "./forms/ClienteForm.jsx";
 import VestidoForm from "./forms/VestidosForm.jsx";
 
-const Registrar = () => {
+const MainPage = () => {
 
   const [modoCadastro, setModoCadastro] = React.useState(true);
 
@@ -122,5 +122,5 @@ const Registrar = () => {
   );
 };
 
-export default Registrar;
+export default MainPage;
 
