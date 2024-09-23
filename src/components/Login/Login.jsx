@@ -13,7 +13,13 @@ const Login = ({ handleLogin }) => {
     const hash = await bcrypt.hash(password, salt);
     setPassword(hash);
   };
-  
+
+  const firstAccess = localStorage.getItem("firstAccess") !== "false";
+
+  if (firstAccess) {
+    generatePassword();
+    localStorage.setItem("firstAccess", "false");
+  }
 
   return (
     <div className="w-72 bg-sky-950 border-4 border-yellow-600 rounded-lg shadow-lg p-8">
@@ -52,3 +58,4 @@ const Login = ({ handleLogin }) => {
 };
 
 export default Login;
+
