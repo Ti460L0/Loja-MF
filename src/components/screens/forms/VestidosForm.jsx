@@ -11,7 +11,7 @@ const VestidosForm = ({ handleChange, formData, handleSubmit, modoCadastro }) =>
   // Função para verificar se o código já existe no banco de dados
   const verificarCodigoNoDB = async (codigoGerado) => {
     try {
-      const response = await fetch(`http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/vestidos/codigo/${codigoGerado}`);
+      const response = await fetch(`http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/vestidos?codigo=${codigoGerado}`);
       const data = await response.json();
       
       // Se o código já existir, gerar outro
@@ -48,7 +48,7 @@ const VestidosForm = ({ handleChange, formData, handleSubmit, modoCadastro }) =>
           type="text"
           id="codigo"
           name="codigo"
-          value={codigo}
+          value={formData.codigo = codigo}
           onChange={handleChange}
           className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
         />
