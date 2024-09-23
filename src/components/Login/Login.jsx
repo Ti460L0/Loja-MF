@@ -1,36 +1,19 @@
 import { useState } from "react";
-import PasswordChange from "./PasswordChange";
+import bcrypt from "bcryptjs";
 
 const Login = ({ handleLogin }) => {
   const [password, setPassword] = useState("");
+  const [cpf, setCpf] = useState("");
+  const [dataNascimento, setDataNascimento] = useState("");
   const [error, setError] = useState("");
   const [showPasswordChange, setShowPasswordChange] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // Correct way to access environment variables in React
-    const correctPassword = 'admin'; 
-
-    if (password === correctPassword) {
-      setError(
-        <span style={{ color: "green" }}>
-          Login efetuado com sucesso! Carregando o sistema.
-        </span>
-      );
-      document.querySelector("input").disabled = true;
-      setTimeout(() => {
-        setError("");
-        handleLogin(true);
-      }, 3000);
-    } else {
-      setError("Credenciais inválidas. Tente novamente.");
-    }
+  const generatePassword = async () => {
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(password, salt);
+    setPassword(hash);
   };
-
-  const handleChangePassword = () => {
-    setShowPasswordChange(true);
-  };
+  
 
   return (
     <div className="w-72 bg-sky-950 border-4 border-yellow-600 rounded-lg shadow-lg p-8">
