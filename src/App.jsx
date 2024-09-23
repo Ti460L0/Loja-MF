@@ -11,21 +11,22 @@ import Registrar from "./components/screens/registrar";
 const App = () => {
   return (
     <Router>
-      <div className="flex flex-col top-0 bg-green-600 w-dvw min-h-screen items-center justify-between">
-        <Header  />
-        <div className="">
-          <main className=" h-full bg-slate-600">
-            <Routes>
-              <Route path="/" element={<Registrar />} />
-              <Route path="/Cadastrar" element={<Cadastrar />} />
-              <Route path="/Consultar" element={<Consultar />} />
-              <Route path="/Agenda" element={<Agenda />} />
-            </Routes>
-          </main>
-        </div>
-        <Footer className="sticky bottom-0 w-full text-left p-4 bg-stone-800" />
-      </div>
-    </Router>
+  <div className="flex flex-col bg-green-600 w-full min-h-screen items-center justify-between overflow-x-hidden">
+    <Header />
+    <div className="flex-grow w-full mx-auto max-w-[100vw]">
+      <main className="w-full h-full bg-slate-600">
+        <Routes>
+          <Route path="/" element={<Registrar />} />
+          <Route path="/Cadastrar" element={<Cadastrar />} />
+          <Route path="/Consultar" element={<Consultar />} />
+          <Route path="/Agenda" element={<Agenda />} />
+        </Routes>
+      </main>
+    </div>
+    <Footer className="w-full text-left p-4 bg-stone-800" />
+  </div>
+</Router>
+
   );
 };
 
