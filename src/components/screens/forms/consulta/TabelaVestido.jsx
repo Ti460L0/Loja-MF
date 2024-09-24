@@ -52,41 +52,43 @@ const VestidoTabela = () => {
 
   return (
     <>
-      <input
-        type="text"
-        value={codigoFiltro}
-        onChange={handleCodigoFiltroChange}
-        placeholder="Filtrar por código"
-        className="border rounded p-2 mb-4"
-      />
-      <table className="table-auto w-full border-collapse border border-gray-200">
-        <thead>
-          <tr>
-            <th className="border border-gray-300 px-4 py-2">Código</th>
-            <th className="border border-gray-300 px-4 py-2">Descrição</th>
-            <th className="border border-gray-300 px-4 py-2">Tamanho</th>
-            <th className="border border-gray-300 px-4 py-2">Cor</th>
-            <th className="border border-gray-300 px-4 py-2">Valor</th>
-          </tr>
-        </thead>
-        <tbody>
-          {vestidosFiltrados.length > 0 ? (
-            vestidosFiltrados.map(vestido => (
-              <tr key={vestido.codigo}>
-                <td className="border border-gray-300 px-4 py-2">{vestido.codigo}</td>
-                <td className="border border-gray-300 px-4 py-2">{vestido.descricao}</td>
-                <td className="border border-gray-300 px-4 py-2">{vestido.tamanho}</td>
-                <td className="border border-gray-300 px-4 py-2">{vestido.cor}</td>
-                <td className="border border-gray-300 px-4 py-2">{`R${vestido.valor}`}</td>
-              </tr>
-            ))
-          ) : (
+      <div className='justify-center'>
+        <input
+          type="text"
+          value={codigoFiltro}
+          onChange={handleCodigoFiltroChange}
+          placeholder="Filtrar por código"
+          className="flex border rounded p-2 mb-4"
+        />
+        <table className="table-auto w-full border-collapse border border-gray-200">
+          <thead>
             <tr>
-              <td colSpan="5" className="border border-gray-300 px-4 py-2 text-center">Nenhum vestido encontrado</td>
+              <th className="border border-gray-300 px-4 py-2">Código</th>
+              <th className="border border-gray-300 px-4 py-2">Descrição</th>
+              <th className="border border-gray-300 px-4 py-2">Tamanho</th>
+              <th className="border border-gray-300 px-4 py-2">Cor</th>
+              <th className="border border-gray-300 px-4 py-2">Valor</th>
             </tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {vestidosFiltrados.length > 0 ? (
+              vestidosFiltrados.map(vestido => (
+                <tr key={vestido.codigo}>
+                  <td className="border border-gray-300 px-4 py-2">{vestido.codigo}</td>
+                  <td className="border border-gray-300 px-4 py-2">{vestido.descricao}</td>
+                  <td className="border border-gray-300 px-4 py-2">{vestido.tamanho}</td>
+                  <td className="border border-gray-300 px-4 py-2">{vestido.cor}</td>
+                  <td className="border border-gray-300 px-4 py-2">{`R${vestido.valor}`}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="5" className="border border-gray-300 px-4 py-2 text-center">Nenhum vestido encontrado</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </>
   );
 };
