@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import ClienteForm from "./forms/ClienteForm";
-import VestidosForm from "./forms/VestidosForm";
-import AcessorioForm from "./forms/AcessorioForm";
+import ClienteForm from "../screens/forms/cadastro/ClienteForm";
+import VestidosForm from "../screens/forms/cadastro/VestidosForm";
+import AcessorioForm from "../screens/forms/cadastro/AcessorioForm"
 
 const Consultar = () => {
   // Propriedades do formulário cliente
