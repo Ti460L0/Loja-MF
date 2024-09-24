@@ -93,7 +93,6 @@ const Cadastro = () => {
 
   return (
     <div className="w-full text-nowrap bg-slate-600 shadow-md rounded px-8 pt-6 pb-8 mb-4">
-      <h1 className="text-xl font-serif text-center m-2 p-4">Cadastre um novo item ou cliente</h1>
       <p className="text-center" style={{ display: screen ? "none" : "block" }}>Escolha uma opção: </p>
       <div className="flex justify-center gap-4 m-2">
         <button
