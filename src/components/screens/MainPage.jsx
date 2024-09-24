@@ -1,126 +1,46 @@
-import React from "react";
-import AcessorioForm from "./forms/AcessorioForm.jsx";
-import ClienteForm from "./forms/ClienteForm.jsx";
-import VestidoForm from "./forms/VestidosForm.jsx";
+import React, { useState } from "react";
+import ClienteForm from "./forms/cadastro/ClienteForm";
+import VestidoTabela from "./forms/consulta/TabelaVestido";
 
 const MainPage = () => {
+  const [formData, setFormData] = useState({});
 
-  const [modoCadastro, setModoCadastro] = React.useState(true);
-
-  const [formData, setFormData] = React.useState({
-    cliente: {
-      nome: "",
-      cpf: "",
-      email: "",
-      telefone: "",
-      endereco: "",
-      bairro: "",
-      cep: "",
-    },
-    vestido: {
-      codigo: "",
-      modelo: "",
-      tamanho: "",
-      cor: "",
-      status: "",
-      valor: "",
-    },
-    acessorio: {
-      tipo: "",
-      tamanho: "",
-      cor: "",
-      status: "",
-    },
-  });
-
-  const handleOnChange = async (event, formType) => {
-    const { name, value } = event.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [formType]: {
-        ...prevData[formType],
-        [name]: value,
-      },
-    }));
-
-    if (formType === "cliente" && name === "cpf" && value.length === 11) {
-      // Realiza a busca no backend pelo CPF
-      try {
-        const response = await fetch(`/clientes/${value}`);
-        if (response.ok) {
-          const cliente = await response.json();
-          setFormData((prevData) => ({
-            ...prevData,
-            cliente: {
-              ...prevData.cliente,
-              nome: cliente.nome || prevData.cliente.nome,
-              cpf: cliente.cpf || prevData.cliente.cpf,
-              email: cliente.email || prevData.cliente.email,
-              telefone: cliente.telefone || prevData.cliente.telefone,
-              endereco: cliente.endereco || prevData.cliente.endereco,
-              bairro: cliente.bairro || prevData.cliente.bairro,
-              cep: cliente.cep || prevData.cliente.cep,
-            },
-          }));
-        } else {
-          // Cliente não encontrado, permite preenchimento manual
-          console.log("Cliente não encontrado, pode ser registrado um novo.");
-        }
-      } catch (error) {
-        console.error("Erro ao buscar cliente:", error);
-      }
-    }
+  const handleChange = (event) => {
+    setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    try {
-      const response = await fetch("/registrar", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      if (response.ok) {
-        console.log("Registro realizado com sucesso!");
-      } else {
-        console.error("Erro ao registrar:", response.status);
-      }
-    } catch (error) {
-      console.error("Erro ao registrar:", error);
-    }
+    console.log(formData);
   };
 
   return (
-    <div className="w-full text-nowrap bg-slate-600 shadow-md rounded px-8 pt-6 pb-8 mb-4">
-      <h2>Insira os dados do cliente: </h2>
-      <ClienteForm
-        formData={formData.cliente}
-        handleOnChange={(e) => handleOnChange(e, "cliente")}
-      />
-      <h2>Insira os dados do vestido: </h2>
-      <VestidoForm
-        formData={formData.vestido}
-        modoCadastro={modoCadastro}
-        handleOnChange={(e) => handleOnChange(e, "vestido")}
-      />
-      <h2>Insira os dados do acessório: </h2>
-      <AcessorioForm
-        formData={formData.acessorio}
-        handleOnChange={(e) => handleOnChange(e, "acessorio")}
-      />
-    
-      <button
-        className="bg-slate-800 p-4 w-full"
-        type="submit"
-        onClick={handleSubmit}
+    <div className="flex flex-col items-center justify-center w-full max-w-7xl mx-auto text-nowrap bg-slate-950 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <form
+        className="w-full text-nowrap bg-slate-800 shadow-md rounded px-8 pt-6 pb-8 mb-4"
+        onSubmit={handleSubmit}
       >
-        Registrar
-      </button>
+        <ClienteForm formData={formData} handleChange={handleChange} />
+        <div className="flex flex-row justify-between mb-4 gap-4">
+          <VestidoTabela />
+        </div>
+        <div className="flex flex-row justify-end gap-2">
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            type="submit"
+          >
+            Confirmar
+          </button>
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            type="submit"
+          >
+            Cancelar
+          </button>
+        </div>
+      </form>
     </div>
   );
 };
 
 export default MainPage;
-

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import ClienteForm from "./forms/ClienteForm";
-import VestidoForm from "./forms/VestidosForm";
-import AcessorioForm from "./forms/AcessorioForm";
+import ClienteForm from "./forms/cadastro/ClienteForm";
+import VestidoForm from "./forms/cadastro/VestidosForm";
+import AcessorioForm from "./forms/cadastro/AcessorioForm";
 import e from "cors";
 
 const Cadastro = () => {
