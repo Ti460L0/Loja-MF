@@ -5,7 +5,7 @@ import Footer from "./components/Footer";
 import "./App.css";
 import Cadastrar from "./components/screens/Cadastar";
 import Consultar from "./components/screens/Consultar";
-import Agenda from "./components/screens/Agendar";
+import Agenda from "./components/screens/Agenda";
 import MainPage from "./components/screens/MainPage";
 
 const App = () => {
