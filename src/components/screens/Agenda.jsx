@@ -55,7 +55,7 @@ const Agenda = () => {
       </div>
       
       <div className="block justify-center gap-10 m-10 text-center">
-        <p className="text-white text-lg">Data selecionada: <span className="font-bold">{value.toDateString()}</span></p>
+        <p className="text-white text-lg">Data selecionada: <span className="font-bold">{value.toLocaleDateString('pt-BR')}</span></p>
         <button 
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
           onClick={() => console.log("Selecionado:", value)}>
