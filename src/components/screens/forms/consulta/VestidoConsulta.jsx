@@ -10,7 +10,7 @@ const TabelaVestido = ({ handleChange, multiple, onSelect }) => {
     const fetchVestidos = async () => {
       try {
         const response = await fetch(
-          `http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/vestidos`
+          `http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/ve`
         );
         if (response.ok) {
           const data = await response.json();

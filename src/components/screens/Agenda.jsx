@@ -11,7 +11,7 @@ const Agenda = () => {
   // Função para buscar eventos do banco de dados
   const fetchEvents = async () => {
     try {
-      const res = await axios.get('http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/locacoes');  // Chamada ao endpoint
+      const res = await axios.get('http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/lo');  // Chamada ao endpoint
       setEvents(res.data);
     } catch (err) {
       console.error('Erro ao buscar eventos:', err);

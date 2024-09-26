@@ -19,9 +19,9 @@ const MainPage = () => {
           />
         </div>
 
-        <ClienteForm />
+        
         <div className="flex flex-row justify-center mb-4">
-          <TabelaVestido />
+          <TabelaVestido multiple={false} />
         </div>
         <div className="flex flex-row justify-end gap-2">
           <button
