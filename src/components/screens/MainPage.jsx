@@ -3,6 +3,16 @@ import ClienteForm from "./forms/cadastro/ClienteForm";
 import TabelaVestido from "./forms/consulta/VestidoConsulta";
 
 const MainPage = () => {
+
+const [vestidoSelecionado, setVestidoSelecionado] = useState(null);
+
+  const handleVestidoSelect = (vestidoId) => {
+    setVestidoSelecionado(vestidoId);
+    console.log(vestidoId);
+  };
+
+
+
   return (
     <div className="flex flex-col items-center justify-center w-full max-w-7xl mx-auto text-nowrap bg-slate-950 shadow-md rounded px-8 pt-6 pb-8 mb-4">
       <form className="w-full text-nowrap bg-slate-800 shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -19,10 +29,10 @@ const MainPage = () => {
           />
         </div>
 
-        
         <div className="flex flex-row justify-center mb-4">
-          <TabelaVestido multiple={false} />
+          <TabelaVestido multiple={false} onSelect={handleVestidoSelect} />
         </div>
+        
         <div className="flex flex-row justify-end gap-2">
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"

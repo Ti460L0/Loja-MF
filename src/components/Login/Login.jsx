@@ -1,25 +1,17 @@
 import { useState } from "react";
-import bcrypt from "bcryptjs";
 
 const Login = ({ handleLogin }) => {
   const [password, setPassword] = useState("");
-  const [cpf, setCpf] = useState("");
-  const [dataNascimento, setDataNascimento] = useState("");
   const [error, setError] = useState("");
-  const [showPasswordChange, setShowPasswordChange] = useState(false);
 
-  const generatePassword = async () => {
-    const salt = await bcrypt.genSalt(10);
-    const hash = await bcrypt.hash(password, salt);
-    setPassword(hash);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (password === "") {
+      setError("Por favor, digite sua senha.");
+    } else {
+      handleLogin();
+    }
   };
-
-  const firstAccess = localStorage.getItem("firstAccess") !== "false";
-
-  if (firstAccess) {
-    generatePassword();
-    localStorage.setItem("firstAccess", "false");
-  }
 
   return (
     <div className="w-72 bg-sky-950 border-4 border-yellow-600 rounded-lg shadow-lg p-8">
