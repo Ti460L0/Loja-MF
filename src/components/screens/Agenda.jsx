@@ -4,6 +4,12 @@ import Calendario from "./Calendario";
 const Agenda = () => {
   const [eventos, setEventos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedDate, setSelectedDate] = useState("");
+  const [eventosFiltrados, setEventosFiltrados] = useState({
+    devolucao: [],
+    retirada: [],
+    prova: [],
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,12 +31,21 @@ const Agenda = () => {
     fetchData();
   }, []);
 
-  const selectedData = (date) => {
-    const selectedDate = `${
-      date.getDay() + 1 < 10 ? "0" : ""
-    }${date.getDay() + 1}/${
-      date.getMonth() + 1 < 10 ? "0" : ""
-    }${date.getMonth() + 1}/${date.getFullYear()}`;
+  const handleSelect = (date) => {
+    const selectedDate = `${date.getDate().toString().padStart(2, "0")}/${(
+      date.getMonth() + 1
+    )
+      .toString()
+      .padStart(2, "0")}/${date.getFullYear()}`;
+    setSelectedDate(selectedDate);
+    const devolucao = eventos.filter(
+      (event) => event.data_devolucao === selectedDate
+    );
+    const retirada = eventos.filter(
+      (event) => event.data_retirada === selectedDate
+    );
+    const prova = eventos.filter((event) => event.data_prova === selectedDate);
+    setEventosFiltrados({ devolucao, retirada, prova });
     console.log(selectedDate);
   };
 
@@ -38,13 +53,45 @@ const Agenda = () => {
     return <div>Carregando...</div>;
   }
 
+  const { devolucao, retirada, prova } = eventosFiltrados;
+
   return (
     <div>
-      <Calendario onDateSelect={selectedData} eventos={eventos} />
-      <p>Conteúdo</p>
-    </div>
+  <Calendario onDateSelect={handleSelect} eventos={eventos} />
+  <p className="text-white">{selectedDate}</p>
+  <table className="min-w-full table-auto border border-gray-800">
+  <thead>
+    <tr className="bg-gray-700 text-white">
+      <th className="border border-gray-600 p-2">Data</th>
+      <th className="border border-gray-600 p-2">Tipo de Evento</th>
+      <th className="border border-gray-600 p-2">Observação</th>
+      <th className="border border-gray-600 p-2">Nome</th>
+      <th className="border border-gray-600 p-2">Tipo</th>
+      <th className="border border-gray-600 p-2">Modelo</th>
+    </tr>
+  </thead>
+  <tbody>
+    {[
+      ...devolucao.map(event => ({ ...event, tipoEvento: 'Devolução', data: event.data_devolucao })),
+      ...retirada.map(event => ({ ...event, tipoEvento: 'Retirada', data: event.data_retirada })),
+      ...prova.map(event => ({ ...event, tipoEvento: 'Prova', data: event.data_prova }))
+    ].map((event, index) => (
+      <tr key={index} className="border-b border-gray-600 hover:bg-gray-600">
+        <td className="border border-gray-600 p-2">{event.data}</td>
+        <td className="border border-gray-600 p-2">{event.tipoEvento}</td>
+        <td className="border border-gray-600 p-2">{event.notas}</td>
+        <td className="border border-gray-600 p-2">{event.nome}</td>
+        <td className="border border-gray-600 p-2">{event.tipo}</td>
+        <td className="border border-gray-600 p-2">{event.modelo}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
+</div>
+
+  
   );
 };
 
 export default Agenda;
-
