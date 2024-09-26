@@ -1,6 +1,6 @@
 .calendar-container {
     width: 100%;
-    background-color: #2b2b43;
+    background-color: #f0f4f8;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -20,7 +20,7 @@
   }
   
   .calendar-day {
-    background-color: #333;
+    background-color: #fff;
     padding: 10px;
     border-radius: 5px;
     text-align: center;
@@ -29,11 +29,11 @@
   }
   
   .calendar-day:hover {
-    background-color: #43436e;
+    background-color: #d1e7ff;
   }
   
   .calendar-day.has-event {
-    background-color: #525281;
+    background-color: #e3fcec;
   }
   
   .empty-day {
@@ -53,7 +53,8 @@
   .events-container {
     margin-top: 30px;
     padding: 20px;
-    background-color: #333;
+    background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
+  
