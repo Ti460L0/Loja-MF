@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const TabelaAcessorio = ({ multiple, onSubmit }) => {
+const AcessorioConsulta = ({ multiple, onSubmit }) => {
   const [acessorios, setAcessorios] = useState([]);
   const [acessorioSelecionado, setAcessorioSelecionado] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -111,4 +111,4 @@ const TabelaAcessorio = ({ multiple, onSubmit }) => {
   );
 };
 
-export default TabelaAcessorio;
+export default AcessorioConsulta;

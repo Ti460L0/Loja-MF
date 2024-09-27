@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const TabelaVestido = ({ multiple, onSelect }) => {
+const VestidoConsulta = ({ multiple, onSelect }) => {
   const [vestidos, setVestidos] = useState([]);
   const [vestidoSelecionado, setVestidoSelecionado] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -118,4 +118,4 @@ const TabelaVestido = ({ multiple, onSelect }) => {
   );
 };
 
-export default TabelaVestido;
+export default VestidoConsulta;

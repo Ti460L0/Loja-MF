@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import ClienteForm from "./forms/cadastro/ClienteForm";
 import TabelaVestido from "./forms/consulta/VestidoConsulta";
+import TabelaCliente from "./forms/consulta/ClienteConsulta";
+import VestidoConsulta from "./forms/consulta/VestidoConsulta";
 
 const MainPage = () => {
 
@@ -27,10 +29,13 @@ const [vestidoSelecionado, setVestidoSelecionado] = useState(null);
             name="cpf"
             placeholder="Digite o CPF (11 dígitos)"
           />
+          <div>
+            <TabelaCliente />
+          </div>
         </div>
 
         <div className="flex flex-row justify-center mb-4">
-          <TabelaVestido multiple={false} onSelect={handleVestidoSelect} />
+          <VestidoConsulta multiple={false} onSelect={handleVestidoSelect} />
         </div>
         
         <div className="flex flex-row justify-end gap-2">
