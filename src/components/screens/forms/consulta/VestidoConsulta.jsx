@@ -33,6 +33,7 @@ const VestidoConsulta = ({ multiple, onSelect }) => {
       setVestidoSelecionado(selectedVestido);
       onSelect(selectedVestido.vestido_id);
     }
+    console.log("Vestido selecionado:", selectedVestido);
   };
 
   return (
