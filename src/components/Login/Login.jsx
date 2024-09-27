@@ -8,8 +8,10 @@ const Login = ({ handleLogin }) => {
     e.preventDefault();
     if (password === "") {
       setError("Por favor, digite sua senha.");
+    } else if (password === 'admin') {
+      handleLogin(true);  // Usa o prop handleLogin para passar o estado de login
     } else {
-      handleLogin();
+      setError("Senha incorreta.");
     }
   };
 
@@ -38,16 +40,13 @@ const Login = ({ handleLogin }) => {
         <p>
           <a
             className="text-blue-500 hover:text-indigo-400 hover:underline cursor-pointer"
-            onClick={handleChangePassword}
           >
             Esqueceu sua senha?
           </a>
         </p>
       </form>
-      {showPasswordChange && <PasswordChange handleLogin={handleLogin} />}
     </div>
   );
 };
 
 export default Login;
-
