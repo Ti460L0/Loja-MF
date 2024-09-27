@@ -1,35 +1,40 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import VestidoConsulta from "./forms/consulta/VestidoConsulta";
 import ClienteConsulta from "./forms/consulta/ClienteConsulta";
 import AcessorioConsulta from "./forms/consulta/AcessorioConsulta";
-import ClienteForm from "./forms/cadastro/ClienteForm";
-import e from "cors";
 
 const MainPage = () => {
   const [vestidoSelecionado, setVestidoSelecionado] = useState(null);
   const [clienteSelecionado, setClienteSelecionado] = useState(null);
   const [acessorioSelecionado, setAcessorioSelecionado] = useState(null);
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    vestido_id: "",
+    cliente_id: "",
+    acessorio_id: "",
+    data_retirada: "",
+    data_devolucao: "",
+    data_prova: "",
+    notas: "",
+  });
   const [modoCadastro, setModoCadastro] = useState(false);
 
   const handleVestidoSelect = (vestidoId) => {
     setVestidoSelecionado(vestidoId);
+    setFormData((prevFormData) => ({ ...prevFormData, vestido_id: vestidoId }));
     console.log("Vestido selecionado:", vestidoId);
   };
 
   const handleAcessorioSelect = (acessorioId) => {
     setAcessorioSelecionado(acessorioId);
+    setFormData((prevFormData) => ({ ...prevFormData, acessorio_id: acessorioId }));
     console.log("Acessorio selecionado:", acessorioId);
   };
 
   const handleClienteSelect = (clienteId) => {
     setClienteSelecionado(clienteId);
+    setFormData((prevFormData) => ({ ...prevFormData, cliente_id: clienteId }));
+    if (!clienteId) setModoCadastro(true);
     console.log("Cliente selecionado:", clienteId);
-    if (!clienteId) {
-      setModoCadastro(true);
-    } else {
-      setModoCadastro(false);
-    }
   };
 
   const handleChange = (event) => {
@@ -39,73 +44,105 @@ const MainPage = () => {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmitLocacao = async (event) => {
     event.preventDefault();
-    console.log("Formul rio submetido:", formData);
-  };
-
-  const setFieldValue = () => {
-    if (vestidoSelecionado) formData.vestido_id = vestidoSelecionado;
-    if (clienteSelecionado) formData.cliente_id = clienteSelecionado;
-    if (acessorioSelecionado) formData.acessorio_id = acessorioSelecionado;
-    console.log(vestidoSelecionado);
-    console.log(acessorioSelecionado);
-    console.log(clienteSelecionado);
+    try {
+      const response = await fetch(
+        "http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/lo/ca",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Erro ao cadastrar locação");
+      }
+      const data = await response.json();
+      console.log("Locação cadastrada:", data);
+    } catch (error) {
+      console.error("Erro ao registrar locação:", error);
+    }
   };
 
   return (
     <div className="flex flex-col items-center justify-center w-full max-w-7xl mx-auto bg-slate-950 shadow-md rounded px-8 pt-6 pb-8 mb-4">
-      <h1 className="text-4xl font-bold mb-4">Selecione as op es:</h1>
+      <h1 className="text-4xl font-bold mb-4">Selecione as opções:</h1>
       <div className="flex flex-col w-full bg-slate-700 rounded-t">
         <div className="flex flex-row">
           <div className="flex flex-col w-1/2 p-4">
             <ClienteConsulta multiple={false} onSelect={handleClienteSelect} />
+            {modoCadastro && <a href="/Cadastrar">Cadastrar novo cliente</a>}
           </div>
           <div className="flex flex-col w-1/2 p-4">
             <VestidoConsulta multiple={false} onSelect={handleVestidoSelect} />
           </div>
           <div className="flex flex-col w-1/2 p-4">
-            <AcessorioConsulta
-              multiple={false}
-              onSelect={handleAcessorioSelect}
-            />
+            <AcessorioConsulta multiple={false} onSelect={handleAcessorioSelect} />
           </div>
         </div>
         <div>
           <button
             className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             type="button"
-            onClick={setFieldValue}
+            onClick={() => console.log(formData)}
           >
             Confirmar escolha
           </button>
         </div>
-      </div>
-      <div>
-        {modoCadastro && clienteSelecionado === null && (
-          <ClienteForm
-            formData={formData}
-            handleChange={handleChange}
-            handleSubmit={handleSubmit}
-            modoCadastro={modoCadastro}
-          />
-        )}
-      </div>
-      <div className="flex flex-row justify-end gap-2 bg-slate-700 rounded-b p-4">
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          type="submit"
-          onClick={() => setModoCadastro(true)}
-        >
-          Novo Cliente
-        </button>
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          type="button"
-          onClick={() => setModoCadastro(false)}
-        >
-          Cancelar
-        </button>
+        <div className="flex flex-row justify-end gap-2 bg-slate-700 rounded-b p-4">
+          <form onSubmit={handleSubmitLocacao}>
+            <label className="text-left mb-2" htmlFor="data_retirada">
+              Data de retirada
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-200"
+              type="date"
+              id="data_retirada"
+              name="data_retirada"
+              value={formData.data_retirada}
+              onChange={handleChange}
+            />
+            <label className="text-left mb-2" htmlFor="data_devolucao">
+              Data de devolução
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-200"
+              type="date"
+              id="data_devolucao"
+              name="data_devolucao"
+              value={formData.data_devolucao}
+              onChange={handleChange}
+            />
+            <label className="text-left mb-2" htmlFor="data_prova">
+              Data de prova
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-200"
+              type="date"
+              id="data_prova"
+              name="data_prova"
+              value={formData.data_prova}
+              onChange={handleChange}
+            />
+            <label className="text-left mb-2" htmlFor="notas">
+              Observações
+            </label>
+            <textarea
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-200"
+              id="notas"
+              name="notas"
+              value={formData.notas}
+              onChange={handleChange}
+            />
+            <button
+              className="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+              type="submit"
+            >
+              Registrar locação
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

@@ -41,11 +41,18 @@ const ClienteConsulta = ({ multiple, onSelect }) => {
         throw new Error("Erro ao buscar cliente");
       }
       const data = await response.json();
-      setClientes(Array.isArray(data) ? data : [data]); // Certifica-se de que `data` seja sempre um array
+      if (data) {
+        setClientes([data]); // mantém a estrutura esperada para exibir o cliente
+        setSelectedClient(data); // define o cliente selecionado diretamente
+        onSelect(data.cliente_id); // envia o cliente selecionado
+      } else {
+        setClientes([]);
+        setSelectedClient(null);
+        onSelect(null);
+      }
     } catch (error) {
       console.error(error);
       setError(error.message);
-      
     } finally {
       setLoading(false);
     }
@@ -55,13 +62,6 @@ const ClienteConsulta = ({ multiple, onSelect }) => {
     e.preventDefault();
     if (search.trim()) {
       fetchClientes(search);
-    }
-    if (clientes.length > 0) {
-      setSelectedClient(clientes[0]);
-      onSelect(clientes[0].cliente_id);
-    } else {
-      setSelectedClient(null);
-      onSelect(null);
     }
   };
 
@@ -109,6 +109,7 @@ const ClienteConsulta = ({ multiple, onSelect }) => {
               className="shadow appearance-none border rounded min-w-10 py-2 px-3 text-slate-200 leading-tight focus:outline-none"
               type="search"
               value={search}
+              mask="999.999.999-99"
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Buscar CPF"
             />
