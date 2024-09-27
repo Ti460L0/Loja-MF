@@ -70,6 +70,7 @@ const VestidoConsulta = ({ multiple, onSelect }) => {
                       <td className="border px-4 py-2">{v.tamanho}</td>
                       <td className="border px-4 py-2">{v.cor}</td>
                       <td className="border px-4 py-2">R${v.valor}</td>
+                      
                     </tr>
                   ))}
                 </tbody>
@@ -101,13 +102,31 @@ const VestidoConsulta = ({ multiple, onSelect }) => {
               </datalist>
               {vestidoSelecionado && (
                 <div className="mt-4 bg-slate-800 p-4 rounded-lg">
-                  <p className="font-bold">
-                    Modelo: {vestidoSelecionado.modelo}
+                  <p className="text-lg font-sans text-slate-300">
+                    <strong>Modelo: </strong>
+                    {vestidoSelecionado.modelo}
                   </p>
-                  <p className="mt-2">Tamanho: {vestidoSelecionado.tamanho}</p>
-                  <p className="mt-2">Cor: {vestidoSelecionado.cor}</p>
-                  <p className="mt-2">Status: {vestidoSelecionado.status}</p>
-                  <p className="mt-2">Valor: R${vestidoSelecionado.valor}</p>
+                  <p className="text-lg font-sans text-slate-300">
+                    <strong>Tamanho: </strong>
+                    {vestidoSelecionado.tamanho}
+                  </p>
+                  <p className="text-lg font-sans text-slate-300">
+                    <strong>Cor: </strong>
+                    {vestidoSelecionado.cor}
+                  </p>
+                  <p className="text-lg font-sans text-slate-300">
+                    <strong>Status: </strong>
+                    {vestidoSelecionado.status}
+                  </p>
+                  <p className="text-lg font-sans text-slate-300">
+                    <strong>Valor: </strong>
+                    R$ {vestidoSelecionado.valor}
+                  </p>
+                  <img
+                    src={vestidoSelecionado.url}
+                    alt="Imagem do vestido"
+                    className="w-full h-auto mt-4"
+                  />
                 </div>
               )}
             </div>
