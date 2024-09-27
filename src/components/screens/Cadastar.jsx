@@ -2,11 +2,8 @@ import React, { useState } from "react";
 import ClienteForm from "./forms/cadastro/ClienteForm";
 import VestidoForm from "./forms/cadastro/VestidosForm";
 import AcessorioForm from "./forms/cadastro/AcessorioForm";
-import e from "cors";
 
 const Cadastro = () => {
-  // Propriedades do formulário cliente
-
   const [screen, setScreen] = useState("");
   const [clienteData, setClienteData] = useState({
     nome: "",
@@ -18,7 +15,6 @@ const Cadastro = () => {
     bairro: "",
   });
 
-  // Propriedades do formulário vestido
   const [modoCadastro, setModoCadastro] = useState(false);
   const [vestidoData, setVestidoData] = useState({
     codigo: "",
@@ -27,9 +23,11 @@ const Cadastro = () => {
     cor: "",
     preco: "",
     quantidade: "",
+    url: "",
   });
 
-  // Propriedades do formulário acessorio
+  const [imagem, setImagem] = useState(null);
+
   const [acessorioData, setAcessorioData] = useState({
     tipo: "",
     tamanho: "",
@@ -37,14 +35,24 @@ const Cadastro = () => {
     status: "",
   });
 
-  // Função genérica para mudanças de estado
   const handleChange = (e, setData, data) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  // Função genérica para submissão de dados
+  const handleImagemChange = (file) => {
+    setImagem(file);
+  };
+
   const handleSubmit = async (e, url, data) => {
     e.preventDefault();
+
+    if (screen === "vestido" && imagem) {
+      const s3Url = await enviarImagemS3(imagem, data.codigo);
+      if (s3Url) {
+        data.url = s3Url;
+      }
+    }
+
     try {
       const response = await fetch(url, {
         method: "POST",
@@ -63,7 +71,36 @@ const Cadastro = () => {
     }
   };
 
-  // Função para renderizar o formulário correto com base na tela selecionada.
+  const enviarImagemS3 = async (imagem, codigo) => {
+    // Renomeia o arquivo com base no código
+    const novoNome = `${codigo}.${imagem.name.split(".").pop()}`;
+
+    // Define a URL completa para o upload, incluindo o caminho "img/"
+    const url = `https://bucked-lojamf.s3.us-east-2.amazonaws.com/img/${novoNome}`;
+
+    const options = {
+      method: "PUT",
+      body: imagem, // Envia o arquivo diretamente
+      headers: {
+        "Content-Type": imagem.type, // Define o tipo de conteúdo
+      },
+    };
+
+    try {
+      const response = await fetch(url, options);
+
+      if (response.ok) {
+        // Retorna a URL pública da imagem
+        return `https://bucked-lojamf.s3.us-east-2.amazonaws.com/img/${novoNome}`;
+      } else {
+        throw new Error("Erro ao enviar imagem para o S3");
+      }
+    } catch (error) {
+      console.error("Erro ao enviar imagem para o S3:", error);
+      return null;
+    }
+  };
+
   const renderForm = () => {
     if (screen === "cliente") {
       return (
@@ -77,6 +114,7 @@ const Cadastro = () => {
         <VestidoForm
           handleChange={(e) => handleChange(e, setVestidoData, vestidoData)}
           formData={vestidoData}
+          handleImagemChange={handleImagemChange}
           modoCadastro={modoCadastro}
         />
       );
@@ -93,7 +131,9 @@ const Cadastro = () => {
 
   return (
     <div className="w-full text-nowrap bg-slate-600 shadow-md rounded px-8 pt-6 pb-8 mb-4">
-      <p className="text-center" style={{ display: screen ? "none" : "block" }}>Escolha uma opção: </p>
+      <p className="text-center" style={{ display: screen ? "none" : "block" }}>
+        Escolha uma opção:
+      </p>
       <div className="flex justify-center gap-4 m-2">
         <button
           className="bg-slate-800 p-4"
@@ -125,19 +165,19 @@ const Cadastro = () => {
             if (screen === "cliente") {
               handleSubmit(
                 e,
-                "http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/clientes",
+                "http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/cl/ca",
                 clienteData
               );
             } else if (screen === "vestido") {
               handleSubmit(
                 e,
-                "http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/vestidos",
+                "http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/ve/ca",
                 vestidoData
               );
             } else if (screen === "acessorio") {
               handleSubmit(
                 e,
-                "http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/acessorios",
+                "http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/ac/ca",
                 acessorioData
               );
             }
@@ -147,8 +187,11 @@ const Cadastro = () => {
             <button className="bg-green-800 p-4 w-full" type="submit">
               Enviar
             </button>
-            <button className="bg-yellow-500 text-black font-bold p-4 w-full" type="reset">
-              Limpar formulário
+            <button
+              className="bg-yellow-500 text-black font-bold p-4 w-full"
+              type="reset"
+            >
+              Limpar formulário
             </button>
           </div>
         </form>

@@ -7,7 +7,7 @@ const Header = () => {
   <header className="flex max-w-7xl mx-auto items-center p-2 justify-center">
     <img
       className="w-20 h-30 drop-shadow-sm"
-      src="src/img/logo.png"
+      src="img/logo.png"
       alt="Logo Milla Fashion"
     />
     <h2 className="text-left ml-6 text-2xl font-sans font-bold">
