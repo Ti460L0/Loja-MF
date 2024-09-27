@@ -70,6 +70,7 @@ const VestidoConsulta = ({ multiple, onSelect }) => {
                       <td className="border px-4 py-2">{v.tamanho}</td>
                       <td className="border px-4 py-2">{v.cor}</td>
                       <td className="border px-4 py-2">R${v.valor}</td>
+                      
                     </tr>
                   ))}
                 </tbody>
@@ -121,6 +122,11 @@ const VestidoConsulta = ({ multiple, onSelect }) => {
                     <strong>Valor: </strong>
                     R$ {vestidoSelecionado.valor}
                   </p>
+                  <img
+                    src={vestidoSelecionado.url}
+                    alt="Imagem do vestido"
+                    className="w-full h-auto mt-4"
+                  />
                 </div>
               )}
             </div>

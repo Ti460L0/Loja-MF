@@ -19,6 +19,7 @@ const AcessorioConsulta = ({ multiple, onSelect }) => {
         setAcessorios(data);
       } catch (error) {
         console.error(error);
+        setError(error);
       }
       setLoading(false);
     };
@@ -26,8 +27,8 @@ const AcessorioConsulta = ({ multiple, onSelect }) => {
     fetchAcessorios();
   }, []);
 
-  const handleSelect = (codigoAcessorio) => {
-    const selectedAcessorio = acessorios.find((a) => a.codigo === codigoAcessorio);
+  const handleSelect = (tipoAcessorio) => {
+    const selectedAcessorio = acessorios.find((a) => a.tipo === tipoAcessorio);
 
     if (selectedAcessorio) {
       setAcessorioSelecionado(selectedAcessorio);
@@ -46,9 +47,10 @@ const AcessorioConsulta = ({ multiple, onSelect }) => {
               <table className="table-auto w-full text-left">
                 <thead className="bg-slate-600">
                   <tr>
-                    <th className="px-4 py-2">Código</th>
-                    <th className="px-4 py-2">Descri o</th>
-                    <th className="px-4 py-2">Valor</th>
+                    <th className="px-4 py-2">Tipo</th>
+                    <th className="px-4 py-2">Tamanho</th>
+                    <th className="px-4 py-2">Status</th>
+                    <th className="px-4 py-2">Cor</th>
                   </tr>
                 </thead>
                 <tbody className="bg-slate-800">
@@ -61,11 +63,12 @@ const AcessorioConsulta = ({ multiple, onSelect }) => {
                           ? "bg-blue-500"
                           : ""
                       }`}
-                      onClick={() => handleSelect(a.codigo)}
+                      onClick={() => handleSelect(a.tipo)}
                     >
-                      <td className="border px-4 py-2">{a.codigo}</td>
-                      <td className="border px-4 py-2">{a.descricao}</td>
-                      <td className="border px-4 py-2">R${a.valor}</td>
+                      <td className="border px-4 py-2">{a.tipo}</td>
+                      <td className="border px-4 py-2">{a.tamanho}</td>
+                      <td className="border px-4 py-2">{a.status}</td>
+                      <td className="border px-4 py-2">{a.cor}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -74,36 +77,40 @@ const AcessorioConsulta = ({ multiple, onSelect }) => {
           ) : (
             <div className="flex flex-col w-full">
               <label className="mb-2" htmlFor="acessorio-select">
-                Escolha um acessorio:
+                Escolha um acessório:
               </label>
               <input
                 className="px-4 py-2 border-2 border-gray-300 rounded-lg w-full"
                 type="search"
                 id="acessorio-select"
                 onChange={(e) => handleSelect(e.target.value)}
-                placeholder="Digite o c digo do acessorio"
+                placeholder="Digite o tipo do acessório"
                 list="acessorios"
               />
               <datalist id="acessorios">
                 {acessorios.slice(0, 10).map((a) => (
-                  <option
-                    key={a.acessorio_id}
-                    value={a.codigo}
-                    onChange={(e) => handleSelect(e.target.key)}
-                  >
-                    {a.descricao}
+                  <option key={a.acessorio_id} value={a.tipo}>
+                    {a.tipo} - {a.status}
                   </option>
                 ))}
               </datalist>
               {acessorioSelecionado && (
                 <div className="mt-4 bg-slate-800 p-4 rounded-lg">
                   <p className="text-lg font-sans text-slate-300">
-                    <strong>Descri o: </strong>
-                    {acessorioSelecionado.descricao}
+                    <strong>Tipo: </strong>
+                    {acessorioSelecionado.tipo}
                   </p>
                   <p className="text-lg font-sans text-slate-300">
-                    <strong>Valor: </strong>
-                    R$ {acessorioSelecionado.valor}
+                    <strong>Tamanho: </strong>
+                    {acessorioSelecionado.tamanho}
+                  </p>
+                  <p className="text-lg font-sans text-slate-300">
+                    <strong>Cor: </strong>
+                    {acessorioSelecionado.cor}
+                  </p>
+                  <p className="text-lg font-sans text-slate-300">
+                    <strong>Status: </strong>
+                    {acessorioSelecionado.status}
                   </p>
                 </div>
               )}
@@ -116,4 +123,3 @@ const AcessorioConsulta = ({ multiple, onSelect }) => {
 };
 
 export default AcessorioConsulta;
-

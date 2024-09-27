@@ -38,13 +38,14 @@ const ClienteConsulta = ({ multiple, onSelect }) => {
         `http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/cl/cpf/${cpf}`
       );
       if (!response.ok) {
-        throw new Error("Erro ao buscar clientes");
+        throw new Error("Erro ao buscar cliente");
       }
       const data = await response.json();
       setClientes(Array.isArray(data) ? data : [data]); // Certifica-se de que `data` seja sempre um array
     } catch (error) {
       console.error(error);
       setError(error.message);
+      
     } finally {
       setLoading(false);
     }
