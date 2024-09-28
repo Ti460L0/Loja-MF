@@ -11,10 +11,10 @@ import MainPage from "./components/screens/MainPage";
 const App = () => {
   return (
     <Router>
-  <div className="flex flex-col w-full min-h-screen items-center justify-between overflow-x-hidden">
+  <div className="flex flex-col w-full min-h-screen items-center justify-between overflow-x-hidden bg-beige">
     <Header />
     <div className="flex-grow w-full mx-auto max-w-[100vw]">
-      <main className="w-full h-full bg-slate-600">
+      <main className="w-full h-full bg-lightBrown">
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/Cadastrar" element={<Cadastrar />} />
@@ -23,7 +23,7 @@ const App = () => {
         </Routes>
       </main>
     </div>
-    <Footer className="w-full text-left p-4 bg-stone-800" />
+    <Footer className="w-full text-left p-4 bg-brown text-beige" />
   </div>
 </Router>
 

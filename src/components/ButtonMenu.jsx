@@ -1,21 +1,48 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-
 const ButtonMenu = (props) => {
-  
   return (
-    <div {...props} >
-      <ul className='flex justify-center content-center gap-4'>
-        <li className='text-white px-2 py-1 hover:text-white transition duration-300' ><Link to="/">Registrar</Link></li>
-        <li className='text-white px-2 py-1 hover:text-white transition duration-300' ><Link to="/cadastrar">Cadastrar</Link></li>
-        <li className='text-white px-2 py-1 hover:text-white transition duration-300' ><Link to="/consultar">Consultar</Link></li>
-        <li className='text-white px-2 py-1 hover:text-white transition duration-300' ><Link to="/agenda">Agenda</Link></li>
+    <div {...props}>
+      <ul className="flex justify-center content-center gap-4 bg-beige p-4 rounded-lg">
+        <li>
+          <Link
+            to="/"
+            className="text-black px-4 py-2 rounded-md bg-gold hover:bg-lightGold transition duration-300"
+          >
+            Registrar
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/cadastrar"
+            className="text-black px-4 py-2 rounded-md bg-gold hover:bg-lightGold transition duration-300"
+          >
+            Cadastrar
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/consultar"
+            className="text-black px-4 py-2 rounded-md bg-gold hover:bg-lightGold transition duration-300"
+          >
+            Consultar
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/agenda"
+            className="text-black px-4 py-2 rounded-md bg-gold hover:bg-lightGold transition duration-300"
+          >
+            Agenda
+          </Link>
+        </li>
       </ul>
     </div>
   );
 };
 
-
 export default ButtonMenu;
+
+
 
