@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import InputMask from "react-input-mask";
 
 const TabelaVestidoConsulta = () => {
   const [search, setSearch] = useState("");
@@ -294,15 +293,14 @@ const TabelaVestidoConsulta = () => {
           </label>
           <label className="block text-left mb-2">
             Preço:
-            <InputMask
-              mask="R$ 999,99"
+            <input
               className="block w-full px-4 py-2 text-slate-700 bg-white border border-solid border-slate-300 rounded transition ease-in-out"
               name="preco"
-              value={selectedVestido.valor ? selectedVestido.valor.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : ""} // Garante que seja uma string
+              value={selectedVestido.valor || ""} // Garante que seja uma string
               onChange={(e) =>
                 setSelectedVestido({
                   ...selectedVestido,
-                  valor: parseFloat(e.target.value.replace(/[^\d]+/g, "")),
+                  valor: e.target.value,
                 })
               }
             />
