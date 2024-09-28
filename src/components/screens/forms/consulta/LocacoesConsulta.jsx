@@ -10,14 +10,16 @@ export default function LocacoesConsulta({ formData }) {
     data_retirada,
     data_devolucao,
     data_prova,
+    notas,
   } = formData;
 
   const [isEditing, setIsEditing] = useState(false); // Novo estado para controle de edição
   const [loading, setLoading] = useState(false);
   const [editedData, setEditedData] = useState({
-    data_retirada: "",
-    data_devolucao: "",
-    data_prova: "",
+    data_retirada: formData.data_retirada,
+    data_devolucao: formData.data_devolucao,
+    data_prova: formData.data_prova,
+    notas: formData.notas,
   });
 
   // Função para deletar locação (concluir entrega)
@@ -54,10 +56,17 @@ export default function LocacoesConsulta({ formData }) {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(formData), // Use o estado editado
+          body: JSON.stringify({
+            locacao_id: formData.locacao_id,
+            data_retirada: editedData.data_retirada,
+            data_devolucao: editedData.data_devolucao,
+            data_prova: editedData.data_prova,
+            notas: editedData.notas,
+          }),
         }
       );
-      console.log(formData);
+      console.log(editedData);
+      window.location.reload();
       if (!response.ok) {
         throw new Error("Erro ao salvar a locação");
       }
@@ -71,9 +80,16 @@ export default function LocacoesConsulta({ formData }) {
     }
   };
 
-  // Função para habilitar modo de edição
+  // Função para ativar o modo de edição
   const handleEditar = () => {
-    setIsEditing(true); // Ativa o modo de edição
+    setIsEditing(true);
+    setEditedData({
+      locacao_id: formData.locacao_id || "",
+      data_retirada: formData.data_retirada || "",
+      data_devolucao: formData.data_devolucao || "",
+      data_prova: formData.data_prova || "",
+      notas: formData.notas || "",
+    });
   };
 
   // Função para manipular mudanças nos campos editáveis
@@ -88,60 +104,83 @@ export default function LocacoesConsulta({ formData }) {
   return (
     <div className="space-y-4">
       <h1 className="text-2xl font-bold">Locações</h1>
-      <div className="">
-        <label className="text-sm font-medium">ID:</label>
-        <p className="text-lg">{locacao_id}</p>
-        <label className="text-sm font-medium">
-          Cliente:
-          <p className="text-lg ">{nome}</p>
-        </label>
-        <label className="text-sm font-medium">
-          Modelo: <p className="text-lg">{modelo}</p>
-        </label>
-        <label className="text-sm font-medium">
-          Tipo: <p className="text-lg">{tipo}</p>
-        </label>
+
+      <div className="flex flex-row">
+        <div className="flex flex-col w-full gap-2">
+          <label className="text-sm font-medium">
+            Cliente:
+            <p className="text-lg ">{nome}</p>
+          </label>
+          <label className="text-sm font-medium">
+            Modelo: <p className="text-lg">{modelo}</p>
+          </label>
+          <label className="text-sm font-medium">
+            Tipo: <p className="text-lg">{tipo}</p>
+          </label>
+        </div>
+        <div className="flex flex-col w-full gap-2">
+          <div className="flex flex-col space-y-2">
+            <label className="text-sm font-medium" htmlFor="data-retirada">
+              Data de Retirada
+            </label>
+            <InputMask
+              className="px-2 py-1 w-32 text-center border-2 rounded-md"
+              mask="99/99/9999"
+              value={
+                isEditing ? editedData.data_retirada : formData.data_retirada
+              }
+              onChange={handleInputChange}
+              name="data_retirada" // Nome para identificar o campo
+            />
+          </div>
+
+          <div className="flex flex-col space-y-2">
+            <label className="text-sm font-medium" htmlFor="data-devolucao">
+              Data de Devolução
+            </label>
+            <InputMask
+              className="px-2 py-1 w-32 text-center border-2 rounded-md"
+              mask="99/99/9999"
+              value={
+                isEditing ? editedData.data_devolucao : formData.data_devolucao
+              }
+              onChange={handleInputChange}
+              name="data_devolucao" // Nome para identificar o campo
+            />
+          </div>
+
+          <div className="flex flex-col space-y-2">
+            <label className="text-sm font-medium" htmlFor="data-prova">
+              Data de Prova
+            </label>
+            <InputMask
+              className="px-2 py-1 w-32 text-center  border-2 rounded-md"
+              mask="99/99/9999"
+              value={isEditing ? editedData.data_prova : formData.data_prova}
+              onChange={handleInputChange}
+              name="data_prova" // Nome para identificar o campo
+            />
+          </div>
+        </div>
       </div>
-      <div className="flex flex-row gap-8">
-        <div className="flex flex-col space-y-2">
-          <label className="text-sm font-medium" htmlFor="data-retirada">
-            Data de Retirada
-          </label>
-          <InputMask
-            className="px-2 py-1 w-28 border-2 rounded-md"
-            mask="99/99/9999"
-            value={isEditing ? editedData.data_retirada : formData.data_retirada}
-            onChange={handleInputChange}
-            name="data_retirada" // Nome para identificar o campo
-            readOnly={!isEditing}
-          />
-        </div>
-
-        <div className="flex flex-col space-y-2">
-          <label className="text-sm font-medium" htmlFor="data-devolucao">
-            Data de Devolução
-          </label>
-          <InputMask
-            className="px-2 py-1 w-28 border-2 rounded-md"
-            mask="99/99/9999"
-            value={formData.data_devolucao}
-            onChange={handleInputChange}
-            name="data_devolucao" // Nome para identificar o campo
-          />
-        </div>
-
-        <div className="flex flex-col space-y-2">
-          <label className="text-sm font-medium" htmlFor="data-prova">
-            Data de Prova
-          </label>
-          <InputMask
-            className="px-2 py-1 w-28 border-2 rounded-md"
-            mask="99/99/9999"
-            value={formData.data_prova}
-            onChange={handleInputChange}
-            name="data_prova" // Nome para identificar o campo
-          />
-        </div>
+      <div className="flex flex-col">
+        <label className="text-sm font-medium" htmlFor="nota">
+          Notas:
+        </label>
+        <textarea
+          className="w-full px-2 py-1 border-2 rounded-md
+          focus:outline-none focus:border-slate-400
+          focus:ring-1 focus:ring-slate-400
+          focus:ring-offset-1 focus:ring-offset-slate-800
+          resize-none"
+          value={isEditing ? editedData.notas : formData.notas}
+          onChange={handleInputChange}
+          name="nota" // Nome para identificar o campo
+          rows="2"
+          cols="20"
+          maxLength="200"
+          
+        />
       </div>
 
       <div className="flex flex-row space-x-2">

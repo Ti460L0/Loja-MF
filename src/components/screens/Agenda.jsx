@@ -15,6 +15,7 @@ const Agenda = () => {
     data_retirada: "",
     data_devolucao: "",
     data_prova: "",
+    notas: "",
   });
 
   useEffect(() => {
@@ -74,13 +75,9 @@ const Agenda = () => {
 
   return (
     <div>
-      <div className="flex flex-row gap-4">
-        <div>
-          <Calendario onDateSelect={handleSelect} eventos={eventos} />
-        </div>
-        <div>
-          <LocacoesConsulta formData={formData} />
-        </div>
+      <div className="flex flex-row w-full items-center justify-center gap-8">
+        <Calendario onDateSelect={handleSelect} eventos={eventos} />
+        <LocacoesConsulta formData={formData} />
       </div>
 
       {selectedDate && (
