@@ -3,10 +3,10 @@ import Calendario from "./Calendario";
 import LocacoesConsulta from "./forms/consulta/LocacoesConsulta";
 
 const Agenda = () => {
-  const [eventos, setEventos] = useState([]);
+  const [locacoes, setLocacoes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedDate, setSelectedDate] = useState(null);
-  const [eventosFiltrados, setEventosFiltrados] = useState({
+  const [locacoesFiltradas, setLocacoesFiltradas] = useState({
     devolucao: [],
     retirada: [],
     prova: [],
@@ -18,6 +18,27 @@ const Agenda = () => {
     notas: "",
   });
 
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 5;
+
+  // Calcula o índice inicial e final com base na página atual
+  const startIndex = currentPage * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedLocacoes = locacoes.slice(startIndex, endIndex);
+
+  // Funções para navegar entre as páginas
+  const nextPage = () => {
+    if (startIndex + itemsPerPage < locacoes.length) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -28,7 +49,7 @@ const Agenda = () => {
           throw new Error("Erro ao buscar locações");
         }
         const data = await response.json();
-        setEventos(data);
+        setLocacoes(data);
       } catch (error) {
         console.error(error);
       }
@@ -46,37 +67,37 @@ const Agenda = () => {
       .toString()
       .padStart(2, "0")}/${date.getFullYear()}`;
 
-    const eventosFiltrados = {
+    const locacoesFiltradas = {
       devolucao: [],
       retirada: [],
       prova: [],
     };
 
-    eventos.forEach((event) => {
-      if (event.data_devolucao === selectedDateStr) {
-        eventosFiltrados.devolucao.push(event);
+    locacoes.forEach((locacao) => {
+      if (locacao.data_devolucao === selectedDateStr) {
+        locacoesFiltradas.devolucao.push(locacao);
       }
-      if (event.data_retirada === selectedDateStr) {
-        eventosFiltrados.retirada.push(event);
+      if (locacao.data_retirada === selectedDateStr) {
+        locacoesFiltradas.retirada.push(locacao);
       }
-      if (event.data_prova === selectedDateStr) {
-        eventosFiltrados.prova.push(event);
+      if (locacao.data_prova === selectedDateStr) {
+        locacoesFiltradas.prova.push(locacao);
       }
     });
 
-    setEventosFiltrados(eventosFiltrados);
+    setLocacoesFiltradas(locacoesFiltradas);
   };
 
   if (loading) {
     return <div>Carregando...</div>;
   }
 
-  const { devolucao, retirada, prova } = eventosFiltrados;
+  const { devolucao, retirada, prova } = locacoesFiltradas;
 
   return (
     <div>
       <div className="flex flex-row w-full items-center justify-center gap-8">
-        <Calendario onDateSelect={handleSelect} eventos={eventos} />
+        <Calendario onDateSelect={handleSelect} locacoes={locacoes} />
         <LocacoesConsulta formData={formData} />
       </div>
 
@@ -98,34 +119,53 @@ const Agenda = () => {
           </tr>
         </thead>
         <tbody>
-          {[...devolucao, ...retirada, ...prova].map((event, index) => (
+          {[...devolucao, ...retirada, ...prova].map((locacao, index) => (
             <tr
               key={index}
               className="border-b border-gray-600 hover:bg-gray-600 cursor-pointer"
-              onClick={() => setFormData(event)}
+              onClick={() => setFormData(locacao)}
             >
               <td className="border border-gray-600 p-2">
-                {event.data_devolucao ||
-                  event.data_retirada ||
-                  event.data_prova}
+                {locacao.data_devolucao ||
+                  locacao.data_retirada ||
+                  locacao.data_prova}
               </td>
               <td className="border border-gray-600 p-2">
-                {event.data_devolucao
+                {locacao.data_devolucao
                   ? "Devolução"
-                  : event.data_retirada
+                  : locacao.data_retirada
                   ? "Retirada"
                   : "Prova"}
               </td>
-              <td className="border border-gray-600 p-2">{event.notas}</td>
-              <td className="border border-gray-600 p-2">{event.nome}</td>
-              <td className="border border-gray-600 p-2">{event.tipo}</td>
-              <td className="border border-gray-600 p-2">{event.modelo}</td>
+              <td className="border border-gray-600 p-2">{locacao.notas}</td>
+              <td className="border border-gray-600 p-2">{locacao.nome}</td>
+              <td className="border border-gray-600 p-2">{locacao.tipo}</td>
+              <td className="border border-gray-600 p-2">{locacao.modelo}</td>
             </tr>
           ))}
         </tbody>
       </table>
+
+      {/* Botões de navegação */}
+      <div className="flex justify-center mt-4">
+        <button
+          onClick={prevPage}
+          disabled={currentPage === 0}
+          className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
+        >
+          Anterior
+        </button>
+        <button
+          onClick={nextPage}
+          disabled={startIndex + itemsPerPage >= locacoes.length}
+          className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
+        >
+          Próximo
+        </button>
+      </div>
     </div>
   );
 };
 
 export default Agenda;
+

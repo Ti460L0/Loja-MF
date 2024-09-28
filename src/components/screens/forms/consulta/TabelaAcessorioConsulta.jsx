@@ -6,13 +6,33 @@ const TabelaAcessorioConsulta = () => {
   const [acessorioId, setAcessorioId] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [startIndex, setStartIndex] = useState(0);
   const [selectedAcessorio, setSelectedAcessorio] = useState({
     tipo: "",
     cor: "",
     tamanho: "",
     status: "",
   });
+
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 5;
+
+  // Calcula o índice inicial e final com base na página atual
+  const startIndex = currentPage * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedClientes = acessorios.slice(startIndex, endIndex);
+
+  // Funções para navegar entre as páginas
+  const nextPage = () => {
+    if (startIndex + itemsPerPage < acessorios.length) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
   useEffect(() => {
     const fetchAllAcessorios = async () => {
@@ -140,7 +160,9 @@ const TabelaAcessorioConsulta = () => {
       }
 
       setAcessorios((prevAcessorios) =>
-        prevAcessorios.filter((acessorio) => acessorio.acessorio_id !== acessorioId)
+        prevAcessorios.filter(
+          (acessorio) => acessorio.acessorio_id !== acessorioId
+        )
       );
       alert("Acessorio excluído com sucesso!");
     } catch (error) {
@@ -213,22 +235,28 @@ const TabelaAcessorioConsulta = () => {
             />
           </label>
           <label className="block text-left mb-2">
-            Preço:
-            <input
+            Status:
+            <select
               className={
                 "block w-full px-4 py-2 text-slate-700 bg-white border border-solid border-slate-300 rounded transition ease-in-out " +
-                (selectedAcessorio.status === "Disponível" ? "font-semibold bg-green-200 text-green-950" : "font-semibold bg-red-200 text-red-950")
+                (selectedAcessorio.status === "Disponível"
+                  ? "font-semibold bg-green-200 text-green-950"
+                  : selectedAcessorio.status === "Alugado"
+                  ? "font-semibold bg-red-200 text-red-950"
+                  : "")
               }
-              type="text"
               name="status"
-              value={selectedAcessorio.status || 0}
+              value={selectedAcessorio.status}
               onChange={(e) =>
                 setSelectedAcessorio({
                   ...selectedAcessorio,
                   status: e.target.value,
                 })
               }
-            />
+            >
+              <option value="Disponível">Disponível</option>
+              <option value="Alugado">Alugado</option>
+            </select>
           </label>
           <button
             className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
@@ -246,7 +274,7 @@ const TabelaAcessorioConsulta = () => {
             <th className="px-4 py-2">Tipo</th>
             <th className="px-4 py-2">Tamanho</th>
             <th className="px-4 py-2">Cor</th>
-            <th className="px-4 py-2">Preço</th>
+            <th className="px-4 py-2">Status</th>
             <th className="px-4 py-2">Ações</th>
           </tr>
         </thead>
@@ -264,14 +292,29 @@ const TabelaAcessorioConsulta = () => {
                 }
                 onClick={() => setSelectedAcessorio(acessorio)}
               >
-                <td className="border px-4 py-2 bg-slate-800">{acessorio.tipo}</td>
-                <td className="border px-4 py-2 bg-slate-800">{acessorio.tamanho}</td>
-                <td className="border px-4 py-2 bg-slate-800">{acessorio.cor}</td>
-                <td className="border px-4 py-2 bg-slate-800" style={{color: acessorio.status === "Disponível" ? "green" : "red"}}>{acessorio.status}</td>
+                <td className="border px-4 py-2 bg-slate-800">
+                  {acessorio.tipo}
+                </td>
+                <td className="border px-4 py-2 bg-slate-800">
+                  {acessorio.tamanho}
+                </td>
+                <td className="border px-4 py-2 bg-slate-800">
+                  {acessorio.cor}
+                </td>
+                <td
+                  className="border px-4 py-2 bg-slate-800"
+                  style={{
+                    color: acessorio.status === "Disponível" ? "green" : "red",
+                  }}
+                >
+                  {acessorio.status}
+                </td>
                 <td className="border px-4 py-2 bg-slate-800">
                   <button
                     className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                    onClick={() => handleDeleteAcessorio(acessorio.acessorio_id)}
+                    onClick={() =>
+                      handleDeleteAcessorio(acessorio.acessorio_id)
+                    }
                   >
                     Excluir
                   </button>
@@ -285,29 +328,25 @@ const TabelaAcessorioConsulta = () => {
               </tr>
             ))}
         </tbody>
-        <tfoot>
-          <tr>
-            <td colSpan="5">
-              <div className="flex justify-between">
-                <button
-                  className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
-                  onClick={() => setStartIndex(startIndex - 5)}
-                  disabled={startIndex === 0}
-                >
-                  Anterior
-                </button>
-                <button
-                  className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
-                  onClick={() => setStartIndex(startIndex + 5)}
-                  disabled={startIndex >= acessorios.length - 5}
-                >
-                  Próximo
-                </button>
-              </div>
-            </td>
-          </tr>
-        </tfoot>
       </table>
+
+      {/* Paginação */}
+      <div className="flex justify-center mt-4">
+        <button
+          onClick={prevPage}
+          disabled={currentPage === 0}
+          className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
+        >
+          Anterior
+        </button>
+        <button
+          onClick={nextPage}
+          disabled={startIndex + itemsPerPage >= acessorios.length}
+          className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
+        >
+          Próximo
+        </button>
+      </div>
 
       {/* Mensagem de erro */}
       {error && <div className="text-red-500">{error}</div>}

@@ -107,6 +107,18 @@ const VestidosForm = ({ handleChange, formData, handleImagemChange, modoCadastro
       </div>
 
       <div className="mb-4">
+        <label className="block text-left mb-2">Valor:</label>
+        <input
+          type="text"
+          id="valor"
+          name="valor"
+          value={formData.valor}
+          onChange={handleChange}
+          className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+        />
+      </div>
+
+      <div className="mb-4">
         <label htmlFor="imageUpload">Escolha uma imagem:</label>
         <input type="file" accept="image/*" onChange={handleLocalImagemChange} />
       </div>

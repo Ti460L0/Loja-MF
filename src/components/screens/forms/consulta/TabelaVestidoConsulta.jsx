@@ -5,7 +5,6 @@ const TabelaVestidoConsulta = () => {
   const [vestidos, setVestidos] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [startIndex, setStartIndex] = useState(0);
 
   const [selectedVestido, setSelectedVestido] = useState({
     codigo: "",
@@ -16,6 +15,27 @@ const TabelaVestidoConsulta = () => {
     status: "",
     url: "",
   });
+
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 5;
+
+  // Calcula o índice inicial e final com base na página atual
+  const startIndex = currentPage * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedVestidos = vestidos.slice(startIndex, endIndex);
+
+  // Funções para navegar entre as páginas
+  const nextPage = () => {
+    if (startIndex + itemsPerPage < vestidos.length) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
   useEffect(() => {
     fetchAllVestidos();
@@ -64,16 +84,17 @@ const TabelaVestidoConsulta = () => {
       setError("Nenhum vestido selecionado para atualização");
       return;
     }
-  
+
     try {
       setLoading(true);
       // Verifica se uma nova imagem foi selecionada
-      const newImageFile = document.querySelector('input[type="file"]').files[0];
-      
+      const newImageFile =
+        document.querySelector('input[type="file"]').files[0];
+
       if (newImageFile) {
         const codigo = selectedVestido.codigo; // Usa o código para montar o link
         const s3Url = `https://bucked-lojamf.s3.us-east-2.amazonaws.com/img/${codigo}.jpeg`;
-  
+
         // Faz o upload da nova imagem para o S3
         const uploadResponse = await fetch(s3Url, {
           method: "PUT",
@@ -82,12 +103,12 @@ const TabelaVestidoConsulta = () => {
           },
           body: newImageFile,
         });
-  
+
         if (!uploadResponse.ok) {
           throw new Error("Erro ao fazer upload da imagem");
         }
       }
-  
+
       const response = await fetch(
         `http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/ve/at/${selectedVestido.vestido_id}`,
         {
@@ -98,11 +119,11 @@ const TabelaVestidoConsulta = () => {
           body: JSON.stringify(selectedVestido),
         }
       );
-  
+
       if (!response.ok) {
         throw new Error("Erro ao atualizar vestido");
       }
-  
+
       const updatedVestido = await response.json();
       setVestidos((prevVestidos) =>
         prevVestidos.map((vestido) =>
@@ -121,32 +142,6 @@ const TabelaVestidoConsulta = () => {
       fetchAllVestidos(); // Atualiza a lista após a atualização
     }
   };
-  
-
-  // const handleUploadImage = async (codigo, file) => {
-  //   const url = `https://bucked-lojamf.s3.us-east-2.amazonaws.com/img/${codigo}.jpeg`;
-
-  //   const headers = new Headers();
-  //   headers.append("Content-Type", file.type);
-  //   headers.append("x-amz-acl", "public-read"); // Defina as permissões como público se necessário
-
-  //   try {
-  //     const response = await fetch(url, {
-  //       method: "PUT",
-  //       headers: headers,
-  //       body: file,
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error("Erro ao fazer upload da imagem");
-  //     }
-
-  //     alert("Imagem enviada com sucesso!");
-  //   } catch (error) {
-  //     console.error(error);
-  //     alert("Erro ao enviar a imagem: " + error.message);
-  //   }
-  // };
 
   const handleDeleteVestido = async () => {
     if (!selectedVestido) {
@@ -251,7 +246,7 @@ const TabelaVestidoConsulta = () => {
           </label>
           <label className="block text-left mb-2">
             Tamanho:
-            <input
+            <select
               className="block w-full px-4 py-2 text-slate-700 bg-white border border-solid border-slate-300 rounded transition ease-in-out"
               name="tamanho"
               value={selectedVestido.tamanho || ""} // Garante que seja uma string
@@ -261,14 +256,25 @@ const TabelaVestidoConsulta = () => {
                   tamanho: e.target.value,
                 })
               }
-            />
+            >
+              <option value="">Selecione um tamanho</option>
+              <option value="PP">PP</option>
+              <option value="P">P</option>
+              <option value="M">M</option>
+              <option value="G">G</option>
+              <option value="GG">GG</option>
+            </select>
           </label>
           <label className="block text-left mb-2">
             Status:
-            <input
+            <select
               className={
                 "block w-full px-4 py-2 text-slate-700 bg-white border border-solid border-slate-300 rounded transition ease-in-out " +
-                (selectedVestido.status === "Alugado" ? "bg-red-200" : selectedVestido.status === "Disponível" ? "bg-green-200" : "bg-yellow-200")
+                (selectedVestido.status === "Alugado"
+                  ? "bg-red-200"
+                  : selectedVestido.status === "Disponível"
+                  ? "bg-green-200"
+                  : "bg-yellow-200")
               }
               name="status"
               value={selectedVestido.status || ""} // Garante que seja uma string
@@ -278,7 +284,12 @@ const TabelaVestidoConsulta = () => {
                   status: e.target.value,
                 })
               }
-            />            
+            >
+              <option value="">Selecione</option>
+              <option value="Alugado">Alugado</option>
+              <option value="Disponível">Disponível</option>
+              <option value="Indisponível">Indisponível</option>
+            </select>
           </label>
           <label className="block text-left mb-2">
             Preço:
@@ -367,6 +378,23 @@ const TabelaVestidoConsulta = () => {
           ))}
         </tbody>
       </table>
+      {/* Botões de navegação */}
+      <div className="flex justify-center mt-4">
+        <button
+          onClick={prevPage}
+          disabled={currentPage === 0}
+          className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
+        >
+          Anterior
+        </button>
+        <button
+          onClick={nextPage}
+          disabled={startIndex + itemsPerPage >= vestidos.length}
+          className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
+        >
+          Próximo
+        </button>
+      </div>
 
       {/* Mensagem de erro */}
       {error && <div className="text-red-500">{error}</div>}
