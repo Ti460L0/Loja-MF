@@ -7,7 +7,7 @@ const TabelaClienteConsulta = () => {
   const [clienteId, setClienteId] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [startIndex, setStartIndex] = useState(0);
+  
 
   const [selectedClient, setSelectedClient] = useState({
     nome: "",
@@ -18,6 +18,27 @@ const TabelaClienteConsulta = () => {
     cep: "",
     bairro: "",
   });
+
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 5;
+
+  // Calcula o índice inicial e final com base na página atual
+  const startIndex = currentPage * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedClientes = clientes.slice(startIndex, endIndex);
+
+  // Funções para navegar entre as páginas
+  const nextPage = () => {
+    if (startIndex + itemsPerPage < clientes.length) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
   useEffect(() => {
     const fetchAllClientes = async () => {
@@ -253,16 +274,16 @@ const TabelaClienteConsulta = () => {
       )}
 
       {/* Tabela de clientes */}
-      <table className="table-auto w-full text-left">
+      <table className="table-auto w-full text-left shadow-md rounded">
         <thead className="bg-slate-600">
           <tr>
-            <th className="px-4 py-2">Nome</th>
-            <th className="px-4 py-2">CPF</th>
-            <th className="px-4 py-2">Telefone</th>
-            <th className="px-4 py-2">Email</th>
-            <th className="px-4 py-2">Endereço</th>
-            <th className="px-4 py-2">CEP</th>
-            <th className="px-4 py-2">Bairro</th>
+            <th className="px-4 py-2 text-white">Nome</th>
+            <th className="px-4 py-2 text-white">CPF</th>
+            <th className="px-4 py-2 text-white">Telefone</th>
+            <th className="px-4 py-2 text-white">Email</th>
+            <th className="px-4 py-2 text-white">Endereço</th>
+            <th className="px-4 py-2 text-white">CEP</th>
+            <th className="px-4 py-2 text-white">Bairro</th>
           </tr>
         </thead>
         <tbody>
@@ -272,7 +293,7 @@ const TabelaClienteConsulta = () => {
               className={
                 selectedClient &&
                 selectedClient.cliente_id === cliente.cliente_id
-                  ? "bg-slate-400 cursor-pointer"
+                  ? "bg-slate-400 cursor-pointer hover:bg-slate-500"
                   : "hover:bg-slate-200 cursor-pointer"
               }
               onClick={() => setSelectedClient(cliente)}
@@ -288,6 +309,24 @@ const TabelaClienteConsulta = () => {
           ))}
         </tbody>
       </table>
+
+      {/* Paginação */}
+      <div className="flex justify-center mt-4">
+        <button
+          onClick={prevPage}
+          disabled={currentPage === 0}
+          className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
+        >
+          Anterior
+        </button>
+        <button
+          onClick={nextPage}
+          disabled={startIndex + itemsPerPage >= clientes.length}
+          className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
+        >
+          Próximo
+        </button>
+      </div>
 
       {/* Botão de refresh */}
       <button
