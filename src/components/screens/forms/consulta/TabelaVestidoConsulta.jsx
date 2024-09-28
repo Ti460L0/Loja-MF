@@ -264,6 +264,23 @@ const TabelaVestidoConsulta = () => {
             />
           </label>
           <label className="block text-left mb-2">
+            Status:
+            <input
+              className={
+                "block w-full px-4 py-2 text-slate-700 bg-white border border-solid border-slate-300 rounded transition ease-in-out " +
+                (selectedVestido.status === "Alugado" ? "bg-red-200" : selectedVestido.status === "Disponível" ? "bg-green-200" : "bg-yellow-200")
+              }
+              name="status"
+              value={selectedVestido.status || ""} // Garante que seja uma string
+              onChange={(e) =>
+                setSelectedVestido({
+                  ...selectedVestido,
+                  status: e.target.value,
+                })
+              }
+            />            
+          </label>
+          <label className="block text-left mb-2">
             Preço:
             <input
               className="block w-full px-4 py-2 text-slate-700 bg-white border border-solid border-slate-300 rounded transition ease-in-out"
@@ -319,6 +336,7 @@ const TabelaVestidoConsulta = () => {
           <tr>
             <th className="px-4 py-2">Código</th>
             <th className="px-4 py-2">Modelo</th>
+            <th className="px-4 py-2">Status</th>
             <th className="px-4 py-2">Cor</th>
             <th className="px-4 py-2">Tamanho</th>
             <th className="px-4 py-2">Preço</th>
@@ -341,6 +359,7 @@ const TabelaVestidoConsulta = () => {
             >
               <td className="border px-4 py-2">{vestido.codigo}</td>
               <td className="border px-4 py-2">{vestido.modelo}</td>
+              <td className="border px-4 py-2">{vestido.status}</td>
               <td className="border px-4 py-2">{vestido.cor}</td>
               <td className="border px-4 py-2">{vestido.tamanho}</td>
               <td className="border px-4 py-2">{vestido.valor}</td>

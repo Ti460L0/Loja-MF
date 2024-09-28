@@ -215,14 +215,17 @@ const TabelaAcessorioConsulta = () => {
           <label className="block text-left mb-2">
             Preço:
             <input
-              className="block w-full px-4 py-2 text-slate-700 bg-white border border-solid border-slate-300 rounded transition ease-in-out"
-              type="number"
-              name="preco"
-              value={selectedAcessorio.preco || 0}
+              className={
+                "block w-full px-4 py-2 text-slate-700 bg-white border border-solid border-slate-300 rounded transition ease-in-out " +
+                (selectedAcessorio.status === "Disponível" ? "font-semibold bg-green-200 text-green-950" : "font-semibold bg-red-200 text-red-950")
+              }
+              type="text"
+              name="status"
+              value={selectedAcessorio.status || 0}
               onChange={(e) =>
                 setSelectedAcessorio({
                   ...selectedAcessorio,
-                  preco: Number(e.target.value),
+                  status: e.target.value,
                 })
               }
             />
