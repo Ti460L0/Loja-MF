@@ -30,10 +30,16 @@ const VestidoConsulta = ({ multiple, onSelect }) => {
     const selectedVestido = vestidos.find((v) => v.codigo === codigoVestido);
 
     if (selectedVestido) {
-      setVestidoSelecionado(selectedVestido);
-      onSelect(selectedVestido.vestido_id);
+      if (selectedVestido.status === "Alugado") {
+        alert("Vestido alugado, não é possiível selecionar");
+      } else {
+        setVestidoSelecionado(selectedVestido);
+        onSelect(selectedVestido.vestido_id);
+      }
+    } else {
+      setVestidoSelecionado(null);
+      onSelect(null);
     }
-    
   };
 
   return (
@@ -71,7 +77,6 @@ const VestidoConsulta = ({ multiple, onSelect }) => {
                       <td className="border px-4 py-2">{v.tamanho}</td>
                       <td className="border px-4 py-2">{v.cor}</td>
                       <td className="border px-4 py-2">R${v.valor}</td>
-                      
                     </tr>
                   ))}
                 </tbody>

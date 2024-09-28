@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import InputMask from "react-input-mask";
+
 
 const ClienteConsulta = ({ multiple, onSelect }) => {
   const [search, setSearch] = useState("");
@@ -48,6 +50,7 @@ const ClienteConsulta = ({ multiple, onSelect }) => {
       } else {
         setClientes([]);
         setSelectedClient(null);
+
         onSelect(null);
       }
     } catch (error) {
@@ -105,13 +108,14 @@ const ClienteConsulta = ({ multiple, onSelect }) => {
             Digite o CPF:
           </label>
           <form className="w-full text-nowrap  mb-4" onSubmit={handleSearch}>
-            <input
+            <InputMask
               className="shadow appearance-none border rounded min-w-10 py-2 px-3 text-slate-200 leading-tight focus:outline-none"
               type="search"
               value={search}
               mask="999.999.999-99"
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Buscar CPF"
+              required
             />
             <button
               className="text-white font-bold py-2 px-4 rounded"
@@ -131,7 +135,7 @@ const ClienteConsulta = ({ multiple, onSelect }) => {
                 {clientes.length > 0
                   ? clientes.map((cliente) => (
                       <li key={cliente.cliente_id} className="py-4">
-                        <div className="flex flex-col ">
+                        <div className="flex flex-col max-w-7xl mx-auto">
                           <div className="flex-1">
                             <p className="text-lg font-sans text-slate-300">
                               <strong>CPF:</strong> {cliente.cpf}

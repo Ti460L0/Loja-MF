@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import VestidoConsulta from "./forms/consulta/VestidoConsulta";
 import ClienteConsulta from "./forms/consulta/ClienteConsulta";
 import AcessorioConsulta from "./forms/consulta/AcessorioConsulta";
+import InputMask from "react-input-mask";
 
 const MainPage = () => {
   const [vestidoSelecionado, setVestidoSelecionado] = useState(null);
@@ -26,7 +27,10 @@ const MainPage = () => {
 
   const handleAcessorioSelect = (acessorioId) => {
     setAcessorioSelecionado(acessorioId);
-    setFormData((prevFormData) => ({ ...prevFormData, acessorio_id: acessorioId }));
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      acessorio_id: acessorioId,
+    }));
     console.log("Acessorio selecionado:", acessorioId);
   };
 
@@ -47,6 +51,22 @@ const MainPage = () => {
   const handleSubmitLocacao = async (event) => {
     event.preventDefault();
     try {
+      if (!formData.vestido_id) {
+        alert("Selecione um vestido");
+        throw new Error("Selecione um vestido");
+      }
+      if (!formData.cliente_id) {
+        alert("Selecione um cliente");
+        throw new Error("Selecione um cliente");
+      }
+      if (!formData.data_retirada) {
+        alert("Selecione uma data de retirada");
+        throw new Error("Selecione uma data de retirada");
+      }
+      if (!formData.data_devolucao) {
+        alert("Selecione uma data de devolução");
+        throw new Error("Selecione uma data de devolução");
+      }
       const response = await fetch(
         "http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/lo/ca",
         {
@@ -78,7 +98,10 @@ const MainPage = () => {
             <VestidoConsulta multiple={false} onSelect={handleVestidoSelect} />
           </div>
           <div className="flex flex-col w-1/2 p-4">
-            <AcessorioConsulta multiple={false} onSelect={handleAcessorioSelect} />
+            <AcessorioConsulta
+              multiple={false}
+              onSelect={handleAcessorioSelect}
+            />
           </div>
         </div>
         <div>
@@ -95,9 +118,10 @@ const MainPage = () => {
             <label className="text-left mb-2" htmlFor="data_retirada">
               Data de retirada
             </label>
-            <input
+            <InputMask
+              mask="99/99/9999"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-200"
-              type="date"
+              type="text"
               id="data_retirada"
               name="data_retirada"
               value={formData.data_retirada}
@@ -106,9 +130,10 @@ const MainPage = () => {
             <label className="text-left mb-2" htmlFor="data_devolucao">
               Data de devolução
             </label>
-            <input
+            <InputMask
+              mask="99/99/9999"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-200"
-              type="date"
+              type="text"
               id="data_devolucao"
               name="data_devolucao"
               value={formData.data_devolucao}
@@ -117,9 +142,10 @@ const MainPage = () => {
             <label className="text-left mb-2" htmlFor="data_prova">
               Data de prova
             </label>
-            <input
+            <InputMask
+              mask="99/99/9999"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-200"
-              type="date"
+              type="text"
               id="data_prova"
               name="data_prova"
               value={formData.data_prova}

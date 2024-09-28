@@ -1,4 +1,6 @@
+import { Input } from "postcss";
 import React from "react";
+import InputMask from "react-input-mask";
 
 const ClienteForm = ({ formData, handleChange, handleSubmit }) => {
   return (
@@ -12,7 +14,8 @@ const ClienteForm = ({ formData, handleChange, handleSubmit }) => {
           <label className="text-left mb-2" htmlFor="cpf">
             CPF
           </label>
-          <input
+          <InputMask
+            mask="999.999.999-99"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-200 leading-tight focus:outline-none focus:shadow-outline"
             type="text"
             id="cpf"
@@ -55,7 +58,8 @@ const ClienteForm = ({ formData, handleChange, handleSubmit }) => {
           <label className="text-left mb-2" htmlFor="telefone">
             Telefone
           </label>
-          <input
+          <InputMask
+            mask="(99) 99999-9999"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-200 leading-tight focus:outline-none focus:shadow-outline"
             type="text"
             id="telefone"
@@ -87,7 +91,8 @@ const ClienteForm = ({ formData, handleChange, handleSubmit }) => {
             <label className="text-left mb-2" htmlFor="cep">
               CEP
             </label>
-            <input
+            <InputMask
+              mask="99999-999"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-200 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               id="cep"

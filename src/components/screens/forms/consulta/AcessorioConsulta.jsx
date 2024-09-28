@@ -33,6 +33,7 @@ const AcessorioConsulta = ({ multiple, onSelect }) => {
     if (selectedAcessorio) {
       setAcessorioSelecionado(selectedAcessorio);
       onSelect(selectedAcessorio.acessorio_id);
+      console.log("Acessorio selecionado:", selectedAcessorio);
     }
   };
 
