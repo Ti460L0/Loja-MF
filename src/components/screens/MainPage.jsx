@@ -86,91 +86,88 @@ const MainPage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-full max-w-7xl mx-auto bg-slate-950 shadow-md rounded px-8 pt-6 pb-8 mb-4">
-      <h1 className="text-4xl font-bold mb-4">Selecione as opções:</h1>
-      <div className="flex flex-col w-full bg-slate-700 rounded-t">
-        <div className="flex flex-row">
-          <div className="flex flex-col w-1/2 p-4">
-            <ClienteConsulta multiple={false} onSelect={handleClienteSelect} />
-            {modoCadastro && <a href="/Cadastrar">Cadastrar novo cliente</a>}
-          </div>
-          <div className="flex flex-col w-1/2 p-4">
-            <VestidoConsulta multiple={false} onSelect={handleVestidoSelect} />
-          </div>
-          <div className="flex flex-col w-1/2 p-4">
-            <AcessorioConsulta
-              multiple={false}
-              onSelect={handleAcessorioSelect}
-            />
-          </div>
+  <div className="flex flex-col items-center justify-center w-full max-w-7xl mx-auto bg-lightBrown shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <h1 className="text-4xl font-bold mb-4 text-white">Selecione as opções:</h1>
+    <div className="flex flex-col w-full bg-lightBrown rounded-t">
+      <div className="flex flex-row">
+        <div className="flex flex-col w-1/2 p-4">
+          <ClienteConsulta multiple={false} onSelect={handleClienteSelect} />
+          {modoCadastro && <a href="/Cadastrar" className="text-lightGold">Cadastrar novo cliente</a>}
         </div>
-        <div>
-          <button
-            className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            type="button"
-            onClick={() => console.log(formData)}
-          >
-            Confirmar escolha
-          </button>
+        <div className="flex flex-col w-1/2 p-4">
+          <VestidoConsulta multiple={false} onSelect={handleVestidoSelect} />
         </div>
-        <div className="flex flex-row justify-end gap-2 bg-slate-700 rounded-b p-4">
-          <form onSubmit={handleSubmitLocacao}>
-            <label className="text-left mb-2" htmlFor="data_retirada">
-              Data de retirada
-            </label>
-            <InputMask
-              mask="99/99/9999"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-200"
-              type="text"
-              id="data_retirada"
-              name="data_retirada"
-              value={formData.data_retirada}
-              onChange={handleChange}
-            />
-            <label className="text-left mb-2" htmlFor="data_devolucao">
-              Data de devolução
-            </label>
-            <InputMask
-              mask="99/99/9999"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-200"
-              type="text"
-              id="data_devolucao"
-              name="data_devolucao"
-              value={formData.data_devolucao}
-              onChange={handleChange}
-            />
-            <label className="text-left mb-2" htmlFor="data_prova">
-              Data de prova
-            </label>
-            <InputMask
-              mask="99/99/9999"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-200"
-              type="text"
-              id="data_prova"
-              name="data_prova"
-              value={formData.data_prova}
-              onChange={handleChange}
-            />
-            <label className="text-left mb-2" htmlFor="notas">
-              Observações
-            </label>
-            <textarea
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-200"
-              id="notas"
-              name="notas"
-              value={formData.notas}
-              onChange={handleChange}
-            />
-            <button
-              className="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-              type="submit"
-            >
-              Registrar locação
-            </button>
-          </form>
+        <div className="flex flex-col w-1/2 p-4">
+          <AcessorioConsulta multiple={false} onSelect={handleAcessorioSelect} />
         </div>
       </div>
+      {/* <div>
+        <button
+          className="w-full bg-gold hover:bg-lightGold text-white font-bold py-2 px-4 rounded"
+          type="button"
+          onClick={() => console.log(formData)}
+        >
+          Confirmar escolha
+        </button>
+      </div> */}
+      <div className="flex flex-row justify-end gap-2 bg-lightBrown rounded-b p-4">
+        <form onSubmit={handleSubmitLocacao}>
+          <label className="text-left mb-2 text-white" htmlFor="data_retirada">
+            Data de retirada
+          </label>
+          <InputMask
+            mask="99/99/9999"
+            className="shadow appearance-none border border-lightGold rounded w-full py-2 px-3 text-beige bg-black"
+            type="text"
+            id="data_retirada"
+            name="data_retirada"
+            value={formData.data_retirada}
+            onChange={handleChange}
+          />
+          <label className="text-left mb-2 text-white" htmlFor="data_devolucao">
+            Data de devolução
+          </label>
+          <InputMask
+            mask="99/99/9999"
+            className="shadow appearance-none border border-lightGold rounded w-full py-2 px-3 text-beige bg-black"
+            type="text"
+            id="data_devolucao"
+            name="data_devolucao"
+            value={formData.data_devolucao}
+            onChange={handleChange}
+          />
+          <label className="text-left mb-2 text-white" htmlFor="data_prova">
+            Data de prova
+          </label>
+          <InputMask
+            mask="99/99/9999"
+            className="shadow appearance-none border border-lightGold rounded w-full py-2 px-3 text-beige bg-black"
+            type="text"
+            id="data_prova"
+            name="data_prova"
+            value={formData.data_prova}
+            onChange={handleChange}
+          />
+          <label className="text-left mb-2 text-white" htmlFor="notas">
+            Observações
+          </label>
+          <textarea
+            className="shadow appearance-none border border-lightGold rounded w-full py-2 px-3 text-beige bg-black"
+            id="notas"
+            name="notas"
+            value={formData.notas}
+            onChange={handleChange}
+          />
+          <button
+            className="w-full bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded"
+            type="submit"
+          >
+            Registrar locação
+          </button>
+        </form>
+      </div>
     </div>
+  </div>
   );
 };
 

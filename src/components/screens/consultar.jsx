@@ -24,7 +24,7 @@ const Consultar = () => {
   const renderResultado = () => {
     if (resultadoConsulta) {
       return (
-        <div className="mt-4 bg-slate-800 p-4 rounded">
+        <div className="mt-4 p-4 rounded">
           <h3 className="font-bold">Resultado da Consulta:</h3>
           <pre className="text-white">
             {JSON.stringify(resultadoConsulta, null, 2)}
@@ -36,26 +36,26 @@ const Consultar = () => {
   };
 
   return (
-    <div className="w-full text-nowrap bg-slate-600 shadow-md rounded px-8 pt-6 pb-8 mb-4">
-      <p className="text-center" style={{ display: screen ? "none" : "block" }}>
+    <div className="flex flex-col items-center justify-center w-full max-w-7xl mx-auto bg-lightBrown shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <p className="text-4xl font-bold mb-4 text-white" style={{ display: screen ? "none" : "block" }}>
         Escolha uma opção:{" "}
       </p>
       <div className="flex justify-center gap-4 m-2">
         <button
-          className="bg-slate-800 p-4"
+          className="bg-gold hover:bg-lightGold text-white font-bold py-2 px-4 rounded"
           onClick={() => setScreen("cliente")}
         >
           Consulta Cliente
         </button>
         <button
-          className="bg-slate-800 p-4"
+          className="bg-gold hover:bg-lightGold text-white font-bold py-2 px-4 rounded"
           onClick={() => {
             setScreen("vestido");
           }}
         >
           Consulta Vestido
         </button>
-        <button className="bg-slate-800" onClick={() => setScreen("acessorio")}>
+        <button className="bg-gold hover:bg-lightGold text-white font-bold py-2 px-4 rounded" onClick={() => setScreen("acessorio")}>
           Consulta Acessório
         </button>
       </div>
