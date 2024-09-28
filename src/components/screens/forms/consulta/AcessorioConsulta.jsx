@@ -38,86 +38,44 @@ const AcessorioConsulta = ({ multiple, onSelect }) => {
   };
 
   return (
-    <div>
-      {loading && <div>Carregando...</div>}
-      {error && <div>Erro ao buscar acessorios</div>}
-      {!loading && !error && (
-        <>
-          {multiple ? (
-            <div className="overflow-x-auto">
-              <table className="table-auto w-full text-left">
-                <thead className="bg-slate-600">
-                  <tr>
-                    <th className="px-4 py-2">Tipo</th>
-                    <th className="px-4 py-2">Tamanho</th>
-                    <th className="px-4 py-2">Status</th>
-                    <th className="px-4 py-2">Cor</th>
-                  </tr>
-                </thead>
-                <tbody className="bg-slate-800">
-                  {acessorios.map((a) => (
-                    <tr
-                      key={a.acessorio_id}
-                      className={`hover:bg-sky-800 ${
-                        acessorioSelecionado &&
-                        acessorioSelecionado.acessorio_id === a.acessorio_id
-                          ? "bg-blue-500"
-                          : ""
-                      }`}
-                      onClick={() => handleSelect(a.tipo)}
-                    >
-                      <td className="border px-4 py-2">{a.tipo}</td>
-                      <td className="border px-4 py-2">{a.tamanho}</td>
-                      <td className="border px-4 py-2">{a.status}</td>
-                      <td className="border px-4 py-2">{a.cor}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          ) : (
-            <div className="flex flex-col w-full">
-              <label className="mb-2" htmlFor="acessorio-select">
-                Escolha um acessório:
-              </label>
-              <input
-                className="px-4 py-2 border-2 border-gray-300 rounded-lg w-full"
-                type="search"
-                id="acessorio-select"
-                onChange={(e) => handleSelect(e.target.value)}
-                placeholder="Digite o tipo do acessório"
-                list="acessorios"
-              />
-              <datalist id="acessorios">
-                {acessorios.slice(0, 10).map((a) => (
-                  <option key={a.acessorio_id} value={a.tipo}>
-                    {a.tipo} - {a.status}
-                  </option>
-                ))}
-              </datalist>
-              {acessorioSelecionado && (
-                <div className="mt-4 bg-slate-800 p-4 rounded-lg">
-                  <p className="text-lg font-sans text-slate-300">
-                    <strong>Tipo: </strong>
-                    {acessorioSelecionado.tipo}
-                  </p>
-                  <p className="text-lg font-sans text-slate-300">
-                    <strong>Tamanho: </strong>
-                    {acessorioSelecionado.tamanho}
-                  </p>
-                  <p className="text-lg font-sans text-slate-300">
-                    <strong>Cor: </strong>
-                    {acessorioSelecionado.cor}
-                  </p>
-                  <p className="text-lg font-sans text-slate-300">
-                    <strong>Status: </strong>
-                    {acessorioSelecionado.status}
-                  </p>
-                </div>
-              )}
-            </div>
-          )}
-        </>
+    <div className="grid grid-cols-1 gap-4">
+      <label className="mb-2" htmlFor="acessorio-select">
+        Escolha um acessório:
+      </label>
+      <input
+        className="px-4 py-2 border-2 border-gray-300 rounded-lg w-full"
+        type="search"
+        id="acessorio-select"
+        onChange={(e) => handleSelect(e.target.value)}
+        placeholder="Digite o tipo do acessório"
+        list="acessorios"
+      />
+      <datalist id="acessorios">
+        {acessorios.slice(0, 10).map((a) => (
+          <option key={a.acessorio_id} value={a.tipo}>
+            {a.tipo} - {a.status}
+          </option>
+        ))}
+      </datalist>
+      {acessorioSelecionado && (
+        <div className="flex flex-col w-full items-center mx-auto bg-yellow-950 p-4 rounded-lg max-w-md shadow-2xl">
+          <p className="text-lg font-sans text-slate-300">
+            <strong>Tipo: </strong>
+            {acessorioSelecionado.tipo}
+          </p>
+          <p className="text-lg font-sans text-slate-300">
+            <strong>Tamanho: </strong>
+            {acessorioSelecionado.tamanho}
+          </p>
+          <p className="text-lg font-sans text-slate-300">
+            <strong>Cor: </strong>
+            {acessorioSelecionado.cor}
+          </p>
+          <p className="text-lg font-sans text-slate-300">
+            <strong>Status: </strong>
+            {acessorioSelecionado.status}
+          </p>
+        </div>
       )}
     </div>
   );

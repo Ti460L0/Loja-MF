@@ -28,10 +28,11 @@ const Login = ({ onLogin, onRegister }) => {
     };
 
     return (
-        <div>
-            <h2>Login</h2>
-            <form onSubmit={handleSubmit}>
+        <div className="fixed w-full max-w-56 p-8 bg-gradient-to-t from-yellow-400 to-yellow-800">
+            <h2 className="text-white">Login</h2>
+            <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
                 <input
+                    className="bg-white p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-gold-400"
                     type="text"
                     placeholder="CPF"
                     value={cpf}
@@ -39,16 +40,17 @@ const Login = ({ onLogin, onRegister }) => {
                     required
                 />
                 <input
+                    className="bg-white p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-gold-400"
                     type="password"
                     placeholder="Senha"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
-                <button type="submit">Login</button>
+                <button className="bg-gold-500 hover:bg-gold-700 text-white font-bold py-2 px-4 rounded" type="submit">Login</button>
             </form>
-            {message && <p>{message}</p>}
-            <button onClick={onRegister}>Registrar</button> {/* Botão para ir para a tela de registro */}
+            {message && <p className="text-white">{message}</p>}
+            <button className="bg-gold-500 hover:bg-gold-700 text-white font-bold py-2 px-4 rounded" onClick={onRegister}>Registrar</button> {/* Bot o para ir para a tela de registro */}
         </div>
     );
 };

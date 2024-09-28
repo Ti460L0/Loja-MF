@@ -4,9 +4,10 @@ import App from './App.jsx';
 import Login from './components/Login/Login.jsx';
 import Register from './components/Login/Register.jsx'; // Importando o componente de registro
 import './index.css';
+import './App.css';
 
 function Root() {
-  const [isLogged, setIsLogged] = useState(false);
+  const [isLogged, setIsLogged] = useState(true);
   const [isRegistering, setIsRegistering] = useState(false); // Estado para controlar a tela de registro
 
   const handleLogin = () => setIsLogged(true);
