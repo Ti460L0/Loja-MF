@@ -101,28 +101,32 @@ const ClienteConsulta = ({ multiple, onSelect }) => {
       {loading ? (
         <p className="text-center">Buscando...</p>
       ) : (
-        <div className="flex flex-col w-full items-center mx-auto bg-yellow-950 p-4 rounded-lg max-w-md shadow-2xl">
+        <div className="flex flex-col w-full items-center mx-auto bg-yellow-950 p-4 rounded-lg max-w-md shadow-lg shadow-black">
           <ul className="list-inside">
             {clientes.length > 0
               ? clientes.map((cliente) => (
                   <li key={cliente.cliente_id} className="py-4">
-                    <div className="flex flex-col">
-                      <p className="text-lg font-sans text-slate-300">
+                    <div className="flex flex-col space-y-2">
+                      <h2 className="text-xl text-nowrap font-bold tracking-tight text-yellow-800">
+                        Informações do Cliente
+                      </h2>
+                      <hr className="w-full my-4 border-b-2 border-yellow-800"></hr>
+                      <p className="text-lg font-medium text-slate-300">
                         <strong>CPF:</strong> {cliente.cpf}
                       </p>
-                      <p className="text-lg font-sans text-slate-300">
+                      <p className="text-lg font-medium text-slate-300">
                         <strong>Nome:</strong> {cliente.nome}
                       </p>
-                      <p className="text-lg font-sans text-slate-300">
+                      <p className="text-lg font-medium text-slate-300">
                         <strong>Email:</strong> {cliente.email}
                       </p>
-                      <p className="text-lg font-sans text-slate-300">
+                      <p className="text-lg font-medium text-slate-300">
                         <strong>Telefone:</strong> {cliente.telefone}
                       </p>
-                      <p className="text-lg font-sans text-slate-300">
+                      <p className="text-lg font-medium text-slate-300">
                         <strong>Bairro:</strong> {cliente.bairro}
                       </p>
-                      <p className="text-lg font-sans text-slate-300">
+                      <p className="text-lg font-medium text-slate-300">
                         <strong>CEP:</strong> {cliente.cep}
                       </p>
                     </div>

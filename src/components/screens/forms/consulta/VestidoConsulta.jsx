@@ -67,37 +67,36 @@ const VestidoConsulta = ({ multiple, onSelect }) => {
         ))}
       </datalist>
       {vestidoSelecionado && (
-        <div className="flex flex-col w-full items-center mx-auto bg-yellow-950 p-4 rounded-lg max-w-md shadow-2xl">
-          <p className="text-lg font-sans text-slate-300">
+        <div className="flex text-lg text-slate-300 flex-col w-full items-center mx-auto bg-yellow-950 p-4 rounded-lg max-w-md shadow-lg shadow-black">
+          <p className="flex items-center space-x-2">
             <strong>Modelo: </strong>
-            {vestidoSelecionado.modelo}
+            <span>{vestidoSelecionado.modelo}</span>
           </p>
-          <p className="text-lg font-sans text-slate-300">
+          <p className="flex items-center space-x-2">
             <strong>Tamanho: </strong>
-            {vestidoSelecionado.tamanho}
+            <span>{vestidoSelecionado.tamanho}</span>
           </p>
-          <p className="text-lg font-sans text-slate-300">
+          <p className="flex items-center space-x-2">
             <strong>Cor: </strong>
-            {vestidoSelecionado.cor}
+            <span>{vestidoSelecionado.cor}</span>
           </p>
-          <p className="text-lg font-sans text-slate-300">
+          <p className="flex items-center space-x-2">
             <strong>Status: </strong>
-            {vestidoSelecionado.status}
+            <span>{vestidoSelecionado.status}</span>
           </p>
-          <p className="text-lg font-sans text-slate-300">
+          <p className="flex items-center space-x-2">
             <strong>Valor: </strong>
-            R$ {vestidoSelecionado.valor}
+            <span>R$ {vestidoSelecionado.valor}</span>
           </p>
           <img
             src={vestidoSelecionado.url}
             alt="Imagem do vestido"
-            className="w-2/5 mt-4 content-center"
+            className="w-3/5 mt-4 self-center"
           />
         </div>
       )}
     </div>
   );
-
 };
 
 export default VestidoConsulta;

@@ -58,23 +58,27 @@ const AcessorioConsulta = ({ multiple, onSelect }) => {
         ))}
       </datalist>
       {acessorioSelecionado && (
-        <div className="flex flex-col w-full items-center mx-auto bg-yellow-950 p-4 rounded-lg max-w-md shadow-2xl">
+        <div className="flex flex-col w-full items-center mx-auto bg-yellow-950 p-4 rounded-lg max-w-md shadow-lg shadow-black">
+        <h2 className="text-xl text-nowrap font-bold tracking-tight text-yellow-800">Informações do Acessório</h2>
+        <hr className="w-full my-4 border-b-2 border-yellow-800"></hr>
+        <div className="flex flex-col gap-2">
           <p className="text-lg font-sans text-slate-300">
-            <strong>Tipo: </strong>
+            <strong className="font-bold">Tipo: </strong>
             {acessorioSelecionado.tipo}
           </p>
           <p className="text-lg font-sans text-slate-300">
-            <strong>Tamanho: </strong>
+            <strong className="font-bold">Tamanho: </strong>
             {acessorioSelecionado.tamanho}
           </p>
           <p className="text-lg font-sans text-slate-300">
-            <strong>Cor: </strong>
+            <strong className="font-bold">Cor: </strong>
             {acessorioSelecionado.cor}
           </p>
           <p className="text-lg font-sans text-slate-300">
-            <strong>Status: </strong>
+            <strong className="font-bold">Status: </strong>
             {acessorioSelecionado.status}
           </p>
+        </div>
         </div>
       )}
     </div>
