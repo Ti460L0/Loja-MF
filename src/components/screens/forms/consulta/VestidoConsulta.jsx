@@ -34,7 +34,7 @@ const VestidoConsulta = ({ multiple, onSelect }) => {
         alert("Vestido alugado, não é possiível selecionar");
       } else {
         setVestidoSelecionado(selectedVestido);
-        onSelect(selectedVestido.vestido_id);
+        onSelect(selectedVestido);
       }
     } else {
       setVestidoSelecionado(null);

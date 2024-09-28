@@ -3,6 +3,7 @@ import VestidoConsulta from "./forms/consulta/VestidoConsulta";
 import ClienteConsulta from "./forms/consulta/ClienteConsulta";
 import AcessorioConsulta from "./forms/consulta/AcessorioConsulta";
 import InputMask from "react-input-mask";
+import jsPDF from "jspdf";
 
 const MainPage = () => {
   const [vestidoSelecionado, setVestidoSelecionado] = useState(null);
@@ -19,26 +20,65 @@ const MainPage = () => {
   });
   const [modoCadastro, setModoCadastro] = useState(false);
 
-  const handleVestidoSelect = (vestidoId) => {
-    setVestidoSelecionado(vestidoId);
-    setFormData((prevFormData) => ({ ...prevFormData, vestido_id: vestidoId }));
-    console.log("Vestido selecionado:", vestidoId);
+  const handleVestidoSelect = (vestido) => {
+    if (vestido) {
+      setVestidoSelecionado(vestido);
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        vestido_id: vestido.vestido_id,
+        modelo: vestido.modelo,
+      }));
+    } else {
+      setVestidoSelecionado(null);
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        vestido_id: "",
+        modelo: "",
+      }));
+    }
   };
 
-  const handleAcessorioSelect = (acessorioId) => {
-    setAcessorioSelecionado(acessorioId);
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      acessorio_id: acessorioId,
-    }));
-    console.log("Acessorio selecionado:", acessorioId);
+  const handleAcessorioSelect = (acessorio) => {
+    if (acessorio) {
+      setAcessorioSelecionado(acessorio);
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        acessorio_id: acessorio.acessorio_id,
+        tipo: acessorio.tipo,
+      }));
+    } else {
+      setAcessorioSelecionado(null);
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        acessorio_id: "",
+        tipo: "",
+      }));
+    }
   };
 
-  const handleClienteSelect = (clienteId) => {
-    setClienteSelecionado(clienteId);
-    setFormData((prevFormData) => ({ ...prevFormData, cliente_id: clienteId }));
-    if (!clienteId) setModoCadastro(true);
-    console.log("Cliente selecionado:", clienteId);
+  const handleClienteSelect = (cliente) => {
+    if (cliente) {
+      setClienteSelecionado(cliente);
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        cliente_id: cliente.cliente_id,
+        nome: cliente.nome,
+        email: cliente.email,
+        telefone: cliente.telefone,
+        cpf: cliente.cpf,
+      }));
+      if (!cliente.cliente_id) setModoCadastro(true);
+    } else {
+      setClienteSelecionado(null);
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        cliente_id: "",
+        nome: "",
+        email: "",
+        telefone: "",
+        cpf: "",
+      }));
+    }
   };
 
   const handleChange = (event) => {
@@ -67,6 +107,7 @@ const MainPage = () => {
         alert("Selecione uma data de devolução");
         throw new Error("Selecione uma data de devolução");
       }
+
       const response = await fetch(
         "http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/lo/ca",
         {
@@ -80,6 +121,57 @@ const MainPage = () => {
       }
       const data = await response.json();
       console.log("Locação cadastrada:", data);
+
+      // Gera o PDF após o sucesso do envio
+      const doc = new jsPDF();
+      // Titulo
+      doc.setFontSize(18);
+      doc.text("Relatório de Locação", 20, 20);
+
+      // Adiciona os dados da locação
+      doc.setFontSize(12);
+
+      // Define column positions
+      const leftColumnX = 20;
+      const rightColumnX = 150; // Adjust this value based on your page width and margins
+
+      // Add text to the left column
+      doc.text(`Cliente: ${formData.nome}`, leftColumnX, 30);
+      doc.text(`CPF: ${formData.cpf}`, leftColumnX, 40);
+      doc.text(`E-mail: ${formData.email}`, leftColumnX, 50);
+      doc.text(`Telefone: ${formData.telefone}`, leftColumnX, 60);
+      doc.text(`Data de Retirada: ${formData.data_retirada}`, leftColumnX, 70);
+      doc.text(`Data de Devolução: ${formData.data_devolucao}`,leftColumnX,80);
+
+      // Add text to the right column
+      doc.text(`Vestido: ${formData.modelo}`, rightColumnX, 30);
+      doc.text(`Acessório: ${formData.tipo}`, rightColumnX, 40);
+      doc.text(`Data de Prova: ${formData.data_prova}`, rightColumnX, 50);
+      doc.text(`Notas: ${formData.notas}`, rightColumnX, 60);
+      // Adiciona área para assinatura
+      doc.setFontSize(12);
+      doc.text("Assinatura do Cliente:", 20, 140);
+      doc.line(20, 155, 180, 155); // Linha para assinatura
+
+      // Salva o PDF
+      doc.save(`relatorio_locacao_${formData.cliente_id}.pdf`);
+
+      // Limpa o formulário e atualiza a página
+      setFormData({
+        vestido_id: "",
+        cliente_id: "",
+        acessorio_id: "",
+        data_retirada: "",
+        data_devolucao: "",
+        data_prova: "",
+        notas: "",
+      });
+      setVestidoSelecionado(null);
+      setClienteSelecionado(null);
+      setAcessorioSelecionado(null);
+
+      // Refresh na página
+      // window.location.reload();
     } catch (error) {
       console.error("Erro ao registrar locação:", error);
     }
