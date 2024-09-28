@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import InputMask from "react-input-mask";
 
-
 const ClienteConsulta = ({ multiple, onSelect }) => {
   const [search, setSearch] = useState("");
   const [clientes, setClientes] = useState([]);
@@ -44,13 +43,12 @@ const ClienteConsulta = ({ multiple, onSelect }) => {
       }
       const data = await response.json();
       if (data) {
-        setClientes([data]); // mantém a estrutura esperada para exibir o cliente
-        setSelectedClient(data); // define o cliente selecionado diretamente
-        onSelect(data.cliente_id); // envia o cliente selecionado
+        setClientes([data]);
+        setSelectedClient(data);
+        onSelect(data); // Passa o cliente completo, não apenas o ID
       } else {
         setClientes([]);
         setSelectedClient(null);
-
         onSelect(null);
       }
     } catch (error) {
@@ -84,14 +82,10 @@ const ClienteConsulta = ({ multiple, onSelect }) => {
             {clientes.map((cliente) => (
               <tr
                 key={cliente.cliente_id}
-                className={
-                  selectedClient === cliente
-                    ? "bg-slate-400 cursor-pointer"
-                    : "hover:bg-slate-200 cursor-pointer"
-                }
+                className={selectedClient === cliente ? "bg-slate-400 cursor-pointer" : "hover:bg-slate-200 cursor-pointer"}
                 onClick={() => {
                   setSelectedClient(cliente);
-                  onSelect(cliente.cliente_id);
+                  onSelect(cliente); // Passa o cliente completo
                 }}
               >
                 <td className="px-4 py-2">{cliente.cpf}</td>
@@ -107,7 +101,7 @@ const ClienteConsulta = ({ multiple, onSelect }) => {
           <label className="mb-2" htmlFor="vestido-select">
             Digite o CPF:
           </label>
-          <form className="w-full text-nowrap  mb-4" onSubmit={handleSearch}>
+          <form className="w-full text-nowrap mb-4" onSubmit={handleSearch}>
             <InputMask
               className="shadow appearance-none border rounded min-w-10 py-2 px-3 text-slate-200 leading-tight focus:outline-none"
               type="search"
@@ -117,10 +111,7 @@ const ClienteConsulta = ({ multiple, onSelect }) => {
               placeholder="Buscar CPF"
               required
             />
-            <button
-              className="text-white font-bold py-2 px-4 rounded"
-              type="submit"
-            >
+            <button className="text-white font-bold py-2 px-4 rounded" type="submit">
               Buscar
             </button>
           </form>
@@ -163,9 +154,7 @@ const ClienteConsulta = ({ multiple, onSelect }) => {
                         </div>
                       </li>
                     ))
-                  : search && (
-                      <p className="text-center">Nenhum cliente encontrado</p>
-                    )}
+                  : search && <p className="text-center">Nenhum cliente encontrado</p>}
               </ul>
             </div>
           )}

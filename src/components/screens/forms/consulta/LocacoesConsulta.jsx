@@ -1,7 +1,8 @@
 import InputMask from "react-input-mask";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import jsPDF from "jspdf";
 
-export default function LocacoesConsulta({ formData }) {
+export default function LocacoesConsulta({ formData, refreshData }) {
   const {
     locacao_id,
     nome,
@@ -22,8 +23,34 @@ export default function LocacoesConsulta({ formData }) {
     notas: formData.notas,
   });
 
+  // 
+  const gerarPDF = () => {
+    const doc = new jsPDF();
+
+    // Adiciona título
+    doc.setFontSize(18);
+    doc.text("Comprovante de Locação", 10, 10);
+
+    // Adiciona os dados da locação
+    doc.setFontSize(12);
+    doc.text(`Nome: ${formData.nome}`, 10, 30);
+    doc.text(`Data de Retirada: ${formData.data_retirada}`, 10, 40);
+    doc.text(`Data de Devolução: ${formData.data_devolucao}`, 10, 50);
+    doc.text(`Vestido: ${formData.modelo}`, 10, 70);
+    doc.text(`Acessório: ${formData.tipo}`, 10, 80);
+
+    // Adiciona o texto de confirmação da entrega
+    doc.setFontSize(14);
+    doc.text("Entrega realizada com sucesso.", 10, 100);
+
+    // Salva o PDF
+    doc.save(`comprovante_locacao_${formData.nome}.pdf`);
+    
+  };
+
+
   // Função para deletar locação (concluir entrega)
-  const handleConcluir = async () => {
+  const handleDeletar = async () => {
     try {
       setLoading(true);
       const response = await fetch(
@@ -36,7 +63,7 @@ export default function LocacoesConsulta({ formData }) {
         throw new Error("Erro ao concluir a locação");
       }
       alert("Locação concluída e removida do sistema");
-      window.location.reload();
+      refreshData(); // Atualiza a lista de locações
     } catch (error) {
       console.error(error);
       alert("Erro ao concluir a locação");
@@ -66,7 +93,7 @@ export default function LocacoesConsulta({ formData }) {
         }
       );
       console.log(editedData);
-      window.location.reload();
+      refreshData(); // Atualiza a lista de locações
       if (!response.ok) {
         throw new Error("Erro ao salvar a locação");
       }
@@ -175,22 +202,23 @@ export default function LocacoesConsulta({ formData }) {
           resize-none"
           value={isEditing ? editedData.notas : formData.notas}
           onChange={handleInputChange}
-          name="nota" // Nome para identificar o campo
+          name="notas" // Nome para identificar o campo
           rows="2"
           cols="20"
           maxLength="200"
-          
         />
       </div>
 
       <div className="flex flex-row space-x-2">
         {!isEditing && ( // Esconde o botão "Concluir" quando no modo de edição
           <button
-            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md"
-            onClick={handleConcluir}
-            disabled={loading}
+            onClick={() => {
+              gerarPDF();
+              refreshData(); // Atualiza os dados se necessário
+            }}
+            className="bg-green-500 text-white px-4 py-2 rounded"
           >
-            {loading ? "Concluindo..." : "Concluir"}
+            Concluir
           </button>
         )}
         {isEditing && ( // Exibe o botão "Salvar" apenas no modo de edição
@@ -210,7 +238,8 @@ export default function LocacoesConsulta({ formData }) {
             Editar
           </button>
         )}
-        <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md">
+        <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md"
+          onClick={handleDeletar}>
           Deletar
         </button>
       </div>
