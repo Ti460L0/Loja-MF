@@ -1,7 +1,7 @@
 import InputMask from "react-input-mask";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-export default function LocacoesConsulta({ formData }) {
+export default function LocacoesConsulta({ formData, refreshData }) {
   const {
     locacao_id,
     nome,
@@ -36,7 +36,7 @@ export default function LocacoesConsulta({ formData }) {
         throw new Error("Erro ao concluir a locação");
       }
       alert("Locação concluída e removida do sistema");
-      window.location.reload();
+      refreshData(); // Atualiza a lista de locações
     } catch (error) {
       console.error(error);
       alert("Erro ao concluir a locação");
@@ -66,7 +66,7 @@ export default function LocacoesConsulta({ formData }) {
         }
       );
       console.log(editedData);
-      window.location.reload();
+      refreshData(); // Atualiza a lista de locações
       if (!response.ok) {
         throw new Error("Erro ao salvar a locação");
       }
@@ -175,11 +175,10 @@ export default function LocacoesConsulta({ formData }) {
           resize-none"
           value={isEditing ? editedData.notas : formData.notas}
           onChange={handleInputChange}
-          name="nota" // Nome para identificar o campo
+          name="notas" // Nome para identificar o campo
           rows="2"
           cols="20"
           maxLength="200"
-          
         />
       </div>
 
@@ -217,3 +216,4 @@ export default function LocacoesConsulta({ formData }) {
     </div>
   );
 }
+

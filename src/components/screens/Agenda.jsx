@@ -40,24 +40,26 @@ const Agenda = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          "http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/lo"
-        );
-        if (!response.ok) {
-          throw new Error("Erro ao buscar locações");
-        }
-        const data = await response.json();
-        setLocacoes(data);
-      } catch (error) {
-        console.error(error);
-      }
-      setLoading(false);
-    };
-
     fetchData();
-  }, []);
+  }, [currentPage]);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        "http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/lo"
+      );
+      if (!response.ok) {
+        throw new Error("Erro ao buscar locações");
+      }
+      const data = await response.json();
+      setLocacoes(data);
+    } catch (error) {
+      console.error(error);
+    }
+    setLoading(false);
+  };
+
+  fetchData();
 
   const handleSelect = (date) => {
     setSelectedDate(date);
@@ -98,7 +100,7 @@ const Agenda = () => {
     <div>
       <div className="flex flex-row w-full items-center justify-center gap-8">
         <Calendario onDateSelect={handleSelect} locacoes={locacoes} />
-        <LocacoesConsulta formData={formData} />
+        <LocacoesConsulta formData={formData} refreshData={fetchData} />
       </div>
 
       {selectedDate && (
@@ -112,7 +114,7 @@ const Agenda = () => {
           <tr className="bg-gray-700 text-white">
             <th className="border border-gray-600 p-2">Data</th>
             <th className="border border-gray-600 p-2">Tipo de Evento</th>
-            <th className="border border-gray-600 p-2">Observação</th>
+            <th className="border border-gray-600 p-2">Notas</th>
             <th className="border border-gray-600 p-2">Nome</th>
             <th className="border border-gray-600 p-2">Tipo</th>
             <th className="border border-gray-600 p-2">Modelo</th>
@@ -168,4 +170,3 @@ const Agenda = () => {
 };
 
 export default Agenda;
-
