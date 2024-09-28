@@ -12,7 +12,7 @@ const Header = () => {
             alt="Logo Milla Fashion"
           />
           <h2 className="text-left ml-6 text-2xl font-sans font-bold text-black">
-            Sistema de vendas Milla Fashion
+            Sistema de locações Milla Fashion
           </h2>
         </div>
         <ButtonMenu className="w-auto text-left" />
