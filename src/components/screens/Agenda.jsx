@@ -99,7 +99,7 @@ const Agenda = () => {
   const { devolucao, retirada, prova } = locacoesFiltradas;
 
   return (
-    <div>
+    <div className="flex flex-col items-center justify-center w-full max-w-7xl mx-auto bg-lightBrown shadow-md rounded px-8 pt-6 pb-8 mb-4">
       <div className="flex flex-row w-full items-center justify-center gap-8">
         <Calendario onDateSelect={handleSelect} locacoes={locacoes} />
         <LocacoesConsulta formData={formData} refreshData={fetchData} />

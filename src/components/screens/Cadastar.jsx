@@ -130,19 +130,19 @@ const Cadastro = () => {
   };
 
   return (
-    <div className="w-full text-nowrap bg-slate-600 shadow-md rounded px-8 pt-6 pb-8 mb-4">
-      <p className="text-center" style={{ display: screen ? "none" : "block" }}>
+    <div className="flex flex-col items-center justify-center w-full max-w-7xl mx-auto bg-lightBrown shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <p className="text-4xl font-bold mb-4 text-white" style={{ display: screen ? "none" : "block" }}>
         Escolha uma opção:
       </p>
       <div className="flex justify-center gap-4 m-2">
         <button
-          className="bg-slate-800 p-4"
+          className=" bg-gold hover:bg-lightGold text-white font-bold py-2 px-4 rounded"
           onClick={() => setScreen("cliente")}
         >
           Cadastrar cliente
         </button>
         <button
-          className="bg-slate-800 p-4"
+          className=" bg-gold hover:bg-lightGold text-white font-bold py-2 px-4 rounded"
           onClick={() => {
             setScreen("vestido");
             setModoCadastro(true);
@@ -151,7 +151,7 @@ const Cadastro = () => {
           Cadastrar vestido
         </button>
         <button
-          className="bg-slate-800 p-4"
+          className=" bg-gold hover:bg-lightGold text-white font-bold py-2 px-4 rounded"
           onClick={() => setScreen("acessorio")}
         >
           Cadastrar acessório
