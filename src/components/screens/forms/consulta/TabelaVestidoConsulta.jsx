@@ -93,7 +93,7 @@ const TabelaVestidoConsulta = () => {
 
       if (newImageFile) {
         const codigo = selectedVestido.codigo; // Usa o código para montar o link
-        const s3Url = `https://bucked-lojamf.s3.us-east-2.amazonaws.com/img/${codigo}.jpeg`;
+        const s3Url = `http://bucked-lojamf.s3.us-east-2.amazonaws.com/img/${codigo}.jpg`;
 
         // Faz o upload da nova imagem para o S3
         const uploadResponse = await fetch(s3Url, {
