@@ -3,14 +3,14 @@ import React from 'react';
 const AcessorioForm = ({ formData, handleChange, handleSubmit }) => {
   
   return (
-    <form className="w-full text-nowrap bg-slate-600 shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
+    <form className="w-full text-nowrap rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
       
       {/* Tipo e Tamanho */}
       <div className="flex flex-row justify-between mb-4 gap-4">
         <div className="flex flex-col grow">
           <label className="text-left mb-2" htmlFor="tipo">Tipo:</label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-200 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded bg-white w-full py-2 px-3 text-slate-200 leading-tight focus:outline-none focus:shadow-outline"
             type="text"
             id="tipo"
             name="tipo"
@@ -22,7 +22,7 @@ const AcessorioForm = ({ formData, handleChange, handleSubmit }) => {
         <div className="flex flex-col">
           <label className="text-left mb-2" htmlFor="tamanho">Tamanho:</label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-200 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded bg-white w-full py-2 px-3 text-slate-200 leading-tight focus:outline-none focus:shadow-outline"
             type="text"
             id="tamanho"
             name="tamanho"
@@ -37,7 +37,7 @@ const AcessorioForm = ({ formData, handleChange, handleSubmit }) => {
         <div className="flex flex-col grow">
           <label className="text-left mb-2" htmlFor="cor">Cor:</label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-200 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded bg-white w-full py-2 px-3 text-slate-200 leading-tight focus:outline-none focus:shadow-outline"
             type="text"
             id="cor"
             name="cor"
@@ -49,7 +49,7 @@ const AcessorioForm = ({ formData, handleChange, handleSubmit }) => {
         <div className= 'flex flex-col grow'>
           <label className=" text-left mb-2" htmlFor="status">Status:</label>
           <select
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-200 leading-tight focus:outline-none focus:shadow-outline" 
+          className="shadow appearance-none border rounded bg-white w-full py-2 px-3 text-slate-950 leading-tight focus:outline-none focus:shadow-outline" 
           id="status" 
           name="status"
           value={formData.status}

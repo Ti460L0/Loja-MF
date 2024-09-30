@@ -224,7 +224,7 @@ const MainPage = () => {
           </div>
         </div>
         <div className="row-start-2 gap-2 rounded-b">
-          <form onSubmit={handleSubmitLocacao}>
+          <form className="mb-4" onSubmit={handleSubmitLocacao}>
             {/* Campos de data */}
             <h1 className="text-4xl font-bold mb-4 text-white">
               Selecione as datas abaixo:
@@ -300,7 +300,7 @@ const MainPage = () => {
                 />
               </div>
             </div>
-            <div className="flex flex-col w-full gap-4 px-8 py-4">
+            <div className="flex flex-col w-full gap-4 px-8 py-4 mb-4">
               <button
                 className="h-20 bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded"
                 type="submit"

@@ -183,7 +183,7 @@ const TabelaAcessorioConsulta = () => {
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Buscar por tipo ou cor"
         />
-        <button type="submit">Buscar</button>
+        <button className="bg-green-700 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"type="submit">Buscar</button>
       </form>
 
       {/* Formulário de edição do acessorio */}
@@ -259,7 +259,7 @@ const TabelaAcessorioConsulta = () => {
             </select>
           </label>
           <button
-            className="w-full bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded"
+            className="w-full bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded mb-4"
             type="submit"
           >
             Salvar Alterações
@@ -275,7 +275,7 @@ const TabelaAcessorioConsulta = () => {
       <th className="px-4 py-2">Tamanho</th>
       <th className="px-4 py-2">Cor</th>
       <th className="px-4 py-2">Status</th>
-      {/* <th className="px-4 py-2">Ações</th> */}
+      <th className="px-4 py-2">Ações</th>
     </tr>
   </thead>
   <tbody>
@@ -307,7 +307,7 @@ const TabelaAcessorioConsulta = () => {
         >
           {acessorio.status}
         </td>
-        {/* <td className="border px-4 py-2 ">
+        <td className="border bg-white text-black px-4 py-2">
           <button
             className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
             onClick={() => handleDeleteAcessorio(acessorio.acessorio_id)}
@@ -320,7 +320,7 @@ const TabelaAcessorioConsulta = () => {
           >
             Alterar
           </button>
-        </td> */}
+        </td>
       </tr>
     ))}
   </tbody>

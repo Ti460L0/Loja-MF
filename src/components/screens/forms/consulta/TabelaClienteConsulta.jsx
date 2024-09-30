@@ -158,7 +158,7 @@ const TabelaClienteConsulta = () => {
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Buscar por CPF ou nome"
         />
-        <button type="submit">Buscar</button>
+        <button className="bg-green-700 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out" type="submit">Buscar</button>
       </form>
 
       {/* Formulário de edição do cliente */}
@@ -265,7 +265,7 @@ const TabelaClienteConsulta = () => {
           </label>
 
           <button
-            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded m-2"
             type="submit"
           >
             Salvar Alterações
@@ -274,7 +274,7 @@ const TabelaClienteConsulta = () => {
       )}
 
       {/* Tabela de clientes */}
-      <table className="table-auto w-full text-left shadow-md rounded">
+      <table className="table-auto w-full text-left shadow-md rounded m-4">
   <thead className="bg-brown">
     <tr>
       <th className="px-4 py-2 text-white">Nome</th>

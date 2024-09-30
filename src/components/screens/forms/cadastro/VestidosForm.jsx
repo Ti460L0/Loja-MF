@@ -51,7 +51,7 @@ const VestidosForm = ({ handleChange, formData, handleImagemChange, modoCadastro
   }, [modoCadastro]);
 
   return (
-    <form className="w-full text-nowrap shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <form className="w-full text-nowrap rounded px-8 pt-6 pb-8 mb-4">
       <div className="mb-4">
         <label className="block text-left mb-2">Código:</label>
         <input
@@ -60,7 +60,7 @@ const VestidosForm = ({ handleChange, formData, handleImagemChange, modoCadastro
           name="codigo"
           value={codigo}
           onChange={handleChange}
-          className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow appearance-none bg-white border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
         />
       </div>
 
@@ -72,7 +72,7 @@ const VestidosForm = ({ handleChange, formData, handleImagemChange, modoCadastro
           name="modelo"
           value={formData.modelo}
           onChange={handleChange}
-          className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow appearance-none bg-white border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
         />
       </div>
 
@@ -83,7 +83,7 @@ const VestidosForm = ({ handleChange, formData, handleImagemChange, modoCadastro
           name="tamanho"
           value={formData.tamanho}
           onChange={handleChange}
-          className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow appearance-none bg-white border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
         >
           <option value="">Selecione o tamanho</option>
           <option value="PP">PP</option>
@@ -102,7 +102,7 @@ const VestidosForm = ({ handleChange, formData, handleImagemChange, modoCadastro
           name="cor"
           value={formData.cor}
           onChange={handleChange}
-          className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow appearance-none bg-white border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
         />
       </div>
 
@@ -114,7 +114,7 @@ const VestidosForm = ({ handleChange, formData, handleImagemChange, modoCadastro
           name="valor"
           value={formData.valor}
           onChange={handleChange}
-          className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow appearance-none bg-white border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
         />
       </div>
 

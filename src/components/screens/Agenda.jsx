@@ -111,44 +111,44 @@ const Agenda = () => {
         </p>
       )}
 
-      <table className="min-w-full table-auto border border-gray-800 mt-4">
-        <thead>
-          <tr className="bg-gray-700 text-white">
-            <th className="border border-gray-600 p-2">Data</th>
-            <th className="border border-gray-600 p-2">Tipo de Evento</th>
-            <th className="border border-gray-600 p-2">Notas</th>
-            <th className="border border-gray-600 p-2">Nome</th>
-            <th className="border border-gray-600 p-2">Tipo</th>
-            <th className="border border-gray-600 p-2">Modelo</th>
-          </tr>
-        </thead>
-        <tbody>
-          {[...devolucao, ...retirada, ...prova].map((locacao, index) => (
-            <tr
-              key={index}
-              className="border-b border-gray-600 hover:bg-gray-600 cursor-pointer"
-              onClick={() => setFormData(locacao)}
-            >
-              <td className="border border-gray-600 p-2">
-                {locacao.data_devolucao ||
-                  locacao.data_retirada ||
-                  locacao.data_prova}
-              </td>
-              <td className="border border-gray-600 p-2">
-                {locacao.data_devolucao
-                  ? "Devolução"
-                  : locacao.data_retirada
-                  ? "Retirada"
-                  : "Prova"}
-              </td>
-              <td className="border border-gray-600 p-2">{locacao.notas}</td>
-              <td className="border border-gray-600 p-2">{locacao.nome}</td>
-              <td className="border border-gray-600 p-2">{locacao.tipo}</td>
-              <td className="border border-gray-600 p-2">{locacao.modelo}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+<table className="min-w-full table-auto border border-gray-800 mt-4">
+  <thead className="bg-brown text-white">
+    <tr>
+      <th className="border border-gray-600 p-2">Data</th>
+      <th className="border border-gray-600 p-2">Tipo de Evento</th>
+      <th className="border border-gray-600 p-2">Notas</th>
+      <th className="border border-gray-600 p-2">Nome</th>
+      <th className="border border-gray-600 p-2">Tipo</th>
+      <th className="border border-gray-600 p-2">Modelo</th>
+    </tr>
+  </thead>
+  <tbody>
+    {[...devolucao, ...retirada, ...prova].map((locacao, index) => (
+      <tr
+        key={index}
+        className="border-b border-gray-600 hover:bg-slate-200 cursor-pointer"
+        onClick={() => setFormData(locacao)}
+      >
+        <td className="border bg-white text-black p-2">
+          {locacao.data_devolucao ||
+            locacao.data_retirada ||
+            locacao.data_prova}
+        </td>
+        <td className="border bg-white text-black p-2">
+          {locacao.data_devolucao
+            ? "Devolução"
+            : locacao.data_retirada
+            ? "Retirada"
+            : "Prova"}
+        </td>
+        <td className="border bg-white text-black p-2">{locacao.notas}</td>
+        <td className="border bg-white text-black p-2">{locacao.nome}</td>
+        <td className="border bg-white text-black p-2">{locacao.tipo}</td>
+        <td className="border bg-white text-black p-2">{locacao.modelo}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
 
       {/* Botões de navegação */}
       <div className="flex justify-center mt-4">
