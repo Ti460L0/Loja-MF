@@ -87,17 +87,17 @@ const TabelaVestidoConsulta = () => {
       setError("Nenhum vestido selecionado para atualização");
       return;
     }
-
+  
     try {
       setLoading(true);
       const newImageFile =
         document.querySelector('input[type="file"]').files[0];
-
+  
       if (newImageFile) {
         const codigo = selectedVestido.codigo;
         const extension = newImageFile.name.split(".").pop(); // Extraí a extensão original
         const s3Url = `http://bucked-lojamf.s3.us-east-2.amazonaws.com/img/${codigo}.${extension}`; // Mantém a extensão original
-
+  
         const uploadResponse = await fetch(s3Url, {
           method: "PUT",
           headers: {
@@ -105,44 +105,69 @@ const TabelaVestidoConsulta = () => {
           },
           body: newImageFile,
         });
-
+  
         if (!uploadResponse.ok) {
           throw new Error("Erro ao fazer upload da imagem");
         }
-
+  
         // Atualiza a URL da imagem no vestido selecionado
-        setSelectedVestido((prevVestido) => ({
-          ...prevVestido,
+        const updatedVestido = {
+          ...selectedVestido,
           url: s3Url,
-        }));
-        setImagePreview(null);
-      }
-
-      const response = await fetch(
-        `http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/ve/at/${selectedVestido.vestido_id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(selectedVestido),
+        };
+  
+        const response = await fetch(
+          `http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/ve/at/${updatedVestido.vestido_id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(updatedVestido),
+          }
+        );
+  
+        if (!response.ok) {
+          throw new Error("Erro ao atualizar vestido");
         }
-      );
-
-      if (!response.ok) {
-        throw new Error("Erro ao atualizar vestido");
+  
+        const updatedVestidoResponse = await response.json();
+        setVestidos((prevVestidos) =>
+          prevVestidos.map((vestido) =>
+            vestido.vestido_id === updatedVestidoResponse.vestido_id
+              ? updatedVestidoResponse
+              : vestido
+          )
+        );
+        setSelectedVestido(updatedVestidoResponse);
+        alert("Vestido atualizado com sucesso!");
+      } else {
+        const response = await fetch(
+          `http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/ve/at/${selectedVestido.vestido_id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(selectedVestido),
+          }
+        );
+  
+        if (!response.ok) {
+          throw new Error("Erro ao atualizar vestido");
+        }
+  
+        const updatedVestidoResponse = await response.json();
+        setVestidos((prevVestidos) =>
+          prevVestidos.map((vestido) =>
+            vestido.vestido_id === updatedVestidoResponse.vestido_id
+              ? updatedVestidoResponse
+              : vestido
+          )
+        );
+        setSelectedVestido(updatedVestidoResponse);
+        alert("Vestido atualizado com sucesso!");
       }
-
-      const updatedVestido = await response.json();
-      setVestidos((prevVestidos) =>
-        prevVestidos.map((vestido) =>
-          vestido.vestido_id === updatedVestido.vestido_id
-            ? updatedVestido
-            : vestido
-        )
-      );
-      setSelectedVestido(updatedVestido);
-      alert("Vestido atualizado com sucesso!");
     } catch (error) {
       console.error(error);
       setError(error.message);
@@ -339,7 +364,6 @@ const TabelaVestidoConsulta = () => {
               className="w-48 m-4 object-scale-down rounded mx-auto"
               src={imagePreview || selectedVestido.url} // Mostra a pré-visualização, se disponível
               alt="Foto do Vestido"
-             
             />
             <input
               type="file"
@@ -352,7 +376,6 @@ const TabelaVestidoConsulta = () => {
               }}
             />
           </label>
-
           <div className="flex justify-center">
             <button
               className="m-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
@@ -430,13 +453,15 @@ const TabelaVestidoConsulta = () => {
               <td className="border text-nowrap px-4 py-2 bg-slate-800">
                 <button
                   className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                  onClick={() => handleDeleteAcessorio(acessorio.acessorio_id)}
+                  onClick={() =>
+                    handleDeleteVestido(selectedVestido.vestido_id)
+                  }
                 >
                   Excluir
                 </button>
                 <button
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2"
-                  onClick={() => handleUpdateAcessorio(index)}
+                  onClick={() => handleUpdateVestido(index)}
                 >
                   Alterar
                 </button>
@@ -465,14 +490,6 @@ const TabelaVestidoConsulta = () => {
 
       {/* Mensagem de erro */}
       {error && <div className="text-red-500">{error}</div>}
-
-      {/* Botão de atualização */}
-      <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
-        onClick={refreshVestidos}
-      >
-        Atualizar Lista
-      </button>
 
       {loading && <div>Carregando...</div>}
     </div>
