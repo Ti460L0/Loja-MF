@@ -13,7 +13,7 @@ const Header = () => {
           />
           
           {/* fonte customizada do google fonts bebas-neue-regular */}
-          <h2 className="bebas-neue-regular text-left ml-6 text-2xl font-bold text-black">
+          <h2 className="tracking-widest bebas-neue-regular text-left ml-6 text-2xl font-bold text-black">
             Sistema de locações Milla Fashion
           </h2>
         </div>
