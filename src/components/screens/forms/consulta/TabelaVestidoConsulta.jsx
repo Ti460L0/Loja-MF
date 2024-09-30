@@ -242,6 +242,7 @@ const TabelaVestidoConsulta = () => {
       {/* Formulário de busca */}
       <form onSubmit={handleSearch}>
         <input
+        className="shadow appearance-none border rounded mt-4 py-2 px-3 text-slate-200 leading-tight focus:outline-none focus:shadow-outline"
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}

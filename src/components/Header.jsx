@@ -11,7 +11,7 @@ const Header = () => {
             src="img/logo.png"
             alt="Logo Milla Fashion"
           />
-          <h2 className="text-left ml-6 text-2xl font-sans font-bold text-black">
+          <h2 className="font-lobster text-left ml-6 text-2xl font-bold text-black">
             Sistema de locações Milla Fashion
           </h2>
         </div>

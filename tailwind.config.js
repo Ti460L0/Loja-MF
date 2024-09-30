@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        lobster: ['Lobster'],
+      },
       colors: {
         gold: '#cea42e',
         lightGold: '#e4d494',
