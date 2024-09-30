@@ -158,7 +158,7 @@ const TabelaClienteConsulta = () => {
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Buscar por CPF ou nome"
         />
-        <button type="submit">Buscar</button>
+        <button className="bg-green-700 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out" type="submit">Buscar</button>
       </form>
 
       {/* Formulário de edição do cliente */}
@@ -265,7 +265,7 @@ const TabelaClienteConsulta = () => {
           </label>
 
           <button
-            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded m-2"
             type="submit"
           >
             Salvar Alterações
@@ -274,41 +274,40 @@ const TabelaClienteConsulta = () => {
       )}
 
       {/* Tabela de clientes */}
-      <table className="table-auto w-full text-left shadow-md rounded">
-        <thead className="bg-slate-600">
-          <tr>
-            <th className="px-4 py-2 text-white">Nome</th>
-            <th className="px-4 py-2 text-white">CPF</th>
-            <th className="px-4 py-2 text-white">Telefone</th>
-            <th className="px-4 py-2 text-white">Email</th>
-            <th className="px-4 py-2 text-white">Endereço</th>
-            <th className="px-4 py-2 text-white">CEP</th>
-            <th className="px-4 py-2 text-white">Bairro</th>
-          </tr>
-        </thead>
-        <tbody>
-          {clientes.slice(startIndex, startIndex + 5).map((cliente) => (
-            <tr
-              key={cliente.cliente_id}
-              className={
-                selectedClient &&
-                selectedClient.cliente_id === cliente.cliente_id
-                  ? "bg-slate-400 cursor-pointer hover:bg-slate-500"
-                  : "hover:bg-slate-200 cursor-pointer"
-              }
-              onClick={() => setSelectedClient(cliente)}
-            >
-              <td className="border text-nowrap px-4 py-2 bg-slate-800">{cliente.nome}</td>
-              <td className="border text-nowrap px-4 py-2 bg-slate-800">{cliente.cpf}</td>
-              <td className="border text-nowrap px-4 py-2 bg-slate-800">{cliente.telefone}</td>
-              <td className="border text-nowrap px-4 py-2 bg-slate-800">{cliente.email}</td>
-              <td className="border text-nowrap px-4 py-2 bg-slate-800">{cliente.endereco}</td>
-              <td className="border text-nowrap px-4 py-2 bg-slate-800">{cliente.cep}</td>
-              <td className="border text-nowrap px-4 py-2 bg-slate-800">{cliente.bairro}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <table className="table-auto w-full text-left shadow-md rounded m-4">
+  <thead className="bg-brown">
+    <tr>
+      <th className="px-4 py-2 text-white">Nome</th>
+      <th className="px-4 py-2 text-white">CPF</th>
+      <th className="px-4 py-2 text-white">Telefone</th>
+      <th className="px-4 py-2 text-white">Email</th>
+      <th className="px-4 py-2 text-white">Endereço</th>
+      <th className="px-4 py-2 text-white">CEP</th>
+      <th className="px-4 py-2 text-white">Bairro</th>
+    </tr>
+  </thead>
+  <tbody>
+    {clientes.slice(startIndex, startIndex + 5).map((cliente) => (
+      <tr
+        key={cliente.cliente_id}
+        className={
+          selectedClient && selectedClient.cliente_id === cliente.cliente_id
+            ? "bg-slate-400 cursor-pointer"
+            : "hover:bg-slate-200 cursor-pointer"
+        }
+        onClick={() => setSelectedClient(cliente)}
+      >
+        <td className="border bg-white text-black px-4 py-2">{cliente.nome}</td>
+        <td className="border bg-white text-black px-4 py-2">{cliente.cpf}</td>
+        <td className="border bg-white text-black px-4 py-2">{cliente.telefone}</td>
+        <td className="border bg-white text-black px-4 py-2">{cliente.email}</td>
+        <td className="border bg-white text-black px-4 py-2">{cliente.endereco}</td>
+        <td className="border bg-white text-black px-4 py-2">{cliente.cep}</td>
+        <td className="border bg-white text-black px-4 py-2">{cliente.bairro}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
 
       {/* Paginação */}
       <div className="flex justify-center mt-4">

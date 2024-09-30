@@ -247,7 +247,7 @@ const TabelaVestidoConsulta = () => {
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Buscar por Modelo ou Código"
         />
-        <button type="submit">Buscar</button>
+        <button className="bg-green-700 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out" type="submit">Buscar</button>
       </form>
 
       {/* Formulário de edição do vestido */}
@@ -359,7 +359,7 @@ const TabelaVestidoConsulta = () => {
               }
             />
           </label>
-          <label className="block text-center justify-center rounded-lg p-4 hover:bg-lightGold hover:cursor-pointer transition duration-150 ease-in-out items-center">
+          <label className="block text-center justify-center rounded-lg p-4 hover:cursor-pointer transition duration-150 ease-in-out items-center">
             <img
               className="w-48 m-4 object-scale-down rounded mx-auto"
               src={imagePreview || selectedVestido.url} // Mostra a pré-visualização, se disponível
@@ -398,7 +398,7 @@ const TabelaVestidoConsulta = () => {
 
       {/* Tabela de vestidos */}
       <table className="table-auto w-full text-left">
-        <thead className="bg-slate-600">
+        <thead className="bg-brown">
           <tr className="text-white text-center">
             <th className="px-4 py-2">Código</th>
             <th className="px-4 py-2">Modelo</th>
@@ -424,33 +424,30 @@ const TabelaVestidoConsulta = () => {
                 console.log("Vestido selecionado:", selectedVestido.vestido_id);
               }}
             >
-              <td className="border text-nowrap px-4 py-2 bg-slate-800">
+              <td className="border bg-white text-black px-4 py-2">
                 {vestido.codigo}
               </td>
-              <td className="border text-nowrap px-4 py-2 bg-slate-800">
+              <td className="border bg-white text-black px-4 py-2">
                 {vestido.modelo}
               </td>
               <td
-                className={
-                  vestido.status === "Alugado"
-                    ? "bg-red-500 border px-4 py-2"
-                    : vestido.status === "Disponível"
-                    ? "bg-green-500 border px-4 py-2"
-                    : "bg-yellow-500 border px-4 py-2"
-                }
+                className="border bg-white text-black px-4 py-2"
+                style={{
+                  color: vestido.status === "Disponível" ? "green" : "red",
+                }}
               >
                 {vestido.status}
               </td>
-              <td className="border text-nowrap px-4 py-2 bg-slate-800">
+              <td className="border bg-white text-black px-4 py-2">
                 {vestido.cor}
               </td>
-              <td className="border text-nowrap px-4 py-2 bg-slate-800">
+              <td className="border bg-white text-black px-4 py-2">
                 {vestido.tamanho}
               </td>
-              <td className="border text-nowrap px-4 py-2 bg-slate-800">
+              <td className="border bg-white text-black px-4 py-2">
                 {vestido.valor}
               </td>
-              <td className="border text-nowrap px-4 py-2 bg-slate-800">
+              <td className="border text-nowrap bg-white text-black px-4 py-2">
                 <button
                   className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                   onClick={() =>

@@ -5,7 +5,7 @@ import InputMask from "react-input-mask";
 const ClienteForm = ({ formData, handleChange, handleSubmit }) => {
   return (
     <form
-      className="w-full text-nowrap bg-slate-600 shadow-md rounded px-8 pt-6 pb-8 mb-4"
+      className="w-full text-nowrap rounded px-8 pt-6 pb-8 mb-4"
       onSubmit={handleSubmit}
     >
       {/* Nome e CPF */}
@@ -16,7 +16,7 @@ const ClienteForm = ({ formData, handleChange, handleSubmit }) => {
           </label>
           <InputMask
             mask="999.999.999-99"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-200 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-200 bg-white leading-tight focus:outline-none focus:shadow-outline"
             type="text"
             id="cpf"
             name="cpf"
@@ -29,7 +29,7 @@ const ClienteForm = ({ formData, handleChange, handleSubmit }) => {
             Nome
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-200 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-200 bg-white leading-tight focus:outline-none focus:shadow-outline"
             type="text"
             id="nome"
             name="nome"
@@ -46,7 +46,7 @@ const ClienteForm = ({ formData, handleChange, handleSubmit }) => {
             E-mail
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-200 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-200 bg-white leading-tight focus:outline-none focus:shadow-outline"
             type="email"
             id="email"
             name="email"
@@ -60,7 +60,7 @@ const ClienteForm = ({ formData, handleChange, handleSubmit }) => {
           </label>
           <InputMask
             mask="(99) 99999-9999"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-200 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-200 bg-white leading-tight focus:outline-none focus:shadow-outline"
             type="text"
             id="telefone"
             name="telefone"
@@ -77,7 +77,7 @@ const ClienteForm = ({ formData, handleChange, handleSubmit }) => {
             Endereço
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-200 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-200 bg-white leading-tight focus:outline-none focus:shadow-outline"
             type="text"
             id="endereco"
             name="endereco"
@@ -93,7 +93,7 @@ const ClienteForm = ({ formData, handleChange, handleSubmit }) => {
             </label>
             <InputMask
               mask="99999-999"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-200 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-200 bg-white leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               id="cep"
               name="cep"
@@ -107,7 +107,7 @@ const ClienteForm = ({ formData, handleChange, handleSubmit }) => {
               Bairro
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-200 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-slate-200 bg-white leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               id="bairro"
               name="bairro"
