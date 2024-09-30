@@ -438,46 +438,6 @@ const TabelaVestidoConsulta = () => {
                   Alterar
                 </button>
               </td>
-              <td className="border text-nowrap px-4 py-2 bg-slate-800">
-                {vestido.codigo}
-              </td>
-              <td className="border text-nowrap px-4 py-2 bg-slate-800">
-                {vestido.modelo}
-              </td>
-              <td
-                className={
-                  vestido.status === "Alugado"
-                    ? "bg-red-500 border px-4 py-2"
-                    : vestido.status === "Disponível"
-                    ? "bg-green-500 border px-4 py-2"
-                    : "bg-yellow-500 border px-4 py-2"
-                }
-              >
-                {vestido.status}
-              </td>
-              <td className="border text-nowrap px-4 py-2 bg-slate-800">
-                {vestido.cor}
-              </td>
-              <td className="border text-nowrap px-4 py-2 bg-slate-800">
-                {vestido.tamanho}
-              </td>
-              <td className="border text-nowrap px-4 py-2 bg-slate-800">
-                {vestido.valor}
-              </td>
-              <td className="border text-nowrap px-4 py-2 bg-slate-800">
-                <button
-                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                  onClick={() => handleDeleteAcessorio(acessorio.acessorio_id)}
-                >
-                  Excluir
-                </button>
-                <button
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2"
-                  onClick={() => handleUpdateAcessorio(index)}
-                >
-                  Alterar
-                </button>
-              </td>
             </tr>
           ))}
         </tbody>
