@@ -13,9 +13,9 @@ function Root() {
   const handleLogin = () => setIsLogged(true);
   const handleRegister = () => setIsRegistering(true); // Função para abrir a tela de registro
 
-  if (isRegistering) {
-    return <Register onRegister={() => setIsRegistering(false)} />; // Se registrando
-  }
+  // if (isRegistering) {
+  //   return <Register onRegister={() => setIsRegistering(false)} />; // Se registrando
+  // }
 
   if (!isLogged) {
     return <Login onLogin={handleLogin} onRegister={handleRegister} />; // Tela de login
@@ -27,6 +27,6 @@ function Root() {
 const root = createRoot(document.getElementById("root"));
 root.render(
   <StrictMode>
-    <App />
+    <Root />
   </StrictMode>
 );
