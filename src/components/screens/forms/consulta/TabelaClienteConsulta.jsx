@@ -152,6 +152,7 @@ const TabelaClienteConsulta = () => {
       {/* Formulário de busca */}
       <form onSubmit={handleSearch}>
         <InputMask
+          className="shadow appearance-none border rounded mt-4 py-2 px-3 text-slate-200 leading-tight focus:outline-none focus:shadow-outline"
           mask="999.999.999-99"
           type="text"
           value={search}
