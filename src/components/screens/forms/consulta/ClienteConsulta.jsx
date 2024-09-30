@@ -103,7 +103,7 @@ const ClienteConsulta = ({ multiple, onSelect }) => {
           </label>
           <form className="w-full text-nowrap mb-4" onSubmit={handleSearch}>
             <InputMask
-              className="shadow appearance-none border rounded min-w-10 py-2 px-3 text-slate-200 leading-tight focus:outline-none"
+              className="shadow appearance-none border rounded min-w-10 py-2 px-3 text-slate-950 bg-white leading-tight focus:outline-none"
               type="search"
               value={search}
               mask="999.999.999-99"
@@ -121,7 +121,7 @@ const ClienteConsulta = ({ multiple, onSelect }) => {
           {loading ? (
             <p>Carregando...</p>
           ) : (
-            <div className="flex flex-col w-full items-center justify-center bg-slate-800 rounded-md">
+            <div className="flex flex-col w-full items-center justify-center bg-brown rounded-md">
               <ul>
                 {clientes.length > 0
                   ? clientes.map((cliente) => (

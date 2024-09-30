@@ -259,7 +259,7 @@ const TabelaAcessorioConsulta = () => {
             </select>
           </label>
           <button
-            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+            className="w-full bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded"
             type="submit"
           >
             Salvar Alterações
@@ -268,67 +268,64 @@ const TabelaAcessorioConsulta = () => {
       )}
 
       {/* Tabela de acessorios */}
-      <table className="table-auto w-full text-left">
-        <thead className="bg-slate-600">
-          <tr>
-            <th className="px-4 py-2">Tipo</th>
-            <th className="px-4 py-2">Tamanho</th>
-            <th className="px-4 py-2">Cor</th>
-            <th className="px-4 py-2">Status</th>
-            <th className="px-4 py-2">Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          {acessorios
-            .slice(startIndex, startIndex + 5)
-            .map((acessorio, index) => (
-              <tr
-                key={acessorio.acessorio_id}
-                className={
-                  selectedAcessorio &&
-                  selectedAcessorio.acessorio_id === acessorio.acessorio_id
-                    ? "bg-slate-400 cursor-pointer"
-                    : "hover:bg-slate-200 cursor-pointer"
-                }
-                onClick={() => setSelectedAcessorio(acessorio)}
-              >
-                <td className="border px-4 py-2 bg-slate-800">
-                  {acessorio.tipo}
-                </td>
-                <td className="border px-4 py-2 bg-slate-800">
-                  {acessorio.tamanho}
-                </td>
-                <td className="border px-4 py-2 bg-slate-800">
-                  {acessorio.cor}
-                </td>
-                <td
-                  className="border px-4 py-2 bg-slate-800"
-                  style={{
-                    color: acessorio.status === "Disponível" ? "green" : "red",
-                  }}
-                >
-                  {acessorio.status}
-                </td>
-                <td className="border px-4 py-2 bg-slate-800">
-                  <button
-                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                    onClick={() =>
-                      handleDeleteAcessorio(acessorio.acessorio_id)
-                    }
-                  >
-                    Excluir
-                  </button>
-                  <button
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2"
-                    onClick={() => handleUpdateAcessorio(index)}
-                  >
-                    Alterar
-                  </button>
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
+      <table className="table-auto w-full text-left shadow-md rounded">
+  <thead className="bg-brown mb-4">
+    <tr>
+      <th className="px-4 py-2">Tipo</th>
+      <th className="px-4 py-2">Tamanho</th>
+      <th className="px-4 py-2">Cor</th>
+      <th className="px-4 py-2">Status</th>
+      {/* <th className="px-4 py-2">Ações</th> */}
+    </tr>
+  </thead>
+  <tbody>
+    {acessorios.slice(startIndex, startIndex + 5).map((acessorio, index) => (
+      <tr
+        key={acessorio.acessorio_id}
+        className={
+          selectedAcessorio &&
+          selectedAcessorio.acessorio_id === acessorio.acessorio_id
+            ? "bg-slate-400 cursor-pointer"
+            : "hover:bg-slate-200 cursor-pointer"
+        }
+        onClick={() => setSelectedAcessorio(acessorio)}
+      >
+        <td className="border bg-white text-black px-4 py-2">
+          {acessorio.tipo}
+        </td>
+        <td className="border bg-white text-black px-4 py-2">
+          {acessorio.tamanho}
+        </td>
+        <td className="border bg-white text-black px-4 py-2">
+          {acessorio.cor}
+        </td>
+        <td
+          className="border bg-white text-black px-4 py-2"
+          style={{
+            color: acessorio.status === "Disponível" ? "green" : "red",
+          }}
+        >
+          {acessorio.status}
+        </td>
+        {/* <td className="border px-4 py-2 ">
+          <button
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+            onClick={() => handleDeleteAcessorio(acessorio.acessorio_id)}
+          >
+            Excluir
+          </button>
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2"
+            onClick={() => handleUpdateAcessorio(index)}
+          >
+            Alterar
+          </button>
+        </td> */}
+      </tr>
+    ))}
+  </tbody>
+</table>
+
 
       {/* Paginação */}
       <div className="flex justify-center mt-4">

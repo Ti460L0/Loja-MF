@@ -343,7 +343,7 @@ const TabelaVestidoConsulta = () => {
 
       {/* Tabela de vestidos */}
       <table className="table-auto w-full text-left">
-        <thead className="bg-slate-600">
+        <thead className="bg-brown">
           <tr>
             <th className="px-4 py-2">Código</th>
             <th className="px-4 py-2">Modelo</th>
@@ -368,12 +368,14 @@ const TabelaVestidoConsulta = () => {
                 console.log("Vestido selecionado:", selectedVestido.vestido_id);
               }}
             >
-              <td className="border px-4 py-2">{vestido.codigo}</td>
-              <td className="border px-4 py-2">{vestido.modelo}</td>
-              <td className="border px-4 py-2">{vestido.status}</td>
-              <td className="border px-4 py-2">{vestido.cor}</td>
-              <td className="border px-4 py-2">{vestido.tamanho}</td>
-              <td className="border px-4 py-2">{vestido.valor}</td>
+              <td className="border bg-white text-black px-4 py-2">{vestido.codigo}</td>
+              <td className="border bg-white text-black px-4 py-2">{vestido.modelo}</td>
+              <td className="border bg-white text-black px-4 py-2" style={{
+                color: vestido.status === "Disponível" ? "green" : "red",
+              }}>{vestido.status}</td>
+              <td className="border bg-white text-black px-4 py-2">{vestido.cor}</td>
+              <td className="border bg-white text-black px-4 py-2">{vestido.tamanho}</td>
+              <td className="border bg-white text-black px-4 py-2">{vestido.valor}</td>
             </tr>
           ))}
         </tbody>
