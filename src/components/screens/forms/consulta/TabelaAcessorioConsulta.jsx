@@ -68,7 +68,7 @@ const TabelaAcessorioConsulta = () => {
       }
       const data = await response.json();
       setAcessorios(data);
-      setStartIndex(0); // Reiniciar o índice para a primeira página
+      setCurrentPage(0); // Reiniciar o índice para a primeira página
     } catch (error) {
       console.error(error);
       setError(error.message);
@@ -358,3 +358,5 @@ const TabelaAcessorioConsulta = () => {
 };
 
 export default TabelaAcessorioConsulta;
+
+

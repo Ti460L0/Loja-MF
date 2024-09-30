@@ -5,6 +5,7 @@ const TabelaVestidoConsulta = () => {
   const [vestidos, setVestidos] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [imagePreview, setImagePreview] = useState(null);
 
   const [selectedVestido, setSelectedVestido] = useState({
     codigo: "",
@@ -19,12 +20,12 @@ const TabelaVestidoConsulta = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 5;
 
-  // Calcula o índice inicial e final com base na página atual
   const startIndex = currentPage * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const paginatedVestidos = vestidos.slice(startIndex, endIndex);
+  const paginatedVestidos = vestidos.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
 
-  // Funções para navegar entre as páginas
   const nextPage = () => {
     if (startIndex + itemsPerPage < vestidos.length) {
       setCurrentPage(currentPage + 1);
@@ -71,6 +72,7 @@ const TabelaVestidoConsulta = () => {
       );
       if (vestidoEncontrado) {
         setSelectedVestido(vestidoEncontrado);
+        setImagePreview(vestidoEncontrado.url);
       } else {
         alert("Vestido não encontrado");
         setSelectedVestido(null);
@@ -80,6 +82,7 @@ const TabelaVestidoConsulta = () => {
 
   const handleUpdateVestido = async (e) => {
     e.preventDefault();
+    setImagePreview(null);
     if (!selectedVestido) {
       setError("Nenhum vestido selecionado para atualização");
       return;
@@ -87,15 +90,14 @@ const TabelaVestidoConsulta = () => {
 
     try {
       setLoading(true);
-      // Verifica se uma nova imagem foi selecionada
       const newImageFile =
         document.querySelector('input[type="file"]').files[0];
 
       if (newImageFile) {
-        const codigo = selectedVestido.codigo; // Usa o código para montar o link
-        const s3Url = `http://bucked-lojamf.s3.us-east-2.amazonaws.com/img/${codigo}.jpg`;
+        const codigo = selectedVestido.codigo;
+        const extension = newImageFile.name.split(".").pop(); // Extraí a extensão original
+        const s3Url = `http://bucked-lojamf.s3.us-east-2.amazonaws.com/img/${codigo}.${extension}`; // Mantém a extensão original
 
-        // Faz o upload da nova imagem para o S3
         const uploadResponse = await fetch(s3Url, {
           method: "PUT",
           headers: {
@@ -107,6 +109,13 @@ const TabelaVestidoConsulta = () => {
         if (!uploadResponse.ok) {
           throw new Error("Erro ao fazer upload da imagem");
         }
+
+        // Atualiza a URL da imagem no vestido selecionado
+        setSelectedVestido((prevVestido) => ({
+          ...prevVestido,
+          url: s3Url,
+        }));
+        setImagePreview(null);
       }
 
       const response = await fetch(
@@ -139,7 +148,7 @@ const TabelaVestidoConsulta = () => {
       setError(error.message);
     } finally {
       setLoading(false);
-      fetchAllVestidos(); // Atualiza a lista após a atualização
+      fetchAllVestidos();
     }
   };
 
@@ -168,7 +177,7 @@ const TabelaVestidoConsulta = () => {
             (vestido) => vestido.vestido_id !== selectedVestido.vestido_id
           )
         );
-        setSelectedVestido(null); // Limpa a seleção
+        setSelectedVestido(null);
         alert("Vestido deletado com sucesso!");
       } catch (error) {
         console.error(error);
@@ -179,8 +188,28 @@ const TabelaVestidoConsulta = () => {
     }
   };
 
-  const refreshVestidos = () => {
-    fetchAllVestidos(); // Chama a função para recarregar a lista de vestidos
+  const refreshVestidos = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(
+        "http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/ve"
+      );
+      if (!response.ok) {
+        throw new Error("Erro ao buscar vestidos");
+      }
+      const data = await response.json();
+      setVestidos(data);
+      setCurrentPage(0); // Reiniciar o índice para a primeira página
+    } catch (error) {
+      console.error(error);
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleUploadImage = (codigo, file) => {
+    // Esta função já foi tratada no handleUpdateVestido
   };
 
   return (
@@ -305,52 +334,56 @@ const TabelaVestidoConsulta = () => {
               }
             />
           </label>
-          <label className="block text-left mb-2">
-            Foto:
+          <label className="block text-center justify-center rounded-lg p-4 hover:bg-lightGold hover:cursor-pointer transition duration-150 ease-in-out items-center">
             <img
-              className="w-40"
-              src={selectedVestido.url}
+              className="w-48 m-4 object-scale-down rounded mx-auto"
+              src={imagePreview || selectedVestido.url} // Mostra a pré-visualização, se disponível
               alt="Foto do Vestido"
+             
             />
             <input
               type="file"
               onChange={(e) => {
                 const file = e.target.files[0];
                 if (file) {
-                  handleUploadImage(selectedVestido.codigo, file);
+                  setImagePreview(URL.createObjectURL(file)); // Gerar URL de pré-visualização
+                  handleUploadImage(selectedVestido.codigo, file); // Fazer upload da imagem
                 }
               }}
             />
           </label>
 
-          <button
-            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-            type="submit"
-          >
-            Salvar Alterações
-          </button>
+          <div className="flex justify-center">
+            <button
+              className="m-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+              type="submit"
+            >
+              Salvar Alterações
+            </button>
 
-          {/* Botão de deletar vestido */}
-          <button
-            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2"
-            type="button"
-            onClick={handleDeleteVestido}
-          >
-            Deletar Vestido
-          </button>
+            {/* Botão de deletar vestido */}
+            <button
+              className="m-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2"
+              type="button"
+              onClick={handleDeleteVestido}
+            >
+              Deletar Vestido
+            </button>
+          </div>
         </form>
       )}
 
       {/* Tabela de vestidos */}
       <table className="table-auto w-full text-left">
         <thead className="bg-slate-600">
-          <tr>
+          <tr className="text-white text-center">
             <th className="px-4 py-2">Código</th>
             <th className="px-4 py-2">Modelo</th>
             <th className="px-4 py-2">Status</th>
             <th className="px-4 py-2">Cor</th>
             <th className="px-4 py-2">Tamanho</th>
             <th className="px-4 py-2">Preço</th>
+            <th className="px-4 py-2">Ações</th>
           </tr>
         </thead>
         <tbody>
@@ -368,12 +401,46 @@ const TabelaVestidoConsulta = () => {
                 console.log("Vestido selecionado:", selectedVestido.vestido_id);
               }}
             >
-              <td className="border px-4 py-2">{vestido.codigo}</td>
-              <td className="border px-4 py-2">{vestido.modelo}</td>
-              <td className="border px-4 py-2">{vestido.status}</td>
-              <td className="border px-4 py-2">{vestido.cor}</td>
-              <td className="border px-4 py-2">{vestido.tamanho}</td>
-              <td className="border px-4 py-2">{vestido.valor}</td>
+              <td className="border text-nowrap px-4 py-2 bg-slate-800">
+                {vestido.codigo}
+              </td>
+              <td className="border text-nowrap px-4 py-2 bg-slate-800">
+                {vestido.modelo}
+              </td>
+              <td
+                className={
+                  vestido.status === "Alugado"
+                    ? "bg-red-500 border px-4 py-2"
+                    : vestido.status === "Disponível"
+                    ? "bg-green-500 border px-4 py-2"
+                    : "bg-yellow-500 border px-4 py-2"
+                }
+              >
+                {vestido.status}
+              </td>
+              <td className="border text-nowrap px-4 py-2 bg-slate-800">
+                {vestido.cor}
+              </td>
+              <td className="border text-nowrap px-4 py-2 bg-slate-800">
+                {vestido.tamanho}
+              </td>
+              <td className="border text-nowrap px-4 py-2 bg-slate-800">
+                {vestido.valor}
+              </td>
+              <td className="border text-nowrap px-4 py-2 bg-slate-800">
+                <button
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                  onClick={() => handleDeleteAcessorio(acessorio.acessorio_id)}
+                >
+                  Excluir
+                </button>
+                <button
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2"
+                  onClick={() => handleUpdateAcessorio(index)}
+                >
+                  Alterar
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
