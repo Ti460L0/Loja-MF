@@ -339,6 +339,7 @@ const TabelaVestidoConsulta = () => {
               className="w-48 m-4 object-scale-down rounded mx-auto"
               src={imagePreview || selectedVestido.url} // Mostra a pré-visualização, se disponível
               alt="Foto do Vestido"
+             
             />
             <input
               type="file"
@@ -374,8 +375,8 @@ const TabelaVestidoConsulta = () => {
 
       {/* Tabela de vestidos */}
       <table className="table-auto w-full text-left">
-        <thead className="bg-brown">
-          <tr>
+        <thead className="bg-slate-600">
+          <tr className="text-white text-center">
             <th className="px-4 py-2">Código</th>
             <th className="px-4 py-2">Modelo</th>
             <th className="px-4 py-2">Status</th>
@@ -424,6 +425,46 @@ const TabelaVestidoConsulta = () => {
                 {vestido.valor}
               </td>
               <td className="border text-nowrap bg-white text-black px-4 py-2">
+                <button
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                  onClick={() => handleDeleteAcessorio(acessorio.acessorio_id)}
+                >
+                  Excluir
+                </button>
+                <button
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2"
+                  onClick={() => handleUpdateAcessorio(index)}
+                >
+                  Alterar
+                </button>
+              </td>
+              <td className="border text-nowrap px-4 py-2 bg-slate-800">
+                {vestido.codigo}
+              </td>
+              <td className="border text-nowrap px-4 py-2 bg-slate-800">
+                {vestido.modelo}
+              </td>
+              <td
+                className={
+                  vestido.status === "Alugado"
+                    ? "bg-red-500 border px-4 py-2"
+                    : vestido.status === "Disponível"
+                    ? "bg-green-500 border px-4 py-2"
+                    : "bg-yellow-500 border px-4 py-2"
+                }
+              >
+                {vestido.status}
+              </td>
+              <td className="border text-nowrap px-4 py-2 bg-slate-800">
+                {vestido.cor}
+              </td>
+              <td className="border text-nowrap px-4 py-2 bg-slate-800">
+                {vestido.tamanho}
+              </td>
+              <td className="border text-nowrap px-4 py-2 bg-slate-800">
+                {vestido.valor}
+              </td>
+              <td className="border text-nowrap px-4 py-2 bg-slate-800">
                 <button
                   className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                   onClick={() => handleDeleteAcessorio(acessorio.acessorio_id)}
