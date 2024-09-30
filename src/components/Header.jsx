@@ -3,7 +3,7 @@ import ButtonMenu from "./ButtonMenu";
 
 const Header = () => {
   return (
-    <div className="sticky top-0 w-dvw text-center" style={{ background: 'linear-gradient(to right, #cea42e, #e4d494)' }}>
+    <div className="sticky w-full text-center" style={{ background: 'linear-gradient(to right, #cea42e, #e4d494)' }}>
       <header className="flex max-w-7xl mx-auto items-center p-4 justify-between">
         <div className="flex items-center">
           <img

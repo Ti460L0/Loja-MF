@@ -1,9 +1,16 @@
-import React from 'react';
+import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="py-4 text-center">
-      <p>&copy; 2024 Loja-MF</p>
+    <footer
+      className="bottom-0 w-full py-4 text-center"
+      style={{ background: "linear-gradient(to right, #cea42e, #e4d494)" }}
+    >
+      
+        <p className="text-black font-serif text-sm text-center pl-4">
+        &copy; Sistema Loja Milla Fashion - Feito com ❤️ por: Camilla Osorio - 2024
+        </p>
+      
     </footer>
   );
 };

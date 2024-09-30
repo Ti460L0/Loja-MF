@@ -74,7 +74,7 @@ const TabelaClienteConsulta = () => {
       }
       const data = await response.json();
       setClientes(data);
-      setStartIndex(0); // Reiniciar o índice para a primeira página
+      setCurrentPage(0); // Reiniciar a página atual para a primeira página
     } catch (error) {
       console.error(error);
       setError(error.message);
@@ -326,14 +326,6 @@ const TabelaClienteConsulta = () => {
           Próximo
         </button>
       </div>
-
-      {/* Botão de refresh */}
-      <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
-        onClick={refreshClientes}
-      >
-        Atualizar Lista
-      </button>
 
       {/* Exibição de loading e erro */}
       {loading && <p>Carregando...</p>}
