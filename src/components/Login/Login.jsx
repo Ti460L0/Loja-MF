@@ -59,12 +59,12 @@ const Login = ({ onLogin, onRegister }) => {
         </button>
       </form>
       {message && <p className="text-black">{message}</p>}
-      <button
+      {/* <button
         className="bg-gold-500 hover:bg-gold-700 text-yellow-950 font-bold py-2 px-4 rounded"
         onClick={onRegister}
       >
         Registrar
-      </button>{" "}
+      </button>{" "} */}
       {/* Bot o para ir para a tela de registro */}
     </div>
   );
