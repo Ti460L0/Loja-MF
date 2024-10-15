@@ -54,7 +54,7 @@ export default function LocacoesConsulta({ formData, refreshData }) {
     try {
       setLoading(true);
       const response = await fetch(
-        `http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/lo/de/${locacao_id}`,
+        `http://localhost.com:3000/api/lo/de/${locacao_id}`,
         {
           method: "DELETE",
         }
@@ -77,7 +77,7 @@ export default function LocacoesConsulta({ formData, refreshData }) {
     try {
       setLoading(true);
       const response = await fetch(
-        `http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/lo/at/${locacao_id}`,
+        `http://localhost.com:3000/api/lo/at/${locacao_id}`,
         {
           method: "PUT",
           headers: {

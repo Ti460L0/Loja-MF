@@ -45,7 +45,7 @@ const TabelaClienteConsulta = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          "http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/cl"
+          "http://localhost.com:3000/api/cl"
         );
         if (!response.ok) {
           throw new Error("Erro ao buscar clientes");
@@ -67,7 +67,7 @@ const TabelaClienteConsulta = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        "http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/cl"
+        "http://localhost.com:3000/api/cl"
       );
       if (!response.ok) {
         throw new Error("Erro ao buscar clientes");
@@ -110,7 +110,7 @@ const TabelaClienteConsulta = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/cl/at/${selectedClient.cliente_id}`,
+        `http://localhost.com:3000/api/cl/at/${selectedClient.cliente_id}`,
         {
           method: "PUT",
           headers: {

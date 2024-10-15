@@ -48,7 +48,7 @@ const Agenda = () => {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/lo"
+        "http://localhost.com:3000/api/lo"
       );
       if (!response.ok) {
         throw new Error("Erro ao buscar locações");

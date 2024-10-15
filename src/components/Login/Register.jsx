@@ -9,7 +9,7 @@ const Register = ({ onRegister }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/register', {
+            const response = await fetch('http://localhost.com:3000/api/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

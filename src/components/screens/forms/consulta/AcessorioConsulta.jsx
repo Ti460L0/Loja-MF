@@ -10,7 +10,7 @@ const AcessorioConsulta = ({ multiple, onSelect }) => {
     const fetchAcessorios = async () => {
       try {
         const response = await fetch(
-          `http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/ac`
+          `http://localhost.com:3000/api/ac`
         );
         if (!response.ok) {
           throw new Error("Erro ao buscar acessorios");

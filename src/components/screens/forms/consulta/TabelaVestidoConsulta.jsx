@@ -46,7 +46,7 @@ const TabelaVestidoConsulta = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        "http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/ve"
+        "http://localhost.com:3000/api/ve"
       );
 
       if (!response.ok) {
@@ -117,7 +117,7 @@ const TabelaVestidoConsulta = () => {
         };
   
         const response = await fetch(
-          `http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/ve/at/${updatedVestido.vestido_id}`,
+          `http://localhost.com:3000/api/ve/at/${updatedVestido.vestido_id}`,
           {
             method: "PUT",
             headers: {
@@ -143,7 +143,7 @@ const TabelaVestidoConsulta = () => {
         alert("Vestido atualizado com sucesso!");
       } else {
         const response = await fetch(
-          `http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/ve/at/${selectedVestido.vestido_id}`,
+          `http://localhost.com:3000/api/ve/at/${selectedVestido.vestido_id}`,
           {
             method: "PUT",
             headers: {
@@ -187,7 +187,7 @@ const TabelaVestidoConsulta = () => {
       try {
         setLoading(true);
         const response = await fetch(
-          `http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/ve/de/${selectedVestido.vestido_id}`,
+          `http://localhost.com:3000/api/ve/de/${selectedVestido.vestido_id}`,
           {
             method: "DELETE",
           }
@@ -217,7 +217,7 @@ const TabelaVestidoConsulta = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        "http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/ve"
+        "http://localhost.com:3000/api/ve"
       );
       if (!response.ok) {
         throw new Error("Erro ao buscar vestidos");

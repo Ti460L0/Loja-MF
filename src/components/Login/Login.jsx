@@ -9,7 +9,7 @@ const Login = ({ onLogin, onRegister }) => {
     e.preventDefault();
     try {
       const response = await fetch(
-        "http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/login",
+        "http://localhost.com:3000/api/login",
         {
           method: "POST",
           headers: {

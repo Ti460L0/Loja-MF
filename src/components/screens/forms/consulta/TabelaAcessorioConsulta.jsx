@@ -39,7 +39,7 @@ const TabelaAcessorioConsulta = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          "http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/ac"
+          "http://localhost.com:3000/api/ac"
         );
         if (!response.ok) {
           throw new Error("Erro ao buscar acessorios");
@@ -61,7 +61,7 @@ const TabelaAcessorioConsulta = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        "http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/ac"
+        "http://localhost.com:3000/api/ac"
       );
       if (!response.ok) {
         throw new Error("Erro ao buscar acessorios");
@@ -104,7 +104,7 @@ const TabelaAcessorioConsulta = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/ac/at/${selectedAcessorio.acessorio_id}`,
+        `http://localhost.com:3000/api/ac/at/${selectedAcessorio.acessorio_id}`,
         {
           method: "PUT",
           headers: {
@@ -149,7 +149,7 @@ const TabelaAcessorioConsulta = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/ac/excluir/${acessorioId}`,
+        `http://localhost.com:3000/api/ac/excluir/${acessorioId}`,
         {
           method: "DELETE",
         }
