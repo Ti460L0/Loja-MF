@@ -38,7 +38,7 @@ const Login = ({ onLogin, onRegister }) => {
         <input
           className="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-gold-400"
           type="text"
-          placeholder="CPF"
+          placeholder="Usuário"
           value={cpf}
           onChange={(e) => setCpf(e.target.value)}
           required
@@ -57,16 +57,9 @@ const Login = ({ onLogin, onRegister }) => {
         >
           Login
         </button>
-      <p className="text-red-500 font-bold">Faça um registro para utilizar o sistema para teste em breve este botão será removido.</p>
       </form>
+      <p className="text-black mt-4"><a href="#" className="text-black hover:underline">Esqueci a senha.</a></p>
       {message && <p className="text-black">{message}</p>}
-      <button
-        className="bg-yellow-200 hover:bg-yellow-700 text-yellow-950 font-bold py-2 px-4 rounded"
-        onClick={onRegister}
-      >
-        Registrar
-      </button>{" "}
-      {/* Bot o para ir para a tela de registro */}
     </div>
   );
 };
