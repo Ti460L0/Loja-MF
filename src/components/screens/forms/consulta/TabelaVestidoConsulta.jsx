@@ -46,7 +46,7 @@ const TabelaVestidoConsulta = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        "http://localhost.com:3000/api/ve"
+        "ep-aged-tooth-a4xigwo7-pooler.us-east-1.aws.neon.tech/api/ve"
       );
 
       if (!response.ok) {
@@ -117,7 +117,7 @@ const TabelaVestidoConsulta = () => {
         };
   
         const response = await fetch(
-          `http://localhost.com:3000/api/ve/at/${updatedVestido.vestido_id}`,
+          `ep-aged-tooth-a4xigwo7-pooler.us-east-1.aws.neon.tech/api/ve/at/${updatedVestido.vestido_id}`,
           {
             method: "PUT",
             headers: {
@@ -143,7 +143,7 @@ const TabelaVestidoConsulta = () => {
         alert("Vestido atualizado com sucesso!");
       } else {
         const response = await fetch(
-          `http://localhost.com:3000/api/ve/at/${selectedVestido.vestido_id}`,
+          `ep-aged-tooth-a4xigwo7-pooler.us-east-1.aws.neon.tech/api/ve/at/${selectedVestido.vestido_id}`,
           {
             method: "PUT",
             headers: {
@@ -187,7 +187,7 @@ const TabelaVestidoConsulta = () => {
       try {
         setLoading(true);
         const response = await fetch(
-          `http://localhost.com:3000/api/ve/de/${selectedVestido.vestido_id}`,
+          `ep-aged-tooth-a4xigwo7-pooler.us-east-1.aws.neon.tech/api/ve/de/${selectedVestido.vestido_id}`,
           {
             method: "DELETE",
           }
@@ -217,7 +217,7 @@ const TabelaVestidoConsulta = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        "http://localhost.com:3000/api/ve"
+        "ep-aged-tooth-a4xigwo7-pooler.us-east-1.aws.neon.tech/api/ve"
       );
       if (!response.ok) {
         throw new Error("Erro ao buscar vestidos");

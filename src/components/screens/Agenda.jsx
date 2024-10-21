@@ -48,7 +48,7 @@ const Agenda = () => {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "http://localhost.com:3000/api/lo"
+        "ep-aged-tooth-a4xigwo7-pooler.us-east-1.aws.neon.tech/api/lo"
       );
       if (!response.ok) {
         throw new Error("Erro ao buscar locações");

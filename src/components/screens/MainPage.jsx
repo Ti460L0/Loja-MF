@@ -109,7 +109,7 @@ const MainPage = () => {
       }
 
       const response = await fetch(
-        "http://localhost.com:3000/api/lo/ca",
+        "ep-aged-tooth-a4xigwo7-pooler.us-east-1.aws.neon.tech/api/lo/ca",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

@@ -7,10 +7,12 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "vercel-build": "npx prisma migrate deploy"
   },
   "dependencies": {
     "@syncfusion/ej2-react-schedule": "^27.1.50",
+    "@vercel/postgres": "^0.10.0",
     "aws-sdk": "^2.1691.0",
     "axios": "^1.7.7",
     "cors": "^2.8.5",

@@ -39,7 +39,7 @@ const TabelaAcessorioConsulta = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          "http://localhost.com:3000/api/ac"
+          "ep-aged-tooth-a4xigwo7-pooler.us-east-1.aws.neon.tech/api/ac"
         );
         if (!response.ok) {
           throw new Error("Erro ao buscar acessorios");
@@ -61,7 +61,7 @@ const TabelaAcessorioConsulta = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        "http://localhost.com:3000/api/ac"
+        "ep-aged-tooth-a4xigwo7-pooler.us-east-1.aws.neon.tech/api/ac"
       );
       if (!response.ok) {
         throw new Error("Erro ao buscar acessorios");
@@ -104,7 +104,7 @@ const TabelaAcessorioConsulta = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `http://localhost.com:3000/api/ac/at/${selectedAcessorio.acessorio_id}`,
+        `ep-aged-tooth-a4xigwo7-pooler.us-east-1.aws.neon.tech/api/ac/at/${selectedAcessorio.acessorio_id}`,
         {
           method: "PUT",
           headers: {
@@ -149,7 +149,7 @@ const TabelaAcessorioConsulta = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `http://localhost.com:3000/api/ac/excluir/${acessorioId}`,
+        `ep-aged-tooth-a4xigwo7-pooler.us-east-1.aws.neon.tech/api/ac/excluir/${acessorioId}`,
         {
           method: "DELETE",
         }

@@ -14,7 +14,7 @@ const ClienteConsulta = ({ multiple, onSelect }) => {
         setLoading(true);
         try {
           const response = await fetch(
-            "http://localhost.com:3000/api/cl"
+            "ep-aged-tooth-a4xigwo7-pooler.us-east-1.aws.neon.tech/api/cl"
           );
           if (!response.ok) {
             throw new Error("Erro ao buscar clientes");
@@ -36,7 +36,7 @@ const ClienteConsulta = ({ multiple, onSelect }) => {
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost.com:3000/api/cl/cpf/${cpf}`
+        `ep-aged-tooth-a4xigwo7-pooler.us-east-1.aws.neon.tech/api/cl/cpf/${cpf}`
       );
       if (!response.ok) {
         throw new Error("");

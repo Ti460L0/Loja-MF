@@ -165,19 +165,19 @@ const Cadastro = () => {
             if (screen === "cliente") {
               handleSubmit(
                 e,
-                "http://localhost.com:3000/api/cl/ca",
+                "ep-aged-tooth-a4xigwo7-pooler.us-east-1.aws.neon.tech/api/cl/ca",
                 clienteData
               );
             } else if (screen === "vestido") {
               handleSubmit(
                 e,
-                "http://localhost.com:3000/api/ve/ca",
+                "ep-aged-tooth-a4xigwo7-pooler.us-east-1.aws.neon.tech/api/ve/ca",
                 vestidoData
               );
             } else if (screen === "acessorio") {
               handleSubmit(
                 e,
-                "http://localhost.com:3000/api/ac/ca",
+                "ep-aged-tooth-a4xigwo7-pooler.us-east-1.aws.neon.tech/api/ac/ca",
                 acessorioData
               );
             }

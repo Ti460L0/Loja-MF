@@ -3,10 +3,10 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import "./App.css";
-import Cadastrar from "./components/screens/Cadastar";
-import Consultar from "./components/screens/Consultar";
-import Agenda from "./components/screens/Agenda";
-import MainPage from "./components/screens/MainPage";
+import Cadastrar from "./components/screens/Cadastar.jsx";
+import Consultar from "./components/screens/Consultar.jsx";
+import Agenda from "./components/screens/Agenda.jsx";
+import MainPage from "./components/screens/MainPage.jsx";
 
 const App = () => {
   return (

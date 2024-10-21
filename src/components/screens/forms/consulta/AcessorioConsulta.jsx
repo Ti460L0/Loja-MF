@@ -10,7 +10,7 @@ const AcessorioConsulta = ({ multiple, onSelect }) => {
     const fetchAcessorios = async () => {
       try {
         const response = await fetch(
-          `http://localhost.com:3000/api/ac`
+          `ep-aged-tooth-a4xigwo7-pooler.us-east-1.aws.neon.tech/api/ac`
         );
         if (!response.ok) {
           throw new Error("Erro ao buscar acessorios");

@@ -9,7 +9,7 @@ const Login = ({ onLogin, onRegister }) => {
     e.preventDefault();
     try {
       const response = await fetch(
-        "http://localhost.com:3000/api/login",
+        "ep-aged-tooth-a4xigwo7-pooler.us-east-1.aws.neon.tech/api/login",
         {
           method: "POST",
           headers: {
