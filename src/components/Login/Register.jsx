@@ -25,35 +25,61 @@ const Register = ({ onRegister }) => {
     };
 
     return (
-        <div>
-            <h2>Registro</h2>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    placeholder="CPF"
-                    value={cpf}
-                    onChange={(e) => setCpf(e.target.value)}
-                    required
-                />
-                <input
-                    type="date"
-                    placeholder="Data de Nascimento"
-                    value={dataNascimento}
-                    onChange={(e) => setDataNascimento(e.target.value)}
-                    required
-                />
-                <input
-                    type="password"
-                    placeholder="Senha"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-                <button type="submit">Registrar</button>
+        <div className="flex flex-col items-center justify-center bg-slate-950 rounded-md shadow-md p-8">
+            <h2 className="text-2xl font-bold mb-4">Registro</h2>
+            <form className="w-full" onSubmit={handleSubmit}>
+                <div className="flex flex-col mb-4">
+                    <label className="text-slate-300 mb-2" htmlFor="cpf">CPF</label>
+                    <input
+                        className="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-400"
+                        type="text"
+                        id="cpf"
+                        placeholder="CPF"
+                        value={cpf}
+                        onChange={(e) => setCpf(e.target.value)}
+                        required
+                    />
+                </div>
+                <div className="flex flex-col mb-4">
+                    <label className="text-slate-300 mb-2" htmlFor="data_nascimento">Data de Nascimento</label>
+                    <input
+                        className="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-400"
+                        type="date"
+                        id="data_nascimento"
+                        placeholder="Data de Nascimento"
+                        value={dataNascimento}
+                        onChange={(e) => setDataNascimento(e.target.value)}
+                        required
+                    />
+                </div>
+                <div className="flex flex-col mb-4">
+                    <label className="text-slate-300 mb-2" htmlFor="password">Senha</label>
+                    <input
+                        className="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-400"
+                        type="password"
+                        id="password"
+                        placeholder="Senha"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                </div>
+                <button
+                    className="bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded-md"
+                    type="submit"
+                >
+                    Registrar
+                </button>
             </form>
-            {message && <p>{message}</p>}
-            <button onClick={onRegister}>Voltar ao Login</button> {/* Botão para voltar ao login */}
+            {message && <p className="text-red-500">{message}</p>}
+            <button
+                className="bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded-md mt-4"
+                onClick={onRegister}
+            >
+                Voltar ao Login
+            </button>
         </div>
+
     );
 };
 
