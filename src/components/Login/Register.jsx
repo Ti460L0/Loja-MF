@@ -9,7 +9,7 @@ const Register = ({ onRegister }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/register', {
+            const response = await fetch('ep-aged-tooth-a4xigwo7-pooler.us-east-1.aws.neon.tech/api/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -109,7 +109,7 @@ const MainPage = () => {
       }
 
       const response = await fetch(
-        "http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/lo/ca",
+        "ep-aged-tooth-a4xigwo7-pooler.us-east-1.aws.neon.tech/api/lo/ca",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

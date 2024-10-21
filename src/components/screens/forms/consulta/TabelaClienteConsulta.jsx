@@ -45,7 +45,7 @@ const TabelaClienteConsulta = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          "http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/cl"
+          "ep-aged-tooth-a4xigwo7-pooler.us-east-1.aws.neon.tech/api/cl"
         );
         if (!response.ok) {
           throw new Error("Erro ao buscar clientes");
@@ -67,7 +67,7 @@ const TabelaClienteConsulta = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        "http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/cl"
+        "ep-aged-tooth-a4xigwo7-pooler.us-east-1.aws.neon.tech/api/cl"
       );
       if (!response.ok) {
         throw new Error("Erro ao buscar clientes");
@@ -110,7 +110,7 @@ const TabelaClienteConsulta = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `http://ec2-18-216-195-241.us-east-2.compute.amazonaws.com:3000/api/cl/at/${selectedClient.cliente_id}`,
+        `ep-aged-tooth-a4xigwo7-pooler.us-east-1.aws.neon.tech/api/cl/at/${selectedClient.cliente_id}`,
         {
           method: "PUT",
           headers: {
