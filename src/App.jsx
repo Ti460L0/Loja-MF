@@ -4,7 +4,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import "./App.css";
 import Cadastrar from "./components/screens/Cadastar.jsx";
-import Consultar from "./components/screens/Consultar.jsx";
+import Consultar from "./components/screens/consultar.jsx";
 import Agenda from "./components/screens/Agenda.jsx";
 import MainPage from "./components/screens/MainPage.jsx";
 

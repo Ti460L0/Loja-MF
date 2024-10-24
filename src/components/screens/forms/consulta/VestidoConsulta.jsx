@@ -10,7 +10,7 @@ const VestidoConsulta = ({ multiple, onSelect }) => {
     const fetchVestidos = async () => {
       try {
         const response = await fetch(
-          `vps55477.publiccloud.com.br/api/ve`
+          `https://vps55477.publiccloud.com.br/api/ve`
         );
         if (!response.ok) {
           throw new Error("Erro ao buscar vestidos");

@@ -10,7 +10,7 @@ const AcessorioConsulta = ({ multiple, onSelect }) => {
     const fetchAcessorios = async () => {
       try {
         const response = await fetch(
-          `vps55477.publiccloud.com.br/api/ac`
+          `https://vps55477.publiccloud.com.br/api/ac`
         );
         if (!response.ok) {
           throw new Error("Erro ao buscar acessorios");

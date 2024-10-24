@@ -45,7 +45,7 @@ const TabelaClienteConsulta = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          "vps55477.publiccloud.com.br/api/cl"
+          "https://vps55477.publiccloud.com.br/api/cl"
         );
         if (!response.ok) {
           throw new Error("Erro ao buscar clientes");
@@ -67,7 +67,7 @@ const TabelaClienteConsulta = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        "vps55477.publiccloud.com.br/api/cl/"
+        "https://vps55477.publiccloud.com.br/api/cl/"
       );
       if (!response.ok) {
         throw new Error("Erro ao buscar clientes");
@@ -110,7 +110,7 @@ const TabelaClienteConsulta = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `vps55477.publiccloud.com.br/api/cl/at/${selectedClient.cliente_id}`,
+        `https://vps55477.publiccloud.com.br/api/cl/at/${selectedClient.cliente_id}`,
         {
           method: "PUT",
           headers: {

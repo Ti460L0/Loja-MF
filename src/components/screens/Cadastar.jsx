@@ -165,19 +165,19 @@ const Cadastro = () => {
             if (screen === "cliente") {
               handleSubmit(
                 e,
-                "vps55477.publiccloud.com.br/api/cl/ca",
+                "https://vps55477.publiccloud.com.br/api/cl/ca",
                 clienteData
               );
             } else if (screen === "vestido") {
               handleSubmit(
                 e,
-                "vps55477.publiccloud.com.br/api/ve/ca",
+                "https://vps55477.publiccloud.com.br/api/ve/ca",
                 vestidoData
               );
             } else if (screen === "acessorio") {
               handleSubmit(
                 e,
-                "vps55477.publiccloud.com.br/api/ac/ca",
+                "https://vps55477.publiccloud.com.br/api/ac/ca",
                 acessorioData
               );
             }

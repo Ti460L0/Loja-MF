@@ -48,7 +48,7 @@ const Agenda = () => {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "vps55477.publiccloud.com.br/api/lo"
+        "https://vps55477.publiccloud.com.br/api/lo"
       );
       if (!response.ok) {
         throw new Error("Erro ao buscar locações");

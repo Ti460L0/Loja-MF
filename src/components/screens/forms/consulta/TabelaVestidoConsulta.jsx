@@ -46,7 +46,7 @@ const TabelaVestidoConsulta = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        "vps55477.publiccloud.com.br/api/ve"
+        "https://vps55477.publiccloud.com.br/api/ve"
       );
 
       if (!response.ok) {
@@ -117,7 +117,7 @@ const TabelaVestidoConsulta = () => {
         };
   
         const response = await fetch(
-          `vps55477.publiccloud.com.br/api/ve/at/${updatedVestido.vestido_id}`,
+          `https://vps55477.publiccloud.com.br/api/ve/at/${updatedVestido.vestido_id}`,
           {
             method: "PUT",
             headers: {
@@ -143,7 +143,7 @@ const TabelaVestidoConsulta = () => {
         alert("Vestido atualizado com sucesso!");
       } else {
         const response = await fetch(
-          `vps55477.publiccloud.com.br/api/ve/at/${selectedVestido.vestido_id}`,
+          `https://vps55477.publiccloud.com.br/api/ve/at/${selectedVestido.vestido_id}`,
           {
             method: "PUT",
             headers: {
@@ -187,7 +187,7 @@ const TabelaVestidoConsulta = () => {
       try {
         setLoading(true);
         const response = await fetch(
-          `vps55477.publiccloud.com.br/api/ve/de/${selectedVestido.vestido_id}`,
+          `https://vps55477.publiccloud.com.br/api/ve/de/${selectedVestido.vestido_id}`,
           {
             method: "DELETE",
           }
@@ -217,7 +217,7 @@ const TabelaVestidoConsulta = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        "vps55477.publiccloud.com.br/api/ve"
+        "https://vps55477.publiccloud.com.br/api/ve"
       );
       if (!response.ok) {
         throw new Error("Erro ao buscar vestidos");

@@ -24,7 +24,7 @@ const VestidosForm = ({ handleChange, formData, handleImagemChange, modoCadastro
   const verificarCodigoNoDB = async (codigoGerado) => {
     try {
       const response = await fetch(
-        `vps55477.publiccloud.com.br/api/ve?codigo=${codigoGerado}`
+        `https://vps55477.publiccloud.com.br/api/ve?codigo=${codigoGerado}`
       );
       const data = await response.json();
 

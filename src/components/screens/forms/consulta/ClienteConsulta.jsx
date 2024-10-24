@@ -14,7 +14,7 @@ const ClienteConsulta = ({ multiple, onSelect }) => {
         setLoading(true);
         try {
           const response = await fetch(
-            "vps55477.publiccloud.com.br/api/cl"
+            "https://vps55477.publiccloud.com.br/api/cl"
           );
           if (!response.ok) {
             throw new Error("Erro ao buscar clientes");
@@ -36,7 +36,7 @@ const ClienteConsulta = ({ multiple, onSelect }) => {
     setLoading(true);
     try {
       const response = await fetch(
-        `vps55477.publiccloud.com.br/api/cl/cpf/${cpf}`
+        `https://vps55477.publiccloud.com.br/api/cl/cpf/${cpf}`
       );
       if (!response.ok) {
         throw new Error("");

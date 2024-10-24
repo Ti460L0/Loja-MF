@@ -109,7 +109,7 @@ const MainPage = () => {
       }
 
       const response = await fetch(
-        "vps55477.publiccloud.com.br/api/lo/ca",
+        "https://vps55477.publiccloud.com.br/api/lo/ca",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

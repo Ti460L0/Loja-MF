@@ -9,7 +9,7 @@ const Register = ({ onRegister }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('vps55477.publiccloud.com.br/api/register', {
+            const response = await fetch('https://vps55477.publiccloud.com.br/api/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

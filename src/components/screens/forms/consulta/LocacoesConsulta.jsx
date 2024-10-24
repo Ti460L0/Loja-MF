@@ -54,7 +54,7 @@ export default function LocacoesConsulta({ formData, refreshData }) {
     try {
       setLoading(true);
       const response = await fetch(
-        `vps55477.publiccloud.com.br/api/lo/de/${locacao_id}`,
+        `https://vps55477.publiccloud.com.br/api/lo/de/${locacao_id}`,
         {
           method: "DELETE",
         }
@@ -77,7 +77,7 @@ export default function LocacoesConsulta({ formData, refreshData }) {
     try {
       setLoading(true);
       const response = await fetch(
-        `vps55477.publiccloud.com.br/api/lo/at/${locacao_id}`,
+        `https://vps55477.publiccloud.com.br/api/lo/at/${locacao_id}`,
         {
           method: "PUT",
           headers: {

@@ -9,7 +9,7 @@ const Login = ({ onLogin, onRegister }) => {
     e.preventDefault();
     try {
       const response = await fetch(
-        "vps55477.publiccloud.com.br/api/login",
+        "https://vps55477.publiccloud.com.br/api/login",
         {
           method: "POST",
           headers: {
