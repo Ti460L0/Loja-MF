@@ -24,7 +24,7 @@ const VestidosForm = ({ handleChange, formData, handleImagemChange, modoCadastro
   const verificarCodigoNoDB = async (codigoGerado) => {
     try {
       const response = await fetch(
-        `ep-aged-tooth-a4xigwo7-pooler.us-east-1.aws.neon.tech/api/ve?codigo=${codigoGerado}`
+        `vps55477.publiccloud.com.br/api/ve?codigo=${codigoGerado}`
       );
       const data = await response.json();
 

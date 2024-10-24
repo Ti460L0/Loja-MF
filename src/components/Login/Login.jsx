@@ -9,7 +9,7 @@ const Login = ({ onLogin, onRegister }) => {
     e.preventDefault();
     try {
       const response = await fetch(
-        "ep-aged-tooth-a4xigwo7-pooler.us-east-1.aws.neon.tech/api/login",
+        "vps55477.publiccloud.com.br/api/login",
         {
           method: "POST",
           headers: {

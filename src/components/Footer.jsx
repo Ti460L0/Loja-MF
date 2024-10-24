@@ -8,7 +8,7 @@ const Footer = () => {
     >
       
         <p className="text-black font-serif text-sm text-center pl-4">
-        &copy; Sistema Loja Milla Fashion - Feito com ❤️ por: Camilla Osorio - 2024
+        &copy; Sistema Loja Milla Fashion
         </p>
       
     </footer>

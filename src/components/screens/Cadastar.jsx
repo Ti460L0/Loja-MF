@@ -165,19 +165,19 @@ const Cadastro = () => {
             if (screen === "cliente") {
               handleSubmit(
                 e,
-                "ep-aged-tooth-a4xigwo7-pooler.us-east-1.aws.neon.tech/api/cl/ca",
+                "vps55477.publiccloud.com.br/api/cl/ca",
                 clienteData
               );
             } else if (screen === "vestido") {
               handleSubmit(
                 e,
-                "ep-aged-tooth-a4xigwo7-pooler.us-east-1.aws.neon.tech/api/ve/ca",
+                "vps55477.publiccloud.com.br/api/ve/ca",
                 vestidoData
               );
             } else if (screen === "acessorio") {
               handleSubmit(
                 e,
-                "ep-aged-tooth-a4xigwo7-pooler.us-east-1.aws.neon.tech/api/ac/ca",
+                "vps55477.publiccloud.com.br/api/ac/ca",
                 acessorioData
               );
             }

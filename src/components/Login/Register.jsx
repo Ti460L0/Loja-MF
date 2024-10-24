@@ -9,7 +9,7 @@ const Register = ({ onRegister }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('ep-aged-tooth-a4xigwo7-pooler.us-east-1.aws.neon.tech/api/register', {
+            const response = await fetch('vps55477.publiccloud.com.br/api/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

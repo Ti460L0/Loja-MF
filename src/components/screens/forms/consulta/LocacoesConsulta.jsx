@@ -54,7 +54,7 @@ export default function LocacoesConsulta({ formData, refreshData }) {
     try {
       setLoading(true);
       const response = await fetch(
-        `ep-aged-tooth-a4xigwo7-pooler.us-east-1.aws.neon.tech/api/lo/de/${locacao_id}`,
+        `vps55477.publiccloud.com.br/api/lo/de/${locacao_id}`,
         {
           method: "DELETE",
         }
@@ -77,7 +77,7 @@ export default function LocacoesConsulta({ formData, refreshData }) {
     try {
       setLoading(true);
       const response = await fetch(
-        `ep-aged-tooth-a4xigwo7-pooler.us-east-1.aws.neon.tech/api/lo/at/${locacao_id}`,
+        `vps55477.publiccloud.com.br/api/lo/at/${locacao_id}`,
         {
           method: "PUT",
           headers: {

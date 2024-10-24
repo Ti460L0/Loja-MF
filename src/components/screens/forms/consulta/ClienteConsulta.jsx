@@ -14,7 +14,7 @@ const ClienteConsulta = ({ multiple, onSelect }) => {
         setLoading(true);
         try {
           const response = await fetch(
-            "ep-aged-tooth-a4xigwo7-pooler.us-east-1.aws.neon.tech/api/cl"
+            "vps55477.publiccloud.com.br/api/cl"
           );
           if (!response.ok) {
             throw new Error("Erro ao buscar clientes");
@@ -36,7 +36,7 @@ const ClienteConsulta = ({ multiple, onSelect }) => {
     setLoading(true);
     try {
       const response = await fetch(
-        `ep-aged-tooth-a4xigwo7-pooler.us-east-1.aws.neon.tech/api/cl/cpf/${cpf}`
+        `vps55477.publiccloud.com.br/api/cl/cpf/${cpf}`
       );
       if (!response.ok) {
         throw new Error("");

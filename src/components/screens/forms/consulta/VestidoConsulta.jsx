@@ -10,7 +10,7 @@ const VestidoConsulta = ({ multiple, onSelect }) => {
     const fetchVestidos = async () => {
       try {
         const response = await fetch(
-          `ep-aged-tooth-a4xigwo7-pooler.us-east-1.aws.neon.tech/api/ve`
+          `vps55477.publiccloud.com.br/api/ve`
         );
         if (!response.ok) {
           throw new Error("Erro ao buscar vestidos");
