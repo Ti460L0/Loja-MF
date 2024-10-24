@@ -39,7 +39,14 @@ const TabelaAcessorioConsulta = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          "https://vps55477.publiccloud.com.br/api/ac"
+          "https://vps55477.publiccloud.com.br/api/ac",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
         );
         if (!response.ok) {
           throw new Error("Erro ao buscar acessorios");
@@ -61,7 +68,14 @@ const TabelaAcessorioConsulta = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        "https://vps55477.publiccloud.com.br/api/ac"
+        "https://vps55477.publiccloud.com.br/api/ac",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
       if (!response.ok) {
         throw new Error("Erro ao buscar acessorios");
@@ -109,6 +123,7 @@ const TabelaAcessorioConsulta = () => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
           body: JSON.stringify(selectedAcessorio),
         }
@@ -152,7 +167,12 @@ const TabelaAcessorioConsulta = () => {
         `https://vps55477.publiccloud.com.br/api/ac/excluir/${acessorioId}`,
         {
           method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         }
+
       );
 
       if (!response.ok) {

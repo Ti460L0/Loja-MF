@@ -14,7 +14,15 @@ const ClienteConsulta = ({ multiple, onSelect }) => {
         setLoading(true);
         try {
           const response = await fetch(
-            "https://vps55477.publiccloud.com.br/api/cl"
+            "https://vps55477.publiccloud.com.br/api/cl",
+
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
           );
           if (!response.ok) {
             throw new Error("Erro ao buscar clientes");
@@ -36,7 +44,14 @@ const ClienteConsulta = ({ multiple, onSelect }) => {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://vps55477.publiccloud.com.br/api/cl/cpf/${cpf}`
+        `https://vps55477.publiccloud.com.br/api/cl/cpf/${cpf}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
       if (!response.ok) {
         throw new Error("");

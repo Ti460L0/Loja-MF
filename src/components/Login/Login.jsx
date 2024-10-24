@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Login = ({ onLogin, onRegister }) => {
+const Login = ({ onLogin }) => {
   const [cpf, setCpf] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -23,7 +23,11 @@ const Login = ({ onLogin, onRegister }) => {
       setMessage(data.message || data.error);
 
       if (response.ok) {
-        onLogin(); // Chama a função de login passada como props
+        // Armazenar o token em localStorage
+        localStorage.setItem("token", data.token); // Armazena o token
+
+        // Chama a função de login passada como props
+        onLogin(); 
       }
     } catch (error) {
       setMessage("Erro ao fazer login");
@@ -44,7 +48,7 @@ const Login = ({ onLogin, onRegister }) => {
           required
         />
         <input
-          className=" p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-gold-400"
+          className="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-gold-400"
           type="password"
           placeholder="Senha"
           value={password}

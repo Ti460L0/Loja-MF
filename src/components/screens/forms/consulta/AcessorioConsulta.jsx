@@ -10,7 +10,14 @@ const AcessorioConsulta = ({ multiple, onSelect }) => {
     const fetchAcessorios = async () => {
       try {
         const response = await fetch(
-          `https://vps55477.publiccloud.com.br/api/ac`
+          `https://vps55477.publiccloud.com.br/api/ac`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
         );
         if (!response.ok) {
           throw new Error("Erro ao buscar acessorios");
@@ -59,26 +66,28 @@ const AcessorioConsulta = ({ multiple, onSelect }) => {
       </datalist>
       {acessorioSelecionado && (
         <div className="flex flex-col w-full items-center mx-auto bg-yellow-950 p-4 rounded-lg max-w-md shadow-lg shadow-black">
-        <h2 className="text-xl text-nowrap font-bold tracking-tight text-yellow-800">Informações do Acessório</h2>
-        <hr className="w-full my-4 border-b-2 border-yellow-800"></hr>
-        <div className="flex flex-col gap-2">
-          <p className="text-lg font-sans text-slate-300">
-            <strong className="font-bold">Tipo: </strong>
-            {acessorioSelecionado.tipo}
-          </p>
-          <p className="text-lg font-sans text-slate-300">
-            <strong className="font-bold">Tamanho: </strong>
-            {acessorioSelecionado.tamanho}
-          </p>
-          <p className="text-lg font-sans text-slate-300">
-            <strong className="font-bold">Cor: </strong>
-            {acessorioSelecionado.cor}
-          </p>
-          <p className="text-lg font-sans text-slate-300">
-            <strong className="font-bold">Status: </strong>
-            {acessorioSelecionado.status}
-          </p>
-        </div>
+          <h2 className="text-xl text-nowrap font-bold tracking-tight text-yellow-800">
+            Informações do Acessório
+          </h2>
+          <hr className="w-full my-4 border-b-2 border-yellow-800"></hr>
+          <div className="flex flex-col gap-2">
+            <p className="text-lg font-sans text-slate-300">
+              <strong className="font-bold">Tipo: </strong>
+              {acessorioSelecionado.tipo}
+            </p>
+            <p className="text-lg font-sans text-slate-300">
+              <strong className="font-bold">Tamanho: </strong>
+              {acessorioSelecionado.tamanho}
+            </p>
+            <p className="text-lg font-sans text-slate-300">
+              <strong className="font-bold">Cor: </strong>
+              {acessorioSelecionado.cor}
+            </p>
+            <p className="text-lg font-sans text-slate-300">
+              <strong className="font-bold">Status: </strong>
+              {acessorioSelecionado.status}
+            </p>
+          </div>
         </div>
       )}
     </div>

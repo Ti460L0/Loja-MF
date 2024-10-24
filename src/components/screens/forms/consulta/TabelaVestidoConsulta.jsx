@@ -46,7 +46,13 @@ const TabelaVestidoConsulta = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        "https://vps55477.publiccloud.com.br/api/ve"
+        "https://vps55477.publiccloud.com.br/api/ve", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          }
+        }
       );
 
       if (!response.ok) {

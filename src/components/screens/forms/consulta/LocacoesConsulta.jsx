@@ -23,7 +23,7 @@ export default function LocacoesConsulta({ formData, refreshData }) {
     notas: formData.notas,
   });
 
-  // 
+  //
   const gerarPDF = () => {
     const doc = new jsPDF();
 
@@ -45,9 +45,7 @@ export default function LocacoesConsulta({ formData, refreshData }) {
 
     // Salva o PDF
     doc.save(`comprovante_locacao_${formData.nome}.pdf`);
-    
   };
-
 
   // Função para deletar locação (concluir entrega)
   const handleDeletar = async () => {
@@ -57,6 +55,10 @@ export default function LocacoesConsulta({ formData, refreshData }) {
         `https://vps55477.publiccloud.com.br/api/lo/de/${locacao_id}`,
         {
           method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         }
       );
       if (!response.ok) {
@@ -82,6 +84,7 @@ export default function LocacoesConsulta({ formData, refreshData }) {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
           body: JSON.stringify({
             locacao_id: formData.locacao_id,
@@ -238,8 +241,10 @@ export default function LocacoesConsulta({ formData, refreshData }) {
             Editar
           </button>
         )}
-        <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md"
-          onClick={handleDeletar}>
+        <button
+          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md"
+          onClick={handleDeletar}
+        >
           Deletar
         </button>
       </div>
