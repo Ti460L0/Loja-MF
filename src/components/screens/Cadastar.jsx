@@ -46,28 +46,44 @@ const Cadastro = () => {
   const handleSubmit = async (e, url, data) => {
     e.preventDefault();
 
+    // Se for a tela de "vestido" e houver uma imagem, envia para o S3 e anexa a URL
     if (screen === "vestido" && imagem) {
-      const s3Url = await enviarImagemS3(imagem, data.codigo);
-      if (s3Url) {
-        data.url = s3Url;
+      try {
+        const s3Url = await enviarImagemS3(imagem, data.codigo);
+        if (s3Url) {
+          data.url = s3Url; // Adiciona a URL da imagem ao objeto de dados
+        }
+      } catch (error) {
+        console.error("Erro ao enviar a imagem para o S3:", error);
+        return; // Se falhar ao enviar a imagem, interrompe o envio do formulário
       }
     }
+
+    // Inclui o token JWT armazenado no localStorage
+    const token = localStorage.getItem("token");
 
     try {
       const response = await fetch(url, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Adiciona o token JWT no header
+        },
         body: JSON.stringify(data),
       });
 
+      // Verifica se a resposta foi bem-sucedida
       if (!response.ok) {
-        throw new Error("Erro na requisição");
+        const errorData = await response.json(); // Tenta obter a mensagem de erro da resposta
+        throw new Error(
+          `Erro ${response.status}: ${errorData.message || "na requisição"}`
+        );
       }
 
       const result = await response.json();
       console.log("Sucesso:", result);
     } catch (error) {
-      console.error("Erro:", error);
+      console.error("Erro na requisição:", error);
     }
   };
 
@@ -169,39 +185,18 @@ const Cadastro = () => {
               handleSubmit(
                 e,
                 "https://vps55477.publiccloud.com.br/api/cl/ca",
-                {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                  },
-                },
                 clienteData
               );
             } else if (screen === "vestido") {
               handleSubmit(
                 e,
                 "https://vps55477.publiccloud.com.br/api/ve/ca",
-                {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                  },
-                },
                 vestidoData
               );
             } else if (screen === "acessorio") {
               handleSubmit(
                 e,
                 "https://vps55477.publiccloud.com.br/api/ac/ca",
-                {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                  },
-                },
                 acessorioData
               );
             }

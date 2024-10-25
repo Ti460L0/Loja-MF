@@ -161,15 +161,18 @@ const TabelaAcessorioConsulta = () => {
       return;
     }
 
+    const token = localStorage.getItem("token");
+    console.log(token)
+
     try {
       setLoading(true);
       const response = await fetch(
-        `https://vps55477.publiccloud.com.br/api/ac/excluir/${acessorioId}`,
+        `https://vps55477.publiccloud.com.br/api/ac/de/${acessorioId}`,
         {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${token}`,
           },
         }
 
