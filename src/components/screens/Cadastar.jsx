@@ -131,7 +131,10 @@ const Cadastro = () => {
 
   return (
     <div className="flex flex-col items-center justify-center w-full max-w-7xl mx-auto bg-lightBrown shadow-md rounded px-8 pt-6 pb-8 mb-4">
-      <p className="text-4xl font-bold mb-4 text-white" style={{ display: screen ? "none" : "block" }}>
+      <p
+        className="text-4xl font-bold mb-4 text-white"
+        style={{ display: screen ? "none" : "block" }}
+      >
         Escolha uma opção:
       </p>
       <div className="flex justify-center gap-4 m-2">
@@ -166,25 +169,49 @@ const Cadastro = () => {
               handleSubmit(
                 e,
                 "https://vps55477.publiccloud.com.br/api/cl/ca",
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                  },
+                },
                 clienteData
               );
             } else if (screen === "vestido") {
               handleSubmit(
                 e,
                 "https://vps55477.publiccloud.com.br/api/ve/ca",
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                  },
+                },
                 vestidoData
               );
             } else if (screen === "acessorio") {
               handleSubmit(
                 e,
                 "https://vps55477.publiccloud.com.br/api/ac/ca",
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                  },
+                },
                 acessorioData
               );
             }
           }}
         >
           <div className="flex flex-row gap-4">
-            <button className="w-full bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded" type="submit">
+            <button
+              className="w-full bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded"
+              type="submit"
+            >
               Enviar
             </button>
             <button
